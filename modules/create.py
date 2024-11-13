@@ -4,7 +4,156 @@ Kanon Nishiyama
 A1415217
 
 """
-from pprint import pprint
+
+
+def character():
+    """
+    Ask player to create a new character.
+
+    :postcondition: promt the player to pick a name, species, and class for the character
+    :postcondition: create a dictionary containing the character information and attributes
+    :return: the dictionary
+
+    >>> character()
+    {}
+    """
+    new_character = {"name": "",
+                     "species": "",
+                     "skill_class": "",
+                     "LVL": 1,
+                     "EXP": 0,
+                     "max_HP": 0,
+                     "current_HP": 0,
+                     "max_SP": 0,
+                     "current_SP": 0,
+                     "ATK": 0,
+                     "DEF": 0,
+                     "AGI": 0,
+                     "LUK": 0,
+                     "x-coordinate": 0,
+                     "y-coordinate": 0,
+                     "kingdom": "",
+                     "BBEG": ""}
+
+    species_list = {"human": {"desc": "Although average in most aspects, they possess strong survival "
+                                      "prowess and the ability to utilize items to their fullest potential.\n"
+                                      "\n"
+                                      "Highest Attributes: ATK and LUK\n"
+                                      "Species Bonus: All items gain an additional +2 to their effects\n"
+                                      "\n",
+                              "HP": 0,
+                              "SP": 0,
+                              "ATK": 0,
+                              "DEF": 0,
+                              "AGI": 0,
+                              "LUK": 0},
+                    "elf": {"desc": "With their long life spans and equally cumulative knowledge, they are known "
+                                    "to be the best when it comes to efficiently using skills and spells.\n"
+                                    "\n"
+                                    "Highest Attributes: SP and AGI\n"
+                                    "Species Bonus: All skills cost -1 SP\n"
+                                    "\n",
+                            "HP": 0,
+                            "SP": 0,
+                            "ATK": 0,
+                            "DEF": 0,
+                            "AGI": 0,
+                            "LUK": 0},
+                    "dwarf": {"desc": "To withstand the frigid cold of the mountain tops and the sweltering "
+                                      "heat of a forge, they have developed a thicker skin then many.\n"
+                                      "\n"
+                                      "Highest Attributes: HP and DEF\n"
+                                      "Species Bonus: All equipment gain an additional +1 to their effects\n"
+                                      "\n",
+                              "HP": 0,
+                              "SP": 0,
+                              "ATK": 0,
+                              "DEF": 0,
+                              "AGI": 0,
+                              "LUK": 0}}
+
+    class_list = {"warrior": {"desc": "Warrior's ",
+                              "skill_list": ["shield", "shield bash"]},
+                  "scout": {"desc": "",
+                            "skill_list": []},
+                  "mage": {"desc": "",
+                           "skill_list": []}}
+
+
+    while True:
+        new_character["kingdom"] = input("What is the name of your kingdom?: ")
+
+        print("As heir to the throne of " + new_character["kingdom"] + ",")
+        new_character["name"] = input("What is your name?: ")
+
+        confirm_species = False
+        while not confirm_species:
+            print("HUMAN\n"
+                  "\"The most versatile of species.\"\n"
+                  "\n"
+                  "ELF\n"
+                  "\"The graceful guardians of the forests.\"\n"
+                  "\n"
+                  "DWARF\n"
+                  "\"Inhabitants of the deepest caves and the highest mountains.\"\n"
+                  "\n"
+                  "\n")
+
+            selected_species = input("Enter the species name for more information: ").lower()
+
+            if selected_species in species_list.keys():
+                print("\n\n" + selected_species.upper() + "\n" + species_list[selected_species]["desc"])
+                while True:
+                    confirm = input("Do you want to be a " + selected_species.upper() + "? (y/n): ").lower()
+                    if confirm == "y":
+                        new_character["species"] = selected_species
+                        confirm_species = True
+                        break
+                    elif confirm == "n":
+                        break
+                    else:
+                        print("Please confirm your selection.")
+            else:
+                print("Please enter a valid species!")
+
+        confirm_class = False
+        while not confirm_class:
+            print("WARRIOR\n"
+                  "\"\"\n"
+                  "\n"
+                  "SCOUT\n"
+                  "\"\"\n"
+                  "\n"
+                  "MAGE\n"
+                  "\"\"\n"
+                  "\n"
+                  "\n")
+
+            selected_class = input("Enter the class name for more information: ").lower()
+
+            if selected_class in class_list.keys():
+                print("\n\n" + selected_class.upper() + "\n" + class_list[selected_class]["desc"])
+                while True:
+                    confirm = input("Do you want to be a " + selected_class.upper() + "? (y/n): ").lower()
+                    if confirm == "y":
+                        new_character["skill_class"] = selected_class
+                        confirm_class = True
+                        break
+                    elif confirm == "n":
+                        break
+                    else:
+                        print("Please confirm your selection.")
+            else:
+                print("Please enter a valid class!")
+
+        confirm = input("Is this you? (y/n): ").lower()
+
+        if confirm == "y":
+            return new_character
+        elif confirm == "n":
+            continue
+        else:
+            print("Please confirm your character information.")
 
 
 def tutorial_board():
@@ -207,10 +356,6 @@ def main():
     """
     Drive the program.
     """
-    test = tutorial_board()
-    print(test[(0, 0)]["name"])
-    print(test[(0, 0)]["look"])
-    print(test[(0, 0)]["area"])
 
 
 if __name__ == "__main__":
