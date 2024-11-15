@@ -15,8 +15,10 @@ def species_list(select=None):
     :return: if select equals None, returns the entire dictionary
     :return: if select equals a key, returns a single species dictionary
 
-    >>> species_list()
-    ''
+    >>> species_list() #doctest: +ELLIPSIS
+    {'list_all': '==========...
+    >>> species_list("elf") #doctest: +ELLIPSIS
+    {'name': 'elf', 'desc': 'With their long life spans and equally cumulative knowledge...
     """
     entire_species_list = {"list_all": "==========\n"
                                        "HUMAN\n"
@@ -70,6 +72,64 @@ def species_list(select=None):
         return entire_species_list[select]
     else:
         return entire_species_list
+
+
+def class_list(select=None):
+    """
+    Returns class information.
+
+    :param select: a string
+    :precondition: select must equal None or one of the keys within entire_class_list
+    :return: if select equals None, returns the entire dictionary
+    :return: if select equals a key, returns a single class dictionary
+
+    >>> class_list() #doctest: +ELLIPSIS
+    {'list_all': '==========...
+    >>> class_list("mage") #doctest: +ELLIPSIS
+    {'class': 'mage', 'desc': "Mage's fight a careful battle, slowly chipping away at their ...
+    """
+    entire_class_list = {"list_all": "==========\n"
+                                     "WARRIOR\n"
+                                     "\"For those who fight with endurance.\"\n"
+                                     "\n"
+                                     "SCOUT\n"
+                                     "\"For those who fight with deadly accuracy.\"\n"
+                                     "\n"
+                                     "MAGE\n"
+                                     "\"For those who fight by leveling the playing field.\"\n"
+                                     "==========\n",
+                         "warrior": {"class": "warrior",
+                                     "desc": "Warrior's fight slow battles with a shield in hand, toughing it "
+                                             "out until their enemies fall in battle.\n"
+                                             "\n"
+                                             "Class Skills:\n"
+                                             "Shield - Increases your DEF\n"
+                                             "Shield Bash - Attacks while raising your DEF\n"
+                                             "Battle Cry - Weakens enemy DEF\n",
+                                     "skill_list": ["shield", "shield bash", "battle cry"]},
+                         "scout": {"class": "scout",
+                                   "desc": "Scout's fight quick battles, inflicting fatal damage before their "
+                                           "enemies have a chance to hurt them back.\n"
+                                           "\n"
+                                           "Class Skills:\n"
+                                           "Sharper Edge - Increases your ATK\n"
+                                           "Focus Attack - Attacks while increasing your LUK\n"
+                                           "Haste - Increases your AGI\n",
+                                   "skill_list": ["sharper edge", "focus attack", "haste"]},
+                         "mage": {"class": "mage",
+                                  "desc": "Mage's fight a careful battle, slowly chipping away at their enemies "
+                                          "health while maintaining their own.\n"
+                                          "\n"
+                                          "Class Skills:\n"
+                                          "Fireball - Continuously burns the enemy\n"
+                                          "Freezing Touch - Slows an enemy's AGI\n"
+                                          "Healing Light - Heals your HP\n",
+                                  "skill_list": ["fireball", "freezing touch", "healing light"]}}
+
+    if select:
+        return entire_class_list[select]
+    else:
+        return entire_class_list
 
 
 def main():
