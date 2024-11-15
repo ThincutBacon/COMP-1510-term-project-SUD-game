@@ -146,7 +146,8 @@ def big_bad_evil_guy():
                                 "LUK": 0}
 
     while True:
-        bbeg_name = input("\n\n\nWhat is the name of the usurper?: ").strip()
+        print("Before you embark, remind me,")
+        bbeg_name = input("\n\n\nWhat is the name of your usurper?: ").strip()
         if bbeg_name != "":
             unnamed_big_bad_evil_guy["name"] = bbeg_name
             return unnamed_big_bad_evil_guy
@@ -158,6 +159,7 @@ def main():
     """
     Drive the program.
     """
+    character()
 
 
 if __name__ == "__main__":
