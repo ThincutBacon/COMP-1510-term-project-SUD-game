@@ -37,41 +37,6 @@ def character():
                      "kingdom": "",
                      "BBEG": ""}
 
-    class_list = {"list_all": "==========\n"
-                              "WARRIOR\n"
-                              "\"For those who fight with endurance.\"\n"
-                              "\n"
-                              "SCOUT\n"
-                              "\"For those who fight with deadly accuracy.\"\n"
-                              "\n"
-                              "MAGE\n"
-                              "\"For those who fight by leveling the playing field.\"\n"
-                              "==========\n",
-                  "warrior": {"desc": "Warrior's fight slow battles with a shield in hand, toughing it "
-                                      "out until their enemies fall in battle.\n"
-                                      "\n"
-                                      "Class Skills:\n"
-                                      "Shield - Increases your DEF\n"
-                                      "Shield Bash - Attacks while raising your DEF\n"
-                                      "Battle Cry - Weakens enemy DEF\n",
-                              "skill_list": ["shield", "shield bash", "battle cry"]},
-                  "scout": {"desc": "Scout's fight quick battles, inflicting fatal damage before their "
-                                    "enemies have a chance to hurt them back.\n"
-                                    "\n"
-                                    "Class Skills:\n"
-                                    "Sharper Edge - Increases your ATK\n"
-                                    "Focus Attack - Attacks while increasing your LUK\n"
-                                    "Haste - Increases your AGI\n",
-                            "skill_list": ["sharper edge", "focus attack", "haste"]},
-                  "mage": {"desc": "Mage's fight a careful battle, slowly chipping away at their enemies "
-                                   "health while maintaining their own.\n"
-                                   "\n"
-                                   "Class Skills:\n"
-                                   "Fireball - Continuously burns the enemy\n"
-                                   "Freezing Touch - Slows an enemy's AGI\n"
-                                   "Healing Light - Heals your HP\n",
-                           "skill_list": ["fireball", "freezing touch", "healing light"]}}
-
     confirm_kingdom = False
     while not confirm_kingdom:
         kingdom_name = input("\n\n\nWhat is the name of your kingdom?: ")
@@ -118,15 +83,15 @@ def character():
 
     confirm_class = False
     while not confirm_class:
-        print("\n\n\n" + class_list["list_all"])
+        print("\n\n\n" + get.class_list("list_all"))
 
         selected_class = input("Enter the class name for more information: ").lower()
-        if selected_class in class_list.keys():
+        if selected_class in get.class_list().keys():
             print("\n\n\n"
                   "==========\n" +
                   selected_class.upper() + "\n"
                   "\n" +
-                  class_list[selected_class]["desc"] +
+                  get.class_list(selected_class)["desc"] +
                   "==========\n")
             while True:
                 confirm = input("Do you want to be a " + selected_class.upper() + "? (y/n): ").lower()
