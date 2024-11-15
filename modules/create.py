@@ -4,6 +4,7 @@ Kanon Nishiyama
 A1415217
 
 """
+from modules import get
 
 
 def character():
@@ -35,50 +36,6 @@ def character():
                      "y-coordinate": 0,
                      "kingdom": "",
                      "BBEG": ""}
-
-    species_list = {"list_all": "==========\n"
-                                "HUMAN\n"
-                                "\"The most versatile of species.\"\n"
-                                "\n"
-                                "ELF\n"
-                                "\"The graceful guardians of the forests.\"\n"
-                                "\n"
-                                "DWARF\n"
-                                "\"Inhabitants of the deepest caves and the highest mountains.\"\n"
-                                "==========\n",
-                    "human": {"desc": "Although average in most aspects, they possess strong survival "
-                                      "prowess and the ability to utilize items to their fullest potential.\n"
-                                      "\n"
-                                      "Highest Attributes: ATK and LUK\n"
-                                      "Species Bonus: All items gain an additional +2 to their effects\n",
-                              "HP": 0,
-                              "SP": 0,
-                              "ATK": 0,
-                              "DEF": 0,
-                              "AGI": 0,
-                              "LUK": 0},
-                    "elf": {"desc": "With their long life spans and equally cumulative knowledge, they are known "
-                                    "to be the best when it comes to efficiently using skills and spells.\n"
-                                    "\n"
-                                    "Highest Attributes: SP and AGI\n"
-                                    "Species Bonus: All skills cost -1 SP\n",
-                            "HP": 0,
-                            "SP": 0,
-                            "ATK": 0,
-                            "DEF": 0,
-                            "AGI": 0,
-                            "LUK": 0},
-                    "dwarf": {"desc": "To withstand the frigid cold of the mountain tops and the sweltering "
-                                      "heat of a forge, they have developed a thicker skin then many.\n"
-                                      "\n"
-                                      "Highest Attributes: HP and DEF\n"
-                                      "Species Bonus: All equipment gain an additional +1 to their effects\n",
-                              "HP": 0,
-                              "SP": 0,
-                              "ATK": 0,
-                              "DEF": 0,
-                              "AGI": 0,
-                              "LUK": 0}}
 
     class_list = {"list_all": "==========\n"
                               "WARRIOR\n"
@@ -136,15 +93,15 @@ def character():
 
     confirm_species = False
     while not confirm_species:
-        print("\n\n\n" + species_list["list_all"])
+        print("\n\n\n" + get.species_list("list_all"))
 
         selected_species = input("Enter the species name for more information: ").lower()
-        if selected_species in species_list.keys():
+        if selected_species in get.species_list().keys():
             print("\n\n\n"
                   "==========\n" +
-                  selected_species.upper() + "\n"
+                  get.species_list(selected_species)["name"].upper() + "\n"
                   "\n" +
-                  species_list[selected_species]["desc"] +
+                  get.species_list(selected_species)["desc"] +
                   "==========\n")
             while True:
                 confirm = input("Do you want to be a " + selected_species.upper() + "? (y/n): ").lower()
