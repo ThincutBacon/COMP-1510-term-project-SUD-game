@@ -31,6 +31,7 @@ def blank_character():
             "AGI": 0,
             "LUK": 0,
             "equipment": {"head": "", "chest": "", "legs": "", "feet": ""},
+            "inventory": {},
             "x-coordinate": 0,
             "y-coordinate": 0,
             "coins": 0}
