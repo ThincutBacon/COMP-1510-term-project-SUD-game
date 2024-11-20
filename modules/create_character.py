@@ -282,13 +282,13 @@ def confirm_bbeg_name(bbeg):
 
     >>> test_bbeg = get.unnamed_bbeg() #doctest: +SKIP
     >>> test_bbeg["name"] = "Ganondorf" #doctest: +SKIP
-    Is GANONDORF the name you swear vengence against? (y/n):
+    Is GANONDORF the name you swear vengeance against? (y/n):
     >>> player_input = "y" #doctest: +SKIP
     True
     """
     confirm_new_character = False
     while not confirm_new_character:
-        confirm = input("Is " + bbeg["name"].upper() + " the name you swear vengence against? (y/n): ").strip().lower()
+        confirm = input("Is " + bbeg["name"].upper() + " the name you swear vengeance against? (y/n): ").strip().lower()
         if confirm == "y":
             return True
         elif confirm == "n":
