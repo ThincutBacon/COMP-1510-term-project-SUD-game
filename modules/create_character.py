@@ -50,7 +50,7 @@ def name_character(character):
     Zelda
     """
     while True:
-        print("As heir to the throne of " + character["kingdom"].upper() + ",")
+        print(f"As heir to the throne of {character["kingdom"].upper()},")
         character_name = input("What is your name?: ").strip()
         if character_name != "":
             character["name"] = character_name
@@ -108,13 +108,13 @@ def choose_species(character):
         selected_species = input("Enter the species name for more information: ").strip().lower()
         if selected_species in get.species_list().keys():
             print("\n\n\n"
-                  "==========\n" +
-                  get.species_list(selected_species)["name"].upper() + "\n"
-                  "\n" +
-                  get.species_list(selected_species)["desc"] +
+                  "==========\n"
+                  f"{get.species_list(selected_species)["name"].upper()}\n"
+                  "\n"
+                  f"{get.species_list(selected_species)["desc"]}"
                   "==========\n")
             while True:
-                confirm = input("Do you want to be a " + selected_species.upper() + "? (y/n): ").strip().lower()
+                confirm = input(f"Do you want to be a {selected_species.upper()}? (y/n): ").strip().lower()
                 if confirm == "y":
                     character["species"] = selected_species
                     confirm_species = True
@@ -178,13 +178,13 @@ def choose_class(character):
         selected_class = input("Enter the class name for more information: ").strip().lower()
         if selected_class in get.class_list().keys():
             print("\n\n\n"
-                  "==========\n" +
-                  selected_class.upper() + "\n"
+                  "==========\n"
+                  f"{selected_class.upper()}\n"
                   "\n" +
-                  get.class_list(selected_class)["desc"] +
+                  f"{get.class_list(selected_class)["desc"]}"
                   "==========\n")
             while True:
-                confirm = input("Do you want to be a " + selected_class.upper() + "? (y/n): ").strip().lower()
+                confirm = input(f"Do you want to be a {selected_class.upper()}? (y/n): ").strip().lower()
                 if confirm == "y":
                     character["skill_class"] = selected_class
                     confirm_class = True
@@ -229,11 +229,11 @@ def confirm_character(character):
     confirm_new_character = False
     while not confirm_new_character:
         print("==========\n"
-              "Kingdom: " + character["kingdom"] + "\n"
-              "Name: " + character["name"] + "\n"
+              f"Kingdom: {character["kingdom"]}\n"
+              f"Name: {character["name"]}\n"
               "\n"
-              "Species: " + character["species"].title() + "\n"
-              "Class: " + character["skill_class"].title() + "\n"
+              f"Species: {character["species"].title()}\n"
+              f"Class: {character["skill_class"].title()}\n"
               "==========\n")
         confirm = input("Is this the character you want to create? (y/n): ").strip().lower()
         if confirm == "y":
@@ -290,7 +290,7 @@ def confirm_bbeg_name(bbeg):
     confirm_new_character = False
     while not confirm_new_character:
         confirm = input(
-            "\nIs " + bbeg["name"].upper() + " the name you swear vengeance against? (y/n): "
+            f"\nIs {bbeg["name"].upper()} the name you swear vengeance against? (y/n): "
         ).strip().lower()
         if confirm == "y":
             return True
