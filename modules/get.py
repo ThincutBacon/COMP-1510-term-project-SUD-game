@@ -4,6 +4,7 @@ Kanon Nishiyama
 A1415217
 
 """
+import random
 
 
 def blank_character():
@@ -15,7 +16,8 @@ def blank_character():
     >>> blank_character() #doctest: +ELLIPSIS
     {'name': '', 'species': '', 'skill_class': '', 'LVL': 1, 'EXP': 0, ...
     """
-    return {"name": "",
+    return {"kingdom": "",
+            "name": "",
             "species": "",
             "skill_class": "",
             "LVL": 1,
@@ -31,7 +33,7 @@ def blank_character():
             "equipment": {"head": "", "chest": "", "legs": "", "feet": ""},
             "x-coordinate": 0,
             "y-coordinate": 0,
-            "kingdom": ""}
+            "coins": 0}
 
 
 def unnamed_bbeg():
@@ -215,111 +217,146 @@ def main_board():
     >>> main_board() #doctest: +ELLIPSIS
     {(0, 0): {'name': 'The Dungeons - Hallway', 'look': 'What is left of the dungeons is a shell ...
     """
-    return {(0, 0): {"name": "The Dungeons - Hallway",
-                     "look": "What is left of the dungeons is a shell of what used to confine you. "
-                             "Only rats roam these halls now.",
-                     "area": "dungeon",
-                     "walls": ["n", "s", "w"]},
-            (0, 1): {"name": "The Dungeons - The Exit",
-                     "look": "The slain bodies of the guards remain discarded next to the door.",
-                     "area": "dungeon",
-                     "walls": ["n", "e"]},
-            (0, 2): {"name": "Castle Walls",
-                     "look": "",
-                     "area": "field",
-                     "walls": ["n", "w"]},
-            (0, 3): {"name": "",
-                     "look": "",
-                     "area": "field",
-                     "walls": ["n"]},
-            (0, 4): {"name": "",
-                     "look": "",
-                     "area": "field",
-                     "walls": ["n", "e"]},
+    main_map = {(0, 0): {"name": "The Dungeons - Hallway",
+                         "look": "What is left of the dungeons is a shell of what used to confine you. "
+                                 "Only rats roam these halls now.",
+                         "area": "dungeon",
+                         "walls": ["n", "s", "w"]},
+                (0, 1): {"name": "The Dungeons - The Exit",
+                         "look": "The slain bodies of the guards remain discarded next to the door.",
+                         "area": "dungeon",
+                         "walls": ["n", "e"]},
+                (0, 2): {"name": "The Forest - The Castle Walls",
+                         "look": "You can observe the wide expanse of the castle walls from here. "
+                                 "The walls usually guarded by the castle guards now only house an "
+                                 "eerie silence.",
+                         "area": "field",
+                         "walls": ["n", "w"]},
+                (0, 3): {"name": "The Forest - The Castle Walls",
+                         "look": "You can observe the wide expanse of the castle walls from here. "
+                                 "The walls usually guarded by the castle guards now only house an "
+                                 "eerie silence.",
+                         "area": "field",
+                         "walls": ["n"]},
+                (0, 4): {"name": "The Forest - The Castle Gates",
+                         "look": "In front of you are the back gates that lead into the castle grounds. "
+                                 "Moss covers it's entirety from lack of use. From here you can sneak into "
+                                 "the castle grounds to confront the false king.",
+                         "area": "field",
+                         "walls": ["n", "e"]},
 
-            (1, 0): {"name": "",
-                     "look": "",
-                     "area": "field",
-                     "walls": ["w"]},
-            (1, 1): {"name": "",
-                     "look": "",
-                     "area": "field",
-                     "walls": []},
-            (1, 2): {"name": "",
-                     "look": "",
-                     "area": "field",
-                     "walls": []},
-            (1, 3): {"name": "",
-                     "look": "",
-                     "area": "field",
-                     "walls": []},
-            (1, 4): {"name": "",
-                     "look": "",
-                     "area": "field",
-                     "walls": ["e"]},
+                (1, 0): {"name": "The Forest - Outer Edge",
+                         "look": "",
+                         "area": "field",
+                         "walls": ["w"]},
+                (1, 1): {"name": "The Forest - Outside The Dungeon",
+                         "look": "Right outside of the dungeons expands a wide, limitless forest. Here lives "
+                                 "a diverse range of creatures, both predator and prey. You can spot the "
+                                 "start of a faint path to the EAST.",
+                         "area": "field",
+                         "walls": []},
+                (1, 2): {"name": "The Forest - A Faint Path",
+                         "look": "The faint path seems to continue onto the EAST.",
+                         "area": "field",
+                         "walls": []},
+                (1, 3): {"name": "The Forest - A Faint Path",
+                         "look": "The faint path seems to extend to the WEST and EAST. To the SOUTH seems to "
+                                 "stretch a clearer path",
+                         "area": "field",
+                         "walls": []},
+                (1, 4): {"name": "The Forest - A Faint Path",
+                         "look": "The faint path seems to extend to the WEST and NORTH.",
+                         "area": "field",
+                         "walls": ["e"]},
 
-            (2, 0): {"name": "",
-                     "look": "",
-                     "area": "field",
-                     "walls": ["w"]},
-            (2, 1): {"name": "",
-                     "look": "",
-                     "area": "field",
-                     "walls": []},
-            (2, 2): {"name": "",
-                     "look": "",
-                     "area": "field",
-                     "walls": []},
-            (2, 3): {"name": "",
-                     "look": "",
-                     "area": "field",
-                     "walls": []},
-            (2, 4): {"name": "",
-                     "look": "",
-                     "area": "field",
-                     "walls": ["e"]},
+                (2, 0): {"name": "The Forest - Deep Within",
+                         "look": "",
+                         "area": "field",
+                         "walls": ["w"]},
+                (2, 1): {"name": "The Forest - Deep Within",
+                         "look": "",
+                         "area": "field",
+                         "walls": []},
+                (2, 2): {"name": "The Forest - Deep Within",
+                         "look": "",
+                         "area": "field",
+                         "walls": []},
+                (2, 3): {"name": "The Forest - Clear Path",
+                         "look": "The path seems to extend to the NORTH and SOUTH.",
+                         "area": "field",
+                         "walls": []},
+                (2, 4): {"name": "The Forest - Outer Edge",
+                         "look": "",
+                         "area": "field",
+                         "walls": ["e"]},
 
-            (3, 0): {"name": "",
-                     "look": "",
-                     "area": "forest",
-                     "walls": ["w"]},
-            (3, 1): {"name": "",
-                     "look": "",
-                     "area": "forest",
-                     "walls": []},
-            (3, 2): {"name": "",
-                     "look": "",
-                     "area": "field",
-                     "walls": []},
-            (3, 3): {"name": "",
-                     "look": "",
-                     "area": "field",
-                     "walls": []},
-            (3, 4): {"name": "",
-                     "look": "",
-                     "area": "safe",
-                     "walls": ["e"]},
+                (3, 0): {"name": "Deep Forest - Home To Danger",
+                         "look": "Here, deep in the forest, lives creatures much more stronger, "
+                                 "fiercer, and dangerous then those near the outer rim.",
+                         "area": "forest",
+                         "walls": ["w"]},
+                (3, 1): {"name": "Deep Forest - Home To Danger",
+                         "look": "Here, deep in the forest, lives creatures much more stronger, "
+                                 "fiercer, and dangerous then those near the outer rim.",
+                         "area": "forest",
+                         "walls": []},
+                (3, 2): {"name": "The Forest - Deep Within",
+                         "look": "",
+                         "area": "field",
+                         "walls": []},
+                (3, 3): {"name": "The Forest - Village Path",
+                         "look": "The path seems to extend to the NORTH and SOUTH.\n"
+                                 "You can observe a small village to the SOUTH.",
+                         "area": "field",
+                         "walls": []},
+                (3, 4): {"name": "The Village - Outer End",
+                         "look": "From the outer end of the village, you can observe an expanse "
+                                 "of trees that create the forest beyond.\n"
+                                 "To the SOUTH you can hear the hustle and bustle of the village square.",
+                         "area": "safe",
+                         "walls": ["e"]},
 
-            (4, 0): {"name": "",
-                     "look": "",
-                     "area": "forest",
-                     "walls": ["w", "s"]},
-            (4, 1): {"name": "",
-                     "look": "",
-                     "area": "forest",
-                     "walls": ["s"]},
-            (4, 2): {"name": "",
-                     "look": "",
-                     "area": "field",
-                     "walls": ["s"]},
-            (4, 3): {"name": "",
-                     "look": "",
-                     "area": "safe",
-                     "walls": ["s"]},
-            (4, 4): {"name": "",
-                     "look": "",
-                     "area": "safe",
-                     "walls": ["e", "s"]}}
+                (4, 0): {"name": "Deep Forest - Home To Danger",
+                         "look": "Here, deep in the forest, lives creatures much more stronger, "
+                                 "fiercer, and dangerous then those near the outer rim.",
+                         "area": "forest",
+                         "walls": ["w", "s"]},
+                (4, 1): {"name": "Deep Forest - Home To Danger",
+                         "look": "Here, deep in the forest, lives creatures much more stronger, "
+                                 "fiercer, and dangerous then those near the outer rim.",
+                         "area": "forest",
+                         "walls": ["s"]},
+                (4, 2): {"name": "The Forest - Deep Within",
+                         "look": "",
+                         "area": "field",
+                         "walls": ["s"]},
+                (4, 3): {"name": "The Village - Outer End",
+                         "look": "From the outer end of the village, you can observe an expanse "
+                                 "of trees that create the forest beyond.\n"
+                                 "To the EAST you can hear the hustle and bustle of the village square.",
+                         "area": "safe",
+                         "walls": ["s"]},
+                (4, 4): {"name": "The Village - The Market",
+                         "look": "You can see the a variety of shop owners keeping shop, shouting out to "
+                                 "patrons to appeal their products.\n"
+                                 "You could SHOP here to buy equipment or sell the items you carry.",
+                         "area": "safe",
+                         "walls": ["e", "s"]}}
+
+    field_descriptions = [
+        "A gentle breeze rustle through the surrounding foliage.",
+        "You can spot the tail end of a deer as it quickly springs away from you.",
+        "You can spot the occasional berry bush housing unnervingly red berries.",
+        "You spot a group of mushrooms growing in the shade. No matter how hungry you are, "
+        "you better avoid them if you intend to survive.",
+        "The path you follow is non-existent, only a suggestion carved by nature itself."
+    ]
+
+    for square in main_map.keys():
+        if main_map[square]["look"] == "" and main_map[square]["area"] == "field":
+            main_map[square]["look"] = random.choice(field_descriptions)
+
+    return main_map
 
 
 def main():
