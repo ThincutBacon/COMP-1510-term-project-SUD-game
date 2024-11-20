@@ -5,7 +5,6 @@ A1415217
 
 """
 from pprint import pprint
-
 from modules import get
 
 
@@ -25,12 +24,12 @@ def name_kingdom(character):
     Hyrule
     """
     while True:
-        kingdom_name = input("\n\n\nWhat is the name of your kingdom?: ").strip()
+        kingdom_name = input("What is the name of your kingdom?: ").strip()
         if kingdom_name != "":
             character["kingdom"] = kingdom_name
             break
         else:
-            print("\n\n\nPlease enter a name for your kingdom!")
+            print("\n\n\nPlease enter a name for your kingdom!\n\n\n")
 
 
 def name_character(character):
@@ -51,13 +50,13 @@ def name_character(character):
     Zelda
     """
     while True:
-        print("\n\n\nAs heir to the throne of " + character["kingdom"].upper() + ",")
+        print("As heir to the throne of " + character["kingdom"].upper() + ",")
         character_name = input("What is your name?: ").strip()
         if character_name != "":
             character["name"] = character_name
             break
         else:
-            print("\n\n\nPlease enter a name for your kingdom!")
+            print("\n\n\nPlease enter a name for your kingdom!\n\n\n")
 
 
 def choose_species(character):
@@ -104,7 +103,7 @@ def choose_species(character):
     """
     confirm_species = False
     while not confirm_species:
-        print("\n\n\n" + get.species_list("list_all"))
+        print(get.species_list("list_all"))
 
         selected_species = input("Enter the species name for more information: ").strip().lower()
         if selected_species in get.species_list().keys():
@@ -121,11 +120,12 @@ def choose_species(character):
                     confirm_species = True
                     break
                 elif confirm == "n":
+                    print("\n\n")
                     break
                 else:
                     print("\n\n\nPlease confirm your selection.\n\n\n")
         else:
-            print("\n\n\nPlease enter a valid species!")
+            print("\n\n\nPlease enter a valid species!\n\n\n")
 
 
 def choose_class(character):
@@ -173,7 +173,7 @@ def choose_class(character):
     """
     confirm_class = False
     while not confirm_class:
-        print("\n\n\n" + get.class_list("list_all"))
+        print(get.class_list("list_all"))
 
         selected_class = input("Enter the class name for more information: ").strip().lower()
         if selected_class in get.class_list().keys():
@@ -190,11 +190,12 @@ def choose_class(character):
                     confirm_class = True
                     break
                 elif confirm == "n":
+                    print("\n\n")
                     break
                 else:
                     print("\n\n\nPlease confirm your selection.\n\n\n")
         else:
-            print("\n\n\nPlease enter a valid class!")
+            print("\n\n\nPlease enter a valid class!\n\n\n")
 
 
 def confirm_character(character):
@@ -227,8 +228,7 @@ def confirm_character(character):
     """
     confirm_new_character = False
     while not confirm_new_character:
-        print("\n\n\n"
-              "==========\n"
+        print("==========\n"
               "Kingdom: " + character["kingdom"] + "\n"
               "Name: " + character["name"] + "\n"
               "\n"
@@ -239,9 +239,10 @@ def confirm_character(character):
         if confirm == "y":
             return True
         elif confirm == "n":
+            print("\n\n")
             return False
         else:
-            print("\n\n\nPlease confirm your character information.")
+            print("\n\n\nPlease confirm your character information.\n\n\n")
 
 
 def name_bbeg(bbeg):
@@ -261,13 +262,13 @@ def name_bbeg(bbeg):
     Ganondorf
     """
     while True:
-        print("\n\n\nBefore you embark, remind me,")
+        print("Before you embark, remind me,")
         bbeg_name = input("What is the name of your usurper?: ").strip()
         if bbeg_name != "":
             bbeg["name"] = bbeg_name
             break
         else:
-            print("\n\n\nPlease enter a name for your enemy!")
+            print("\n\n\nPlease enter a name for your enemy!\n\n\n")
 
 
 def confirm_bbeg_name(bbeg):
@@ -288,39 +289,45 @@ def confirm_bbeg_name(bbeg):
     """
     confirm_new_character = False
     while not confirm_new_character:
-        confirm = input("\nIs " + bbeg["name"].upper() + " the name you swear vengeance against? (y/n): ").strip().lower()
+        confirm = input(
+            "\nIs " + bbeg["name"].upper() + " the name you swear vengeance against? (y/n): "
+        ).strip().lower()
         if confirm == "y":
             return True
         elif confirm == "n":
+            print("\n\n")
             return False
         else:
-            print("\n\n\nPlease confirm your character information.")
+            print("\n\n\nPlease confirm your character information.\n\n\n")
 
 
 def main():
     """
     Drive the program.
     """
-
     character = get.blank_character()
     confirm_create = False
     while not confirm_create:
         character = get.blank_character()
+        print("\n\n")
         name_kingdom(character)
+        print("\n\n")
         name_character(character)
+        print("\n\n")
         choose_species(character)
+        print("\n\n")
         choose_class(character)
+        print("\n\n")
         confirm_create = confirm_character(character)
-
     pprint(character)
 
     bbeg = get.unnamed_bbeg()
     confirm_create = False
     while not confirm_create:
         bbeg = get.unnamed_bbeg()
+        print("\n\n")
         name_bbeg(bbeg)
         confirm_create = confirm_bbeg_name(bbeg)
-
     pprint(bbeg)
 
 
