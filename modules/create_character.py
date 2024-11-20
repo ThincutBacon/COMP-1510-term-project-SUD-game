@@ -261,8 +261,8 @@ def name_bbeg(bbeg):
     Ganondorf
     """
     while True:
-        print("Before you embark, remind me,")
-        bbeg_name = input("\n\n\nWhat is the name of your usurper?: ").strip()
+        print("\n\n\nBefore you embark, remind me,")
+        bbeg_name = input("What is the name of your usurper?: ").strip()
         if bbeg_name != "":
             bbeg["name"] = bbeg_name
             break
@@ -288,7 +288,7 @@ def confirm_bbeg_name(bbeg):
     """
     confirm_new_character = False
     while not confirm_new_character:
-        confirm = input("Is " + bbeg["name"].upper() + " the name you swear vengeance against? (y/n): ").strip().lower()
+        confirm = input("\nIs " + bbeg["name"].upper() + " the name you swear vengeance against? (y/n): ").strip().lower()
         if confirm == "y":
             return True
         elif confirm == "n":
@@ -301,14 +301,6 @@ def main():
     """
     Drive the program.
     """
-    bbeg = get.unnamed_bbeg()
-    confirm_create = False
-    while not confirm_create:
-        bbeg = get.unnamed_bbeg()
-        name_bbeg(bbeg)
-        confirm_create = confirm_bbeg_name(bbeg)
-
-    pprint(bbeg)
 
     character = get.blank_character()
     confirm_create = False
@@ -321,6 +313,15 @@ def main():
         confirm_create = confirm_character(character)
 
     pprint(character)
+
+    bbeg = get.unnamed_bbeg()
+    confirm_create = False
+    while not confirm_create:
+        bbeg = get.unnamed_bbeg()
+        name_bbeg(bbeg)
+        confirm_create = confirm_bbeg_name(bbeg)
+
+    pprint(bbeg)
 
 
 if __name__ == "__main__":
