@@ -4,7 +4,7 @@ Kanon Nishiyama
 A1415217
 
 """
-from pprint import pprint
+
 from modules import get
 
 
@@ -106,7 +106,7 @@ def choose_species(character):
         print(get.species_list("list_all"))
 
         selected_species = input("Enter the species name for more information: ").strip().lower()
-        if selected_species in get.species_list().keys():
+        try:
             print("\n\n\n"
                   "==========\n"
                   f"{get.species_list(selected_species)["name"].upper()}\n"
@@ -124,7 +124,7 @@ def choose_species(character):
                     break
                 else:
                     print("\n\n\nPlease confirm your selection.\n\n\n")
-        else:
+        except KeyError:
             print("\n\n\nPlease enter a valid species!\n\n\n")
 
 
@@ -176,7 +176,7 @@ def choose_class(character):
         print(get.class_list("list_all"))
 
         selected_class = input("Enter the class name for more information: ").strip().lower()
-        if selected_class in get.class_list().keys():
+        try:
             print("\n\n\n"
                   "==========\n"
                   f"{selected_class.upper()}\n"
@@ -194,7 +194,7 @@ def choose_class(character):
                     break
                 else:
                     print("\n\n\nPlease confirm your selection.\n\n\n")
-        else:
+        except KeyError:
             print("\n\n\nPlease enter a valid class!\n\n\n")
 
 
@@ -306,29 +306,7 @@ def main():
     Drive the program.
     """
     character = get.blank_character()
-    confirm_create = False
-    while not confirm_create:
-        character = get.blank_character()
-        print("\n\n")
-        name_kingdom(character)
-        print("\n\n")
-        name_character(character)
-        print("\n\n")
-        choose_species(character)
-        print("\n\n")
-        choose_class(character)
-        print("\n\n")
-        confirm_create = confirm_character(character)
-    pprint(character)
-
-    bbeg = get.unnamed_bbeg()
-    confirm_create = False
-    while not confirm_create:
-        bbeg = get.unnamed_bbeg()
-        print("\n\n")
-        name_bbeg(bbeg)
-        confirm_create = confirm_bbeg_name(bbeg)
-    pprint(bbeg)
+    choose_species(character)
 
 
 if __name__ == "__main__":
