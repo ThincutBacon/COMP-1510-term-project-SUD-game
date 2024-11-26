@@ -5,6 +5,7 @@ A1415217
 
 """
 from modules import get
+from colorama import Fore, Back, Style
 
 
 def character_info(character):
@@ -55,6 +56,49 @@ def character_info(character):
           f"==============================================\n")
 
 
+def current_map(character, board):
+    """
+    Display a map and the players current location.
+
+    :param character: is a dictionary
+    :param board: is a dictionary
+    :precondition: character must be a dictionary from get.blank_character function
+    :precondition: board must be a dictionary from get.tutorial_board or get.main_board function
+    :postcondition: print map with current location informtion for the player to easily read
+
+    >>> character_info()
+    ''
+    """
+    current_coordinates = (character['x-coordinate'], character['y-coordinate'])
+    current_location_info = board[current_coordinates]
+
+    print(Style.BRIGHT + current_location_info['name'])
+    print(Style.NORMAL + current_location_info['name'])
+    print(Style.DIM + current_location_info['name'])
+
+    full_map = f""
+    for row in range(0, 5):
+        for col in range(0, 5):
+            if (row, col) == (0, 4):
+                symbol = "?"
+                square_color = Back.GREEN
+            elif (row, col) == (4, 4) or (row, col) == (3, 4) or (row, col) == (4, 3):
+                symbol = "!"
+                square_color = Back.RED
+            else:
+                symbol = ""
+                square_color = Back.LIGHTGREEN_EX
+
+            if (row, col) == current_coordinates:
+                symbol = "#"
+
+            full_map += f"{square_color}  {format(symbol, '1')}  "
+        full_map += f"{Back.RESET}\n"
+
+    print(full_map)
+
+
+
 def main():
     """
     Drive the program.
@@ -64,7 +108,10 @@ def main():
     character["kingdom"] = "Heilia"
     character["species_adjective"] = "elven"
     character["skill_class"] = "mage"
-    character_info(character)
+    character['x-coordinate'] = 3
+    character['y-coordinate'] = 4
+
+    current_map(character, get.main_board())
 
 
 if __name__ == "__main__":
