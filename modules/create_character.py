@@ -107,16 +107,26 @@ def choose_species(character):
 
         selected_species = input("Enter the species name for more information: ").strip().lower()
         try:
+            selected_species_info = get.species_list(selected_species)
             print("\n\n\n"
                   "==========\n"
-                  f"{get.species_list(selected_species)["name"].upper()}\n"
+                  f"{selected_species_info["name"].upper()}\n"
                   "\n"
-                  f"{get.species_list(selected_species)["desc"]}"
+                  f"{selected_species_info["desc"]}"
                   "==========\n")
             while True:
                 confirm = input(f"Do you want to be a {selected_species.upper()}? (y/n): ").strip().lower()
                 if confirm == "y":
-                    character["species"] = selected_species
+                    character["species"] = selected_species_info["name"]
+                    character["species_adjective"] = selected_species_info["adjective"]
+                    character["max_HP"] = selected_species_info["HP"]
+                    character["current_HP"] = selected_species_info["HP"]
+                    character["max_SP"] = selected_species_info["SP"]
+                    character["current_SP"] = selected_species_info["SP"]
+                    character["ATK"] = selected_species_info["ATK"]
+                    character["DEF"] = selected_species_info["DEF"]
+                    character["AGI"] = selected_species_info["AGI"]
+                    character["LUK"] = selected_species_info["LUK"]
                     confirm_species = True
                     break
                 elif confirm == "n":
