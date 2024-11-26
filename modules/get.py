@@ -19,6 +19,7 @@ def blank_character():
     return {"kingdom": "",
             "name": "",
             "species": "",
+            "species_adjective": "",
             "skill_class": "",
             "LVL": 1,
             "EXP": 0,
@@ -82,6 +83,7 @@ def species_list(select=None):
                                        "\"Inhabitants of the deepest caves and the highest mountains.\"\n"
                                        "==========\n",
                            "human": {"name": "human",
+                                     "adjective": "human",
                                      "desc": "Although average in most aspects, they possess strong survival "
                                              "prowess and the ability to utilize items to their fullest potential.\n"
                                              "\n"
@@ -94,6 +96,7 @@ def species_list(select=None):
                                      "AGI": 0,
                                      "LUK": 0},
                            "elf": {"name": "elf",
+                                   "adjective": "elven",
                                    "desc": "With their long life spans and equally cumulative knowledge, they are "
                                            "known to be the best when it comes to efficiently using skills and "
                                            "spells.\n"
@@ -107,6 +110,7 @@ def species_list(select=None):
                                    "AGI": 0,
                                    "LUK": 0},
                            "dwarf": {"name": "dwarf",
+                                     "adjective": "dwarven",
                                      "desc": "To withstand the frigid cold of the mountain tops and the sweltering "
                                              "heat of a forge, they have developed a thicker skin then many.\n"
                                              "\n"
