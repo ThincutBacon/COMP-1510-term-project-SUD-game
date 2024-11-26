@@ -69,34 +69,73 @@ def current_map(character, board):
     >>> character_info()
     ''
     """
+    print(sorted(board.keys()))
+    max_x_coordinate = sorted(board.keys())[-1][0]
+    max_y_coordinate = sorted(board.keys())[-1][1]
+
     current_coordinates = (character['x-coordinate'], character['y-coordinate'])
     current_location_info = board[current_coordinates]
 
-    print(Style.BRIGHT + current_location_info['name'])
-    print(Style.NORMAL + current_location_info['name'])
-    print(Style.DIM + current_location_info['name'])
+    full_map = ""
 
-    full_map = f""
-    for row in range(0, 5):
-        for col in range(0, 5):
-            if (row, col) == (0, 4):
-                symbol = "?"
-                square_color = Back.GREEN
-            elif (row, col) == (4, 4) or (row, col) == (3, 4) or (row, col) == (4, 3):
-                symbol = "!"
-                square_color = Back.RED
-            else:
-                symbol = ""
-                square_color = Back.LIGHTGREEN_EX
+    for col in range(0, max_y_coordinate + 1):
+        square_walls = board[(0, col)]['walls']
+        if "n" in square_walls:
+            full_map += f" --- "
+        else:
+            full_map += "     "
+    full_map += "\n"
+    for row in range(0, max_x_coordinate + 1):
+        for layer in range(0, 2):
+            for col in range(0, max_y_coordinate + 1):
+                square_walls = board[(row, col)]['walls']
+                if layer == 0:
+                    w_wall = ""
+                    e_wall = ""
+                    if "w" in square_walls:
+                        w_wall = "|"
+                    elif "e" in square_walls:
+                        e_wall = "|"
 
-            if (row, col) == current_coordinates:
-                symbol = "#"
+                    player_left = ""
+                    player_right = ""
+                    if (row, col) == current_coordinates:
+                        player_left = f"{Fore.LIGHTCYAN_EX}{"{"}{Fore.RESET}"
+                        player_right = f"{Fore.LIGHTCYAN_EX}{"}"}{Fore.RESET}"
 
-            full_map += f"{square_color}  {format(symbol, '1')}  "
-        full_map += f"{Back.RESET}\n"
+                    location_symbol = ""
+                    if (row, col) == (0, 4):
+                        location_symbol = "?"
+                    elif (row, col) == (4, 4) or (row, col) == (3, 4) or (row, col) == (4, 3):
+                        location_symbol = "!"
 
-    print(full_map)
+                    full_map += (f"{format(w_wall, '1')}"
+                                 f"{format(player_left, '1')}"
+                                 f"{format(location_symbol, '1')}"
+                                 f"{format(player_right, '1')}"
+                                 f"{format(e_wall, '1')}")
 
+                if layer == 1:
+                    s_wall = ""
+                    if "s" in square_walls:
+                        s_wall = "---"
+                    full_map += f" {format(s_wall, '3')} "
+            full_map += "\n"
+
+    unmovable_directions = current_location_info['walls']
+    movable_directions = "Exits: "
+    if "n" not in unmovable_directions:
+        movable_directions += "N "
+    if "w" not in unmovable_directions:
+        movable_directions += "W "
+    if "e" not in unmovable_directions:
+        movable_directions += "E "
+    if "s" not in unmovable_directions:
+        movable_directions += "S "
+
+    print(f"{Style.BRIGHT}{current_location_info['name']}{Style.RESET_ALL}\n"
+          f"{full_map}"
+          f"{movable_directions}")
 
 
 def main():
@@ -108,9 +147,10 @@ def main():
     character["kingdom"] = "Heilia"
     character["species_adjective"] = "elven"
     character["skill_class"] = "mage"
-    character['x-coordinate'] = 3
-    character['y-coordinate'] = 4
+    character['x-coordinate'] = 0
+    character['y-coordinate'] = 0
 
+    character_info(character)
     current_map(character, get.main_board())
 
 
