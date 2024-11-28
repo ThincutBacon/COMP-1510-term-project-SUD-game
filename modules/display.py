@@ -37,18 +37,19 @@ def character_info(character):
     luk_attribute = f"LUK: {format(character['LUK'], '3')}"
 
     print(f"==============================================\n"
-          f"| {format(character_name, '42')} |\n"
+          f"| {Style.BRIGHT}{format(character_name, '42')}{Style.RESET_ALL} |\n"
           f"| {format(class_and_species, '42')} |\n"
           f"| {format(kingdom_name, '42')} |\n"
           f"|--------------------------------------------|\n"
-          f"| {format("STATS", '20')}| {format("ATTRIBUTES", '20')} |\n"
+          f"| {Style.BRIGHT}{format("STATS", '20')}{Style.RESET_ALL}"
+          f"| {Style.BRIGHT}{format("ATTRIBUTES", '20')}{Style.RESET_ALL} |\n"
           f"| {format("=============", '20')}| {format("=============", '20')} |\n"
-          f"| {format(hp, '20')}| {format(atk_attribute, '20')} |\n"
-          f"| {format(sp, '20')}| {format(def_attribute, '20')} |\n"
-          f"| {format("", '20')}| {format(agi_attribute, '20')} |\n"
-          f"| {format("", '20')}| {format(luk_attribute, '20')} |\n"
+          f"| {Fore.RED}{format(hp, '20')}{Fore.RESET}| {Fore.MAGENTA}{format(atk_attribute, '20')}{Fore.RESET} |\n"
+          f"| {Fore.CYAN}{format(sp, '20')}{Fore.RESET}| {Fore.BLUE}{format(def_attribute, '20')}{Fore.RESET} |\n"
+          f"| {format("", '20')}| {Fore.YELLOW}{format(agi_attribute, '20')}{Fore.RESET} |\n"
+          f"| {format("", '20')}| {Fore.GREEN}{format(luk_attribute, '20')}{Fore.RESET} |\n"
           f"|--------------------------------------------|\n"
-          f"| {format("SKILLS", '42')} |\n"
+          f"| {Style.BRIGHT}{format("SKILLS", '42')}{Style.RESET_ALL} |\n"
           f"| {format("=============", '42')} |\n"
           f"| {format(first_skill, '42')} |\n"
           f"| {format(second_skill, '42')} |\n"
@@ -161,7 +162,7 @@ def main():
     character["kingdom"] = "Heilia"
     character["species_adjective"] = "elven"
     character["skill_class"] = "mage"
-    character['x-coordinate'] = 0
+    character['x-coordinate'] = 1
     character['y-coordinate'] = 4
 
     character_info(character)

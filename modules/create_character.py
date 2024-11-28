@@ -7,6 +7,8 @@ A1415217
 
 from modules import get
 
+from colorama import Style
+
 
 def name_kingdom(character):
     """
@@ -29,7 +31,7 @@ def name_kingdom(character):
             character["kingdom"] = kingdom_name
             break
         else:
-            print("\n\n\nPlease enter a name for your kingdom!\n\n\n")
+            print(f"\n\n\n{Style.BRIGHT}Please enter a name for your kingdom!{Style.RESET_ALL}\n\n\n")
 
 
 def name_character(character):
@@ -50,13 +52,13 @@ def name_character(character):
     Zelda
     """
     while True:
-        print(f"As heir to the throne of {character["kingdom"].upper()},")
+        print(f"As heir to the throne of {Style.BRIGHT}{character["kingdom"].upper()}{Style.RESET_ALL},")
         character_name = input("What is your name?: ").strip()
         if character_name != "":
             character["name"] = character_name
             break
         else:
-            print("\n\n\nPlease enter a name for your kingdom!\n\n\n")
+            print(f"\n\n\n{Style.BRIGHT}Please enter a name for your kingdom!{Style.RESET_ALL}\n\n\n")
 
 
 def choose_species(character):
@@ -110,12 +112,12 @@ def choose_species(character):
             selected_species_info = get.species_list(selected_species)
             print("\n\n\n"
                   "==========\n"
-                  f"{selected_species_info["name"].upper()}\n"
+                  f"{Style.BRIGHT}{selected_species_info["name"].upper()}{Style.RESET_ALL}\n"
                   "\n"
                   f"{selected_species_info["desc"]}"
                   "==========\n")
             while True:
-                confirm = input(f"Do you want to be a {selected_species.upper()}? (y/n): ").strip().lower()
+                confirm = input(f"Do you want to be a {Style.BRIGHT}{selected_species.upper()}{Style.RESET_ALL}? (y/n): ").strip().lower()
                 if confirm == "y":
                     character["species"] = selected_species_info["name"]
                     character["species_adjective"] = selected_species_info["adjective"]
@@ -133,9 +135,9 @@ def choose_species(character):
                     print("\n\n")
                     break
                 else:
-                    print("\n\n\nPlease confirm your selection.\n\n\n")
+                    print(f"\n\n\n{Style.BRIGHT}Please confirm your selection.{Style.RESET_ALL}\n\n\n")
         except KeyError:
-            print("\n\n\nPlease enter a valid species!\n\n\n")
+            print(f"\n\n\n{Style.BRIGHT}Please enter a valid species!{Style.RESET_ALL}\n\n\n")
 
 
 def choose_class(character):
@@ -189,12 +191,13 @@ def choose_class(character):
         try:
             print("\n\n\n"
                   "==========\n"
-                  f"{selected_class.upper()}\n"
+                  f"{Style.BRIGHT}{selected_class.upper()}{Style.RESET_ALL}\n"
                   "\n" +
                   f"{get.class_list(selected_class)["desc"]}"
                   "==========\n")
             while True:
-                confirm = input(f"Do you want to be a {selected_class.upper()}? (y/n): ").strip().lower()
+                confirm = input(f"Do you want to be a {Style.BRIGHT}{selected_class.upper()}{Style.RESET_ALL}? "
+                                f"(y/n): ").strip().lower()
                 if confirm == "y":
                     character["skill_class"] = selected_class
                     confirm_class = True
@@ -203,9 +206,9 @@ def choose_class(character):
                     print("\n\n")
                     break
                 else:
-                    print("\n\n\nPlease confirm your selection.\n\n\n")
+                    print(f"\n\n\n{Style.BRIGHT}Please confirm your selection.{Style.RESET_ALL}\n\n\n")
         except KeyError:
-            print("\n\n\nPlease enter a valid class!\n\n\n")
+            print(f"\n\n\n{Style.BRIGHT}Please enter a valid class!{Style.RESET_ALL}\n\n\n")
 
 
 def confirm_character(character):
@@ -239,11 +242,11 @@ def confirm_character(character):
     confirm_new_character = False
     while not confirm_new_character:
         print("==========\n"
-              f"Kingdom: {character["kingdom"]}\n"
-              f"Name: {character["name"]}\n"
+              f"{Style.BRIGHT}Kingdom:{Style.RESET_ALL} {character["kingdom"]}\n"
+              f"{Style.BRIGHT}Name:{Style.RESET_ALL} {character["name"]}\n"
               "\n"
-              f"Species: {character["species"].title()}\n"
-              f"Class: {character["skill_class"].title()}\n"
+              f"{Style.BRIGHT}Species:{Style.RESET_ALL} {character["species"].title()}\n"
+              f"{Style.BRIGHT}Class:{Style.RESET_ALL} {character["skill_class"].title()}\n"
               "==========\n")
         confirm = input("Is this the character you want to create? (y/n): ").strip().lower()
         if confirm == "y":
@@ -252,7 +255,7 @@ def confirm_character(character):
             print("\n\n")
             return False
         else:
-            print("\n\n\nPlease confirm your character information.\n\n\n")
+            print(f"\n\n\n{Style.BRIGHT}Please confirm your character information.{Style.RESET_ALL}\n\n\n")
 
 
 def name_bbeg(bbeg):
@@ -278,7 +281,7 @@ def name_bbeg(bbeg):
             bbeg["name"] = bbeg_name
             break
         else:
-            print("\n\n\nPlease enter a name for your enemy!\n\n\n")
+            print(f"\n\n\n{Style.BRIGHT}Please enter a name for your enemy!{Style.RESET_ALL}\n\n\n")
 
 
 def confirm_bbeg_name(bbeg):
@@ -300,7 +303,7 @@ def confirm_bbeg_name(bbeg):
     confirm_new_character = False
     while not confirm_new_character:
         confirm = input(
-            f"\nIs {bbeg["name"].upper()} the name you swear vengeance against? (y/n): "
+            f"\nIs {Style.BRIGHT}{bbeg["name"].upper()}{Style.RESET_ALL} the name you swear vengeance against? (y/n): "
         ).strip().lower()
         if confirm == "y":
             return True
@@ -308,7 +311,7 @@ def confirm_bbeg_name(bbeg):
             print("\n\n")
             return False
         else:
-            print("\n\n\nPlease confirm your character information.\n\n\n")
+            print(f"\n\n\n{Style.BRIGHT}Please confirm your character information.{Style.RESET_ALL}\n\n\n")
 
 
 def main():
