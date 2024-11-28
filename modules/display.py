@@ -143,6 +143,15 @@ def current_map(character, board):
           f"{movable_directions}")
 
 
+def location_desc(character, board):
+    current_coordinates = (character['x-coordinate'], character['y-coordinate'])
+    description = board[current_coordinates]["look"]
+    print(f"\n"
+          f"{Style.BRIGHT}You look around:{Style.RESET_ALL}\n"
+          f"{description}\n"
+          f"\n")
+
+
 def main():
     """
     Drive the program.
@@ -153,10 +162,11 @@ def main():
     character["species_adjective"] = "elven"
     character["skill_class"] = "mage"
     character['x-coordinate'] = 0
-    character['y-coordinate'] = 0
+    character['y-coordinate'] = 4
 
     character_info(character)
-    current_map(character, get.tutorial_board())
+    current_map(character, get.main_board())
+    location_desc(character, get.main_board())
 
 
 if __name__ == "__main__":
