@@ -69,7 +69,6 @@ def current_map(character, board):
     >>> character_info()
     ''
     """
-    print(sorted(board.keys()))
     max_x_coordinate = sorted(board.keys())[-1][0]
     max_y_coordinate = sorted(board.keys())[-1][1]
 
@@ -103,15 +102,21 @@ def current_map(character, board):
                         player_left = f"{Fore.LIGHTCYAN_EX}{"{"}{Fore.RESET}"
                         player_right = f"{Fore.LIGHTCYAN_EX}{"}"}{Fore.RESET}"
 
-                    location_symbol = ""
-                    if (row, col) == (0, 4):
-                        location_symbol = "?"
-                    elif (row, col) == (4, 4) or (row, col) == (3, 4) or (row, col) == (4, 3):
-                        location_symbol = "!"
+                    map_symbol = "·"
+                    try:
+                        area_symbol = board[(row, col)]['symbol']
+                        if area_symbol == "shop":
+                            map_symbol = f"{Fore.LIGHTYELLOW_EX}?{Fore.RESET}"
+                        elif area_symbol == "exit":
+                            map_symbol = f"{Fore.LIGHTGREEN_EX}!{Fore.RESET}"
+                        elif area_symbol == "danger":
+                            map_symbol = f"{Fore.LIGHTRED_EX}*{Fore.RESET}"
+                    except KeyError:
+                        pass
 
                     full_map += (f"{format(w_wall, '1')}"
                                  f"{format(player_left, '1')}"
-                                 f"{format(location_symbol, '1')}"
+                                 f"{format(map_symbol, '1')}"
                                  f"{format(player_right, '1')}"
                                  f"{format(e_wall, '1')}")
 
@@ -147,7 +152,7 @@ def main():
     character["kingdom"] = "Heilia"
     character["species_adjective"] = "elven"
     character["skill_class"] = "mage"
-    character['x-coordinate'] = 0
+    character['x-coordinate'] = 1
     character['y-coordinate'] = 0
 
     character_info(character)
