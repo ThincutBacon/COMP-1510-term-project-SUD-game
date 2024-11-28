@@ -209,6 +209,7 @@ def tutorial_board():
                      "look": "Your only exit lies in front of you, locked and guarded from outside.\n"
                              "Once you EXIT, you are sure to enter battle with the guards.",
                      "area": "tutorial",
+                     "symbol": "exit",
                      "walls": ["n", "s", "e"]}}
 
 
@@ -248,6 +249,7 @@ def main_board():
                                  "Moss covers it's entirety from lack of use. From here you can sneak into "
                                  "the castle grounds to confront the false king.",
                          "area": "field",
+                         "symbol": "exit",
                          "walls": ["n", "e"]},
 
                 (1, 0): {"name": "The Forest - Outer Edge",
@@ -299,11 +301,13 @@ def main_board():
                          "look": "Here, deep in the forest, lives creatures much more stronger, "
                                  "fiercer, and dangerous then those near the outer rim.",
                          "area": "forest",
+                         "symbol": "danger",
                          "walls": ["w"]},
                 (3, 1): {"name": "Deep Forest - Home To Danger",
                          "look": "Here, deep in the forest, lives creatures much more stronger, "
                                  "fiercer, and dangerous then those near the outer rim.",
                          "area": "forest",
+                         "symbol": "danger",
                          "walls": []},
                 (3, 2): {"name": "The Forest - Deep Within",
                          "look": "",
@@ -319,17 +323,21 @@ def main_board():
                                  "of trees that create the forest beyond.\n"
                                  "To the SOUTH you can hear the hustle and bustle of the village square.",
                          "area": "safe",
+                         "symbol": "shop",
+                         "shop": "weapon",
                          "walls": ["e"]},
 
                 (4, 0): {"name": "Deep Forest - Home To Danger",
                          "look": "Here, deep in the forest, lives creatures much more stronger, "
                                  "fiercer, and dangerous then those near the outer rim.",
                          "area": "forest",
+                         "symbol": "danger",
                          "walls": ["w", "s"]},
                 (4, 1): {"name": "Deep Forest - Home To Danger",
                          "look": "Here, deep in the forest, lives creatures much more stronger, "
                                  "fiercer, and dangerous then those near the outer rim.",
                          "area": "forest",
+                         "symbol": "danger",
                          "walls": ["s"]},
                 (4, 2): {"name": "The Forest - Deep Within",
                          "look": "",
@@ -340,12 +348,16 @@ def main_board():
                                  "of trees that create the forest beyond.\n"
                                  "To the EAST you can hear the hustle and bustle of the village square.",
                          "area": "safe",
+                         "symbol": "shop",
+                         "shop": "item",
                          "walls": ["s"]},
                 (4, 4): {"name": "The Village - The Market",
                          "look": "You can see the a variety of shop owners keeping shop, shouting out to "
                                  "patrons to appeal their products.\n"
                                  "You could SHOP here to buy equipment or sell the items you carry.",
                          "area": "safe",
+                         "symbol": "shop",
+                         "shop": "equipment",
                          "walls": ["e", "s"]}}
 
     field_descriptions = [
