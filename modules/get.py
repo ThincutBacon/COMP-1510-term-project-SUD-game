@@ -31,6 +31,7 @@ def blank_character():
             "DEF": 0,
             "AGI": 0,
             "LUK": 0,
+            "modifiers": {"HP": 0, "SP": 0, "ATK": 0, "DEF": 0, "AGI": 0, "LUK": 0},
             "equipment": {"head": "", "chest": "", "legs": "", "feet": ""},
             "inventory": {},
             "x-coordinate": 0,
