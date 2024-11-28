@@ -5,7 +5,7 @@ A1415217
 
 """
 from modules import get
-from colorama import Fore, Back, Style
+from colorama import Fore, Style
 
 
 def character_info(character):
@@ -152,11 +152,11 @@ def main():
     character["kingdom"] = "Heilia"
     character["species_adjective"] = "elven"
     character["skill_class"] = "mage"
-    character['x-coordinate'] = 1
+    character['x-coordinate'] = 0
     character['y-coordinate'] = 0
 
     character_info(character)
-    current_map(character, get.main_board())
+    current_map(character, get.tutorial_board())
 
 
 if __name__ == "__main__":
