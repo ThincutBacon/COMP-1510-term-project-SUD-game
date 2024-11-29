@@ -4,7 +4,10 @@ Kanon Nishiyama
 A1415217
 
 """
+
+
 from modules import get
+
 from colorama import Fore, Style
 
 
@@ -107,9 +110,9 @@ def current_map(character, board):
                     try:
                         area_symbol = board[(row, col)]['symbol']
                         if area_symbol == "shop":
-                            map_symbol = f"{Fore.LIGHTYELLOW_EX}?{Fore.RESET}"
+                            map_symbol = f"{Fore.LIGHTYELLOW_EX}${Fore.RESET}"
                         elif area_symbol == "exit":
-                            map_symbol = f"{Fore.LIGHTGREEN_EX}!{Fore.RESET}"
+                            map_symbol = f"{Fore.LIGHTGREEN_EX}?{Fore.RESET}"
                         elif area_symbol == "danger":
                             map_symbol = f"{Fore.LIGHTRED_EX}*{Fore.RESET}"
                     except KeyError:
@@ -158,12 +161,12 @@ def main():
     Drive the program.
     """
     character = get.blank_character()
-    character["name"] = "Tohru"
+    character["name"] = "OAIhsdoaihsdoasdssssssssssssssssssssssssss"
     character["kingdom"] = "Heilia"
     character["species_adjective"] = "elven"
     character["skill_class"] = "mage"
     character['x-coordinate'] = 1
-    character['y-coordinate'] = 4
+    character['y-coordinate'] = 1
 
     character_info(character)
     current_map(character, get.main_board())
