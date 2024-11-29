@@ -34,7 +34,7 @@ def blank_character():
             "AGI": 0,
             "LUK": 0,
             "modifiers": {"HP": 0, "SP": 0, "ATK": 0, "DEF": 0, "AGI": 0, "LUK": 0},
-            "equipment": {"head": "", "chest": "", "legs": "", "feet": ""},
+            "equipment": {"head": "", "chest": "", "legs": "", "feet": "", "weapon": ""},
             "inventory": {},
             "x-coordinate": 0,
             "y-coordinate": 0,
