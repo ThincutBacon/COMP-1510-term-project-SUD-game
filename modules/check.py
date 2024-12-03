@@ -9,7 +9,7 @@ from colorama import Style
 from modules import display, get
 
 
-def valid_exploration_command(player_input, character, board):
+def validate_exploration_command(player_input, character, board):
     """
     Check if the player command is valid and run the corresponding function.
 
@@ -21,7 +21,7 @@ def valid_exploration_command(player_input, character, board):
     :precondition: board must be a dictionary from get.tutorial_board or get.main_board function
     :postcondition: run a function if the player_input matches the set command name
 
-    >>> valid_exploration_command()
+    >>> validate_exploration_command()
     ''
     """
     if player_input == "look":
@@ -38,6 +38,9 @@ def valid_exploration_command(player_input, character, board):
         print(f"\n\n\n{Style.BRIGHT}Invalid command.{Style.RESET_ALL}\n\n\n")
 
 
+
+
+
 def main():
     """
     Drive the program.
@@ -51,7 +54,7 @@ def main():
     character['y-coordinate'] = 1
 
     player_input = input("Enter a player command: ").strip().lower()
-    valid_exploration_command(player_input, character, get.main_board())
+    validate_exploration_command(player_input, character, get.main_board())
 
 
 if __name__ == "__main__":
