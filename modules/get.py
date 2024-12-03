@@ -7,6 +7,9 @@ A1415217
 import random
 
 from colorama import Style
+from select import select
+
+from modules import display
 
 
 def blank_character():
@@ -63,7 +66,7 @@ def unnamed_bbeg():
 
 def species_list(select=None):
     """
-    Returns species information.
+    Return species information.
 
     :param select: a string
     :precondition: select must equal None or one of the keys within entire_species_list
@@ -136,7 +139,7 @@ def species_list(select=None):
 
 def class_list(select=None):
     """
-    Returns class information.
+    Return class information.
 
     :param select: a string
     :precondition: select must equal None or one of the keys within entire_class_list
@@ -389,6 +392,34 @@ def main_board():
             main_map[square]["look"] = random.choice(field_descriptions)
 
     return main_map
+
+
+def command_list(group_select=None, command_select=None):
+    """
+    Return player command information.
+
+    :param group_select: a string
+    :param command_select: a string
+    :precondition: group_select must equal None or one of the keys within all_commands_list
+    :precondition: command_select must equal None or one of the keys within either "explore" or "battle"
+    :return: if group_select and command_select equals None, return the entire dictionary
+    :return: if group_select equals a key and command_select equals None, return "explore" or "battle" dictionary
+    :return: if group_select and command_select equals a key, returns a single command dictionary
+
+    >>> command_list() #doctest: +ELLIPSIS
+    {'list_all': '==========...
+    >>> command_list("elf") #doctest: +ELLIPSIS
+    {'name': 'elf', 'desc': 'With their long life spans and equally cumulative knowledge...
+    """
+    all_commands_list = {"explore": {},
+                         "battle": {}}
+
+    if command_select:
+        return all_commands_list[group_select][command_select]
+    elif group_select:
+        return all_commands_list[select]
+    else:
+        return all_commands_list
 
 
 def main():
