@@ -5,9 +5,12 @@ A1415217
 
 """
 
+
+from random import randint
+
 from colorama import Style
+
 from modules import display, get
-from modules.get import main_board
 
 
 def validate_exploration_command(player_input, character, board):
@@ -109,6 +112,27 @@ def if_alive(character):
         return False
     else:
         return True
+
+
+def enemy_encounter(character, board):
+    current_coordinate = (character["x-coordinate"], character["y-coordinate"])
+    area_type = board[current_coordinate]["area"]
+
+    chance = 1
+
+    if area_type == "safe":
+        return False
+    elif area_type == "field" or area_type == "dungeon":
+        chance = 5
+    elif area_type == "forest":
+        chance = 2
+
+    result = randint(1, chance)
+
+    if result == chance:
+        return True
+    else:
+        return False
 
 
 def main():
