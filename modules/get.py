@@ -441,6 +441,40 @@ def command_list(group_select=None, command_select=None):
         return all_commands_list
 
 
+def random_enemy(character, board):
+    current_coordinate = (character["x-coordinate"], character["y-coordinate"])
+    area_type = board[current_coordinate]["area"]
+
+    all_enemies_list = {"dungeon": [{"name": "Rat",
+                                     "max_HP": 10,
+                                     "current_HP": 10,
+                                     "max_SP": 100,
+                                     "current_SP": 100,
+                                     "reduce_damage": 0,
+                                     "ATK": 5,
+                                     "DEF": 5,
+                                     "AGI": 5,
+                                     "LUK": 5,
+                                     "actions": ["attack", "attack", "defend"],
+                                     "skill": "",
+                                     "EXP": 10,
+                                     "gold": 5,
+                                     "buff": {"ATK": {"effect": 0, "time": 0},
+                                              "DEF": {"effect": 0, "time": 0},
+                                              "AGI": {"effect": 0, "time": 0},
+                                              "LUK": {"effect": 0, "time": 0}},
+                                     "debuff": {"ATK": {"effect": 0, "time": 0},
+                                                "DEF": {"effect": 0, "time": 0},
+                                                "AGI": {"effect": 0, "time": 0},
+                                                "LUK": {"effect": 0, "time": 0}},
+                                     "modifiers": {"HP": 0, "SP": 0, "ATK": 0, "DEF": 0, "AGI": 0, "LUK": 0}}],
+                        "field": [{}],
+                        "forest": [{}]}
+
+    enemy_info = random.choice(all_enemies_list[area_type])
+    return enemy_info
+
+
 def main():
     """
     Drive the program.
