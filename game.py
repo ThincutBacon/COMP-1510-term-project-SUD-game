@@ -307,11 +307,11 @@ def tutorial(character, bbeg):
               f"\n"
               f"Along with some coins and the key, you are able to loot a crude looking \n"
               f"dagger from the corpse.\n"
-              f"You gain a Worn Dagger (ATK +2)!\n")
+              f"You gain a Crude Iron Dagger (ATK +2)!\n")
         equipment_bonus = 0
         if character["species"] == "dwarf":
             equipment_bonus = 1
-        character["equipment"]["weapon"] = "worn dagger"
+        character["equipment"]["weapon"] = "crude iron dagger"
         character["modifiers"]["ATK"] = 2 + equipment_bonus
         input(f"{Fore.WHITE}{Style.BRIGHT}Press Enter to continue: {Style.RESET_ALL}")
 
