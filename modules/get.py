@@ -421,12 +421,15 @@ def main_board():
                                  "You can observe a small village to the SOUTH.\n",
                          "area": "field",
                          "walls": []},
-                (3, 4): {"name": "The Village - Outer End",
+                (3, 4): {"name": "The Village - The Blacksmith",
                          "look": "From the outer end of the village, you can observe an expanse \n"
                                  "of trees that create the forest beyond.\n"
+                                 "\n"
                                  f"To the {Fore.GREEN}{Style.BRIGHT}SOUTH{Style.RESET_ALL} you can "
                                  f"hear the hustle and "
-                                 "bustle of the village square.\n",
+                                 "bustle of the village square.\n"
+                                 "\n"
+                                 "You catch eye of an Blacksmith. Purchases here may raise your ATK.\n",
                          "area": "safe",
                          "symbol": "shop",
                          "shop": "weapon",
@@ -448,19 +451,23 @@ def main_board():
                          "look": "",
                          "area": "field",
                          "walls": ["s"]},
-                (4, 3): {"name": "The Village - Outer End",
+                (4, 3): {"name": "The Village - The Brewery",
                          "look": "From the outer end of the village, you can observe an expanse \n"
                                  "of trees that create the forest beyond.\n"
+                                 "\n"
                                  f"To the {Fore.GREEN}{Style.BRIGHT}EAST{Style.RESET_ALL} you can hear the hustle and "
-                                 f"bustle of the village square.\n",
+                                 f"bustle of the village square.\n"
+                                 f"\n"
+                                 f"You catch eye of an Brewery selling potions.\n",
                          "area": "safe",
                          "symbol": "shop",
                          "shop": "item",
                          "walls": ["s"]},
-                (4, 4): {"name": "The Village - The Market",
+                (4, 4): {"name": "The Village - The Leathersmith",
                          "look": "You can see the a variety of shop owners keeping shop, shouting out to \n"
                                  "patrons to appeal their products.\n"
-                                 "You could SHOP here to buy equipment or sell the items you carry.\n",
+                                 "\n"
+                                 "You catch eye of an Leathersmith. Purchases here may raise your DEF.\n",
                          "area": "safe",
                          "symbol": "shop",
                          "shop": "equipment",
