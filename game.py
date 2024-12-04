@@ -8,7 +8,7 @@ A1415217
 
 from colorama import Style, Fore
 
-from modules import create_character, get, display
+from modules import create_character, get, display, check
 
 
 def create_new_character(character, bbeg):
@@ -43,20 +43,90 @@ def tutorial(character):
     current_board = get.tutorial_board()
     print(f"\n\n"
           f"{Style.BRIGHT}===== TUTORIAL ====={Style.RESET_ALL}\n"
-          "\n"
-          "")
+          f"\n"
+          f"Currently, you find yourself trapped within {Fore.BLUE}The Dungeons{Fore.RESET} after \n"
+          f"being thrown in here by the {Fore.RED}King's Advisor{Fore.RESET}.\n"
+          f"\n"
+          f"Before you are able to set out on your quest for justice and \n"
+          f"vengeance, you must break out of {Fore.BLUE}The Dungeons{Fore.RESET}.\n"
+          f"\n"
+          f"Luckily, you were able to escape your cell without being caught, \n"
+          f"and now the doorway to your freedom is just a step away.\n")
+    input(f"{Fore.WHITE}{Style.BRIGHT}Press Enter to continue: {Style.RESET_ALL}")
+
+    print(f"\n\n\n\n\n")
 
     display.current_map(character, current_board)
 
-    player_input = input()
-    if player_input == "look":
-        display.location_desc(character, current_board)
+    print(f"\n"
+          f"What you see here is a map of your surroundings.\n"
+          f"\n"
+          f"Above the map shows the name of your current location, while the \n"
+          f"Exits section under the map show all possible directions your \n"
+          f"character is able to move in.\n"
+          f"\n"
+          f"The curly braces in {Fore.LIGHTCYAN_EX}CYAN{Fore.RESET} symbolize your current location, \n"
+          f"while the question mark in {Fore.LIGHTGREEN_EX}GREEN{Fore.RESET} symbolize any doorways \n"
+          f"that exit to a new area.\n")
+    input(f"{Fore.WHITE}{Style.BRIGHT}Press Enter to continue: {Style.RESET_ALL}")
+
+    print(f"\n\n\n"
+          f"\n\n\n"
+          f"Later on, you will see dollar signs in {Fore.LIGHTYELLOW_EX}YELLOW{Fore.RESET} which symbolize \n"
+          f"shops, or asterisks in {Fore.LIGHTRED_EX}RED{Fore.RESET} that symbolize more dangerous areas.\n"
+          f"\n"
+          f"Anytime you want to see the map again, enter \"map\" whenever \n"
+          f"prompted for player commands.\n"
+          f"\n"
+          f"Let's try is out now!\n"
+          f"Type in \"map\" to display the map.\n")
+
+    while True:
+        player_input = input(f"{Fore.WHITE}{Style.BRIGHT}Player command: {Style.RESET_ALL}")
+        if player_input == "map":
+            print(f"\n\n\n"
+                  f"\n\n")
+            check.validate_exploration_command(player_input, character, current_board)
+            break
+        else:
+            print("\n\n\nPlease input \"map\" for the tutorial.\n\n\n")
+
+    print(f"\n"
+          f"Good job! Now let's continue you're escape!\n")
+    input(f"{Fore.WHITE}{Style.BRIGHT}Press Enter to continue: {Style.RESET_ALL}")
+
+    print(f"\n\n\n"
+          f"\n\n\n"
+          f"Before moving any further, you should try and LOOK around to take \n"
+          f"stock of your surroundings and stay alert of any guards that may \n"
+          f"be patrolling the area.\n"
+          f"\n"
+          f"Try entering the \"look\" command now!\n")
+
+    while True:
+        player_input = input(f"{Fore.WHITE}{Style.BRIGHT}Player command: {Style.RESET_ALL}")
+        if player_input == "look":
+            print(f"\n\n\n"
+                  f"\n\n")
+            check.validate_exploration_command(player_input, character, current_board)
+            break
+        else:
+            print("\n\n\nPlease input \"look\" for the tutorial.\n\n\n")
+
+    print(f"Nice!\n"
+          f"\n"
+          f"Looking gives you move information on your current location.\n"
+          f"I would recommend looking whenever you move to a new location, as \n"
+          f"it can provide you with hints on what to do or where to go.\n")
+    input(f"{Fore.WHITE}{Style.BRIGHT}Press Enter to continue: {Style.RESET_ALL}")
 
 
 def game():
     """
     Drive the game.
     """
+    """
+    
     print("==============================\n"
           "\n\n"
           f"\t {Style.BRIGHT}+++ BIRTH RIGHT +++{Style.RESET_ALL}\n"
@@ -64,7 +134,7 @@ def game():
           f"   {Fore.GREEN}Game By: Kanon Nishiyama{Fore.RESET}\n"
           "\n\n"
           "==============================\n")
-    input(f"Press Enter to {Style.BRIGHT}START{Style.RESET_ALL}: ")
+    input(f"{Fore.WHITE}{Style.BRIGHT}Press Enter to {Fore.RESET}START{Style.RESET_ALL}: ")
 
     print("\n\n\n"
           "\n\n\n"
@@ -81,13 +151,20 @@ def game():
           f"this evil tyrant and take back what is rightfully yours...\n"
           "\n"
           "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n")
-    input(f"Press Enter to continue to {Style.BRIGHT}CHARACTER CREATION{Style.RESET_ALL}: ")
+    input(f"{Fore.WHITE}{Style.BRIGHT}Press Enter to continue to {Fore.RESET}CHARACTER CREATION{Style.RESET_ALL}: ")
+
+    """
 
     player_character = get.blank_character()
     bbeg = get.unnamed_bbeg()
 
+    """
+    
     print("\n\n\n")
     create_new_character(player_character, bbeg)
+    
+    """
+
     print("\n\n\n")
     tutorial(player_character)
 
