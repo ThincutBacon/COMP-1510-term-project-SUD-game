@@ -28,10 +28,20 @@ def character_info(character):
     character_level = f"LVL {format(character['LVL'], '2')}"
     character_exp = f"EXP until LVL up: {format(character['EXP'], '4')}"
 
+    sp_discount = 0
+    if character['species'] == "elf":
+        sp_discount = 1
+    equipment_bonus = 0
+    if character['species'] == "dwarf":
+        equipment_bonus = 1
+
     skill_list = get.class_list(character['skill_class'])['skill_list']
-    first_skill = f"{format(skill_list[0].title(), '15')}: {format(get.skill_list(skill_list[0]), '3')} SP "
-    second_skill = f"{format(skill_list[1].title(), '15')}: {format(get.skill_list(skill_list[1]), '3')} SP "
-    third_skill = f"{format(skill_list[2].title(), '15')}: {format(get.skill_list(skill_list[2]), '3')} SP "
+    first_skill = (f"{format(skill_list[0].title(), '15')}: "
+                   f"{format(get.skill_list(skill_list[0])["cost"] - sp_discount, '3')} SP ")
+    second_skill = (f"{format(skill_list[1].title(), '15')}: "
+                    f"{format(get.skill_list(skill_list[1])["cost"] - sp_discount, '3')} SP ")
+    third_skill = (f"{format(skill_list[2].title(), '15')}: "
+                   f"{format(get.skill_list(skill_list[2])["cost"] - sp_discount, '3')} SP ")
 
     hp = f"HP: {format(character['current_HP'], '3')} / {format(character['max_HP'], '3')}"
     sp = f"SP: {format(character['current_SP'], '3')} / {format(character['max_SP'], '3')}"
@@ -40,6 +50,16 @@ def character_info(character):
     def_attribute = f"DEF: {format(character['DEF'], '3')}"
     agi_attribute = f"AGI: {format(character['AGI'], '3')}"
     luk_attribute = f"LUK: {format(character['LUK'], '3')}"
+
+    weapon_name = character['equipment']['weapon']
+    armour_name = character['equipment']['armour']
+
+    weapon_display = (f"{format("WEAPON", '7')}: {format(weapon_name.title(), '28')}{Fore.MAGENTA}[+"
+                      f"{format(get.shop_information("weapon")[weapon_name]["modifier"] + equipment_bonus, '2')}"
+                      f"]{Fore.RESET}")
+    armour_display = (f"{format("ARMOUR", '7')}: {format(armour_name.title(), '28')}{Fore.BLUE}[+"
+                      f"{format(get.shop_information("armour")[armour_name]["modifier"] + equipment_bonus, '2')}"
+                      f"]{Fore.RESET}")
 
     print(f"==============================================\n"
           f"| {Style.BRIGHT}{format(character_name, '42')}{Style.RESET_ALL} |\n"
@@ -62,6 +82,11 @@ def character_info(character):
           f"| {format(first_skill, '42')} |\n"
           f"| {format(second_skill, '42')} |\n"
           f"| {format(third_skill, '42')} |\n"
+          f"|--------------------------------------------|\n"
+          f"| {Style.BRIGHT}{format("EQUIPMENT", '42')}{Style.RESET_ALL} |\n"
+          f"| {format("=============", '42')} |\n"
+          f"| {format(weapon_display, '42')} |\n"
+          f"| {format(armour_display, '42')} |\n"
           f"==============================================\n")
 
 
@@ -224,6 +249,8 @@ def main():
     """
     character = get.blank_character()
     character["skill_class"] = "mage"
+    character['equipment']['weapon'] = "sharp steel dagger"
+    character['equipment']['armour'] = "steel-plated leather armour"
 
     character_info(character)
 
