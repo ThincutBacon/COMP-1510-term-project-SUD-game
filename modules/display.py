@@ -179,21 +179,41 @@ def battle_status(character, enemy):
           f"==============================================\n")
 
 
+def inventory(character):
+    """
+    Print character information.
+
+    :param character: a dictionary
+    :precondition: character must be a dictionary from get.blank_character function
+    :postcondition: print character information for the player to easily read
+
+    >>> character_info()
+    ''
+    """
+    character_inventory = character["inventory"]
+
+    inventory_display = (f"==============================\n"
+                         f"| {Style.BRIGHT}{format("INVENTORY", '26')}{Style.RESET_ALL} |\n"
+                         f"| {format("--------------------------", '26')} |\n")
+
+
+    for item in character_inventory.keys():
+        single_item = f"{format(item.title(), '20')}:  {format(character_inventory[item], '3')}"
+        inventory_display += f"| {format(single_item, '26')} |\n"
+
+    inventory_display += "==============================\n"
+
+    print(inventory_display)
+
+
 def main():
     """
     Drive the program.
     """
     character = get.blank_character()
-    character["name"] = "OAIhsdoaihsdoasdssssssssssssssssssssssssss"
-    character["kingdom"] = "Heilia"
-    character["species_adjective"] = "elven"
-    character["skill_class"] = "mage"
-    character['x-coordinate'] = 1
-    character['y-coordinate'] = 1
+    character["inventory"] = {"Rabbit Horn": 999, "asd": 2, "DWE": 5, "sda": 1, "hfd": 7, "sdfsdfsfsfs": 2, "df": 1, }
 
-    character_info(character)
-    current_map(character, get.main_board())
-    location_desc(character, get.main_board())
+    inventory(character)
 
 
 if __name__ == "__main__":
