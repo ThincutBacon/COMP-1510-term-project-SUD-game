@@ -56,8 +56,6 @@ def unnamed_bbeg():
     return {"name": "",
             "max_HP": 0,
             "current_HP": 0,
-            "max_SP": 0,
-            "current_SP": 0,
             "ATK": 0,
             "DEF": 0,
             "AGI": 0,
