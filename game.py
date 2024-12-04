@@ -17,7 +17,8 @@ def create_new_character(character, bbeg):
     """
     confirm_create = False
     while not confirm_create:
-        print("\n\n")
+        print("\n\n\n"
+              "\n\n")
         create_character.name_kingdom(character)
         print("\n\n")
         create_character.name_character(character)
@@ -30,7 +31,8 @@ def create_new_character(character, bbeg):
 
     confirm_create = False
     while not confirm_create:
-        print("\n\n")
+        print("\n\n\n"
+              "\n\n")
         create_character.name_bbeg(bbeg)
         confirm_create = create_character.confirm_bbeg_name(bbeg)
 
@@ -65,8 +67,6 @@ def game():
           "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n")
     input(f"Press Enter to continue to {Style.BRIGHT}CHARACTER CREATION{Style.RESET_ALL}: ")
 
-
-
     player_character = get.blank_character()
     bbeg = get.unnamed_bbeg()
 
@@ -75,6 +75,11 @@ def game():
     current_board = get.tutorial_board()
     clear_tutorial = False
     while not clear_tutorial:
+        display.current_map(player_character, current_board)
+
+    current_board = get.main_board()
+    clear_main = False
+    while not clear_main:
         display.current_map(player_character, current_board)
 
 
