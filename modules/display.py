@@ -243,16 +243,84 @@ def inventory(character):
     print(inventory_display)
 
 
+def shop_wares(option_list):
+    """
+    Print character information.
+
+    :param character: a dictionary
+    :precondition: character must be a dictionary from get.blank_character function
+    :postcondition: print character information for the player to easily read
+
+    >>> character_info()
+    ''
+    """
+    shop_display = (f"==================================================\n"
+                    f"| {Style.BRIGHT}{format("WARES", '46')}{Style.RESET_ALL} |\n"
+                    f"| {format("----------------------------------------------", '46')} |\n")
+
+    count = 1
+    for item in option_list["all_items"]:
+        single_item = f"{count}. {format(item.title(), '30')}:  {format(option_list[item]["cost"], '4')} Gold"
+        shop_display += f"| {format(single_item, '46')} |\n"
+        count += 1
+
+    shop_display += "==================================================\n"
+
+    print(shop_display)
+
+
+def ask_player_purchase(option_list):
+    """
+    Sentence.
+
+    :param x: x
+    :precondition: x
+    :postcondition: x
+    :return: x
+
+    >>> function()
+    ''
+    """
+    while True:
+        player_input = input(f"{Fore.WHITE}{Style.BRIGHT}Player command (or Back): {Style.RESET_ALL}")
+        if player_input == "back":
+            return player_input
+        try:
+            return option_list[int(player_input) - 1]
+        except ValueError:
+            pass
+        except IndexError:
+            pass
+        except TypeError:
+            pass
+        print(f"\n\n\n{Style.BRIGHT}Invalid input{Style.RESET_ALL}\n\n\n")
+
+
+def purchase_item(character, purchased_item, shop_type):
+    purchase_cost = get.shop_information(shop_type)[purchased_item]["cost"]
+
+    if character["gold"] >= purchase_cost:
+        if shop_type == "item":
+            character["gold"] -= purchase_cost
+            try:
+                character["inventory"][purchased_item] += 1
+            except KeyError:
+                character["inventory"][purchased_item] = 1
+        else:
+            character["gold"] -= purchase_cost
+            character["equipment"][shop_type] = purchased_item
+            modifier = get.shop_information(shop_type)[purchased_item]["modifier"]
+
+            if shop_type == "weapon":
+                character["modifier"]["ATK"] = modifier
+            elif shop_type == "armour":
+                character["modifier"]["DEF"] = modifier
+
+
 def main():
     """
     Drive the program.
     """
-    character = get.blank_character()
-    character["skill_class"] = "mage"
-    character['equipment']['weapon'] = "sharp steel dagger"
-    character['equipment']['armour'] = "steel-plated leather armour"
-
-    character_info(character)
 
 
 if __name__ == "__main__":
