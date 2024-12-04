@@ -54,11 +54,25 @@ def character_info(character):
     weapon_name = character['equipment']['weapon']
     armour_name = character['equipment']['armour']
 
+    try:
+        weapon_modifier = get.shop_information("weapon")[weapon_name]["modifier"] + equipment_bonus
+    except KeyError:
+        weapon_modifier = ""
+    except TypeError:
+        weapon_modifier = ""
+
+    try:
+        armour_modifier = get.shop_information("armour")[armour_name]["modifier"]  + equipment_bonus
+    except KeyError:
+        armour_modifier = ""
+    except TypeError:
+        armour_modifier = ""
+
     weapon_display = (f"{format("WEAPON", '7')}: {format(weapon_name.title(), '28')}{Fore.MAGENTA}[+"
-                      f"{format(get.shop_information("weapon")[weapon_name]["modifier"] + equipment_bonus, '2')}"
+                      f"{format(weapon_modifier, '2')}"
                       f"]{Fore.RESET}")
     armour_display = (f"{format("ARMOUR", '7')}: {format(armour_name.title(), '28')}{Fore.BLUE}[+"
-                      f"{format(get.shop_information("armour")[armour_name]["modifier"] + equipment_bonus, '2')}"
+                      f"{format(armour_modifier, '2')}"
                       f"]{Fore.RESET}")
 
     print(f"==============================================\n"
@@ -111,17 +125,17 @@ def current_map(character, board):
 
     full_map = ""
 
-    for col in range(0, max_y_coordinate + 1):
-        square_walls = board[(0, col)]['walls']
+    for col in range(0, max_x_coordinate + 1):
+        square_walls = board[(col, 0)]['walls']
         if "n" in square_walls:
             full_map += f" --- "
         else:
             full_map += "     "
     full_map += "\n"
-    for row in range(0, max_x_coordinate + 1):
+    for row in range(0, max_y_coordinate + 1):
         for layer in range(0, 2):
-            for col in range(0, max_y_coordinate + 1):
-                square_walls = board[(row, col)]['walls']
+            for col in range(0, max_x_coordinate + 1):
+                square_walls = board[(col, row)]['walls']
                 if layer == 0:
                     w_wall = ""
                     e_wall = ""
@@ -132,13 +146,13 @@ def current_map(character, board):
 
                     player_left = ""
                     player_right = ""
-                    if (row, col) == current_coordinates:
+                    if (col, row) == current_coordinates:
                         player_left = f"{Fore.LIGHTCYAN_EX}{"{"}{Fore.RESET}"
                         player_right = f"{Fore.LIGHTCYAN_EX}{"}"}{Fore.RESET}"
 
                     map_symbol = "·"
                     try:
-                        area_symbol = board[(row, col)]['symbol']
+                        area_symbol = board[(col, row)]['symbol']
                         if area_symbol == "shop":
                             map_symbol = f"{Fore.LIGHTYELLOW_EX}${Fore.RESET}"
                         elif area_symbol == "exit":
@@ -321,6 +335,9 @@ def main():
     """
     Drive the program.
     """
+    character = get.blank_character()
+    board = get.main_board()
+    current_map(character, board)
 
 
 if __name__ == "__main__":
