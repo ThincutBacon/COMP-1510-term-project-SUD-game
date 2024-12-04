@@ -65,7 +65,9 @@ def validate_movement(direction, character, board):
     True
     """
     current_character_coordinate = (character["x-coordinate"], character["y-coordinate"])
-    current_location_walls = board[current_character_coordinate]
+    print(current_character_coordinate)
+    current_location_walls = board[current_character_coordinate]["walls"]
+    print(current_location_walls)
 
     if direction not in current_location_walls:
         move_character(direction, character)
@@ -114,7 +116,7 @@ def main():
     character['x-coordinate'] = 0
     character['y-coordinate'] = 0
 
-    validate_movement("s", character, get.main_board())
+    validate_movement("e", character, get.main_board())
 
     print(character['x-coordinate'], character['y-coordinate'])
 
