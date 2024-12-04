@@ -135,6 +135,24 @@ def enemy_encounter(character, board):
         return False
 
 
+def level_up(character):
+    if character["EXP"] <= 0:
+        exp_for_next_level = 50 * (character["LVL"] - 1)
+
+        character["LVL"] += 1
+        character["EXP"] += exp_for_next_level
+        character["current_HP"] += 5 * (character["LVL"] - 1)
+        character["max_HP"] += 5 * (character["LVL"] - 1)
+        character["current_SP"] += 2 * (character["LVL"] - 1)
+        character["max_SP"] += 2 * (character["LVL"] - 1)
+        character["ATK"] += 5
+        character["DEF"] += 5
+        character["AGI"] += 5
+        character["LUK"] += 2
+
+        print("LEVEL UP!!")
+
+
 def main():
     """
     Drive the program.

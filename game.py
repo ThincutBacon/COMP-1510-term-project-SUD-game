@@ -430,6 +430,7 @@ def run_battle(character, enemy, round_count=1):
         character["gold"] += enemy["gold"]
         print(f"You won!\n"
               f"Gained {enemy["EXP"]} EXP and {enemy["gold"]} gold.")
+        check.level_up(character)
 
     character["buff"] = {"ATK": {"effect": 0, "time": 0},
                          "DEF": {"effect": 0, "time": 0},
