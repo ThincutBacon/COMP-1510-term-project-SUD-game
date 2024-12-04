@@ -150,8 +150,13 @@ def current_map(character, board):
 def location_desc(character, board):
     current_coordinates = (character['x-coordinate'], character['y-coordinate'])
     description = board[current_coordinates]["look"]
-    print(f"{Style.BRIGHT}You look around:{Style.RESET_ALL}\n"
-          f"{description}\n")
+    print(f"{Fore.WHITE}================================================================={Fore.RESET}\n"
+          f"\n"
+          f"{Style.BRIGHT}You look around:{Style.RESET_ALL}\n"
+          f"\n"
+          f"{description}"
+          f"\n"
+          f"{Fore.WHITE}================================================================={Fore.RESET}\n")
 
 
 def main():
