@@ -6,9 +6,12 @@ A1415217
 """
 
 
+import math
+from unittest import expectedFailure
+
 from colorama import Style, Fore
 
-from modules import create_character, get, display, check
+from modules import create_character, get, display, check, battle
 
 
 def create_new_character(character, bbeg):
@@ -116,17 +119,323 @@ def tutorial(character):
     print(f"Nice!\n"
           f"\n"
           f"Looking gives you move information on your current location.\n"
+          f"\n"
           f"I would recommend looking whenever you move to a new location, as \n"
-          f"it can provide you with hints on what to do or where to go.\n")
+          f"it can provide you with hints on what to do or where to go next.\n")
     input(f"{Fore.WHITE}{Style.BRIGHT}Press Enter to continue: {Style.RESET_ALL}")
+
+    print(f"\n\n\n"
+          f"\n\n\n"
+          f"According to the information provided by looking, your exit is to the "
+          f"{Fore.GREEN}{Style.BRIGHT}EAST{Style.RESET_ALL} of here\n"
+          f"\n"
+          f"To move your character, enter \"n\", \"s\", \"e\", or \"w\" to move in that direction.\n"
+          f"\n"
+          f"When you're ready enter \"e\" to move.\n")
+
+    while True:
+        player_input = input(f"{Fore.WHITE}{Style.BRIGHT}Player command: {Style.RESET_ALL}")
+        if player_input == "e":
+            print(f"\n\n\n"
+                  f"\n\n")
+            check.validate_exploration_command(player_input, character, current_board)
+            break
+        else:
+            print("\n\n\nPlease input \"e\" for the tutorial.\n\n\n")
+
+    tutorial_enemy = {"name": "Lone Guard",
+                      "max_HP": 10,
+                      "current_HP": 10,
+                      "max_SP": 5,
+                      "current_SP": 5,
+                      "reduce_damage": 0,
+                      "ATK": 5,
+                      "DEF": 5,
+                      "AGI": 5,
+                      "LUK": 5,
+                      "actions": ["attack", "attack", "defend"],
+                      "EXP": 10,
+                      "gold": 2,
+                      "buff": {"ATK": {"effect": 0, "time": 0},
+                               "DEF": {"effect": 0, "time": 0},
+                               "AGI": {"effect": 0, "time": 0},
+                               "LUK": {"effect": 0, "time": 0}},
+                      "debuff": {"ATK": {"effect": 0, "time": 0},
+                                 "DEF": {"effect": 0, "time": 0},
+                                 "AGI": {"effect": 0, "time": 0},
+                                 "LUK": {"effect": 0, "time": 0}},
+                      "modifiers": {"HP": 0, "SP": 0, "ATK": 0, "DEF": 0, "AGI": 0, "LUK": 0},
+                      }
+
+    print(f"\n\n\n"
+          f"\n\n\n"
+          f"{Fore.LIGHTYELLOW_EX}{Style.BRIGHT}+++ You encountered an enemy! +++{Style.RESET_ALL}\n"
+          f"\n\n")
+    display.battle_status(character, tutorial_enemy, "1")
+    print("1. ATTACK\n"
+          "2. DEFEND\n"
+          "3. SKILL\n"
+          "4. ITEM\n"
+          "\n\n"
+          f"You just entered a battle with an enemy!\n"
+          f"\n"
+          f"Above shows both the status of your character as well as your enemy.\n"
+          f"When either of your {Fore.RED}HPs (Hit points){Fore.RESET} hit 0, that will be the when \n"
+          f"combat will end.\n")
+    input(f"{Fore.WHITE}{Style.BRIGHT}Press Enter to continue: {Style.RESET_ALL}")
+
+    print(f"\n\n\n")
+    display.battle_status(character, tutorial_enemy, "1")
+    print("1. ATTACK\n"
+          "2. DEFEND\n"
+          "3. SKILL\n"
+          "4. ITEM\n"
+          "\n\n"
+          f"During an encounter, you are able to either ATTACK the enemy, DEFEND \n"
+          f"yourself, use a SKILL, or use an ITEM.\n"
+          f"\n"
+          f"To select an action, enter the corresponding number.\n"
+          f"\n"
+          f"Let's try ATTACKING the enemy!\n")
+    while True:
+        player_input = input(f"{Fore.WHITE}{Style.BRIGHT}Player command: {Style.RESET_ALL}")
+        if player_input == "1":
+            print(f"\n\n\n"
+                  f"\n\n")
+            battle.attack(character, tutorial_enemy)
+            break
+        else:
+            print("\n\n\nPlease input \"1\" for the tutorial.\n\n\n")
+
+    print(f"\n\n\n")
+    display.battle_status(character, tutorial_enemy, "2")
+    print("1. ATTACK\n"
+          "2. DEFEND\n"
+          "3. SKILL\n"
+          "4. ITEM\n"
+          "\n\n"
+          f"Attacking your enemy deals simple damage to your enemy.\n"
+          f"\n"
+          f"The amount of damage inflicted is calculated through a combination \n"
+          f"of your {Fore.MAGENTA}ATK{Fore.RESET} and {Fore.GREEN}LUK{Fore.RESET} attributes, as "
+          f"well as your enemies {Fore.BLUE}DEF{Fore.RESET} \n"
+          f"attribute.\n"
+          f"\n"
+          f"Next lets try DEFENDING yourself!\n")
+    while True:
+        player_input = input(f"{Fore.WHITE}{Style.BRIGHT}Player command: {Style.RESET_ALL}")
+        if player_input == "2":
+            print(f"\n\n\n"
+                  f"\n\n")
+            battle.defend(character)
+            break
+        else:
+            print("\n\n\nPlease input \"2\" for the tutorial.\n\n\n")
+
+    print(f"\n\n\n")
+    display.battle_status(character, tutorial_enemy, "3")
+    print("1. ATTACK\n"
+          "2. DEFEND\n"
+          "3. SKILL\n"
+          "4. ITEM\n"
+          "\n\n"
+          f"By defending, you protect yourself against your enemies next attack, \n"
+          f"increasing the amount of damage you are able to negate.\n"
+          f"\n"
+          f"The amount of damage you can negate is calculated with your {Fore.BLUE}DEF{Fore.RESET} attribute.\n"
+          f"\n"
+          f"Next lets try using a SKILL and try using any skill you like!\n")
+    while True:
+        player_input = input(f"{Fore.WHITE}{Style.BRIGHT}Player command: {Style.RESET_ALL}")
+        if player_input == "3":
+            print(f"\n\n\n"
+                  f"\n\n")
+            while True:
+                player_skill_list = get.class_list(character["skill_class"])["skill_list"]
+                chosen_skill = battle.ask_player_input(player_skill_list)
+                usable_skill = battle.skill_usable(chosen_skill, character)
+                if usable_skill:
+                    battle.use_skill(chosen_skill, "3", character, tutorial_enemy)
+                    break
+                else:
+                    print("Not enough SP!")
+            break
+        else:
+            print("\n\n\nPlease input \"3\" for the tutorial.\n\n\n")
+
+    print(f"\n\n\n")
+    display.battle_status(character, tutorial_enemy, "4")
+    print("1. ATTACK\n"
+          "2. DEFEND\n"
+          "3. SKILL\n"
+          "4. ITEM\n"
+          "\n\n"
+          f"You just used a skill!\n"
+          f"\n"
+          f"Skills are unique to you're characters class.\n"
+          f"Enter the \"skill\" command to learn more about you're skills.\n"
+          f"\n"
+          f"Next, let's try using an ITEM! For the purpose of this tutorial, I will \n"
+          f"be providing you a Healing Potion (S) to try out.\n")
+    character["inventory"]["healing potion (s)"] = 1
+    while True:
+        player_input = input(f"{Fore.WHITE}{Style.BRIGHT}Player command: {Style.RESET_ALL}")
+        if player_input == "4":
+            player_item_list = character["inventory"].keys()
+            print("\n\n\n")
+            display.inventory(character)
+            if not player_item_list:
+                print("\n\n\n"
+                      f"{Style.BRIGHT}No items to chose from.{Style.RESET_ALL}"
+                      "\n\n\n")
+            else:
+                chosen_item = battle.ask_player_input(player_item_list)
+                battle.use_item(chosen_item, character)
+                break
+        else:
+            print("\n\n\nPlease input \"4\" for the tutorial.\n\n\n")
+
+
+def run_battle(character, enemy):
+    """
+    Drive the battle.
+    """
+    player_alive = True
+    enemy_alive = True
+
+    player_round_counter = 1
+    enemy_round_counter = 1
+
+    enemy_action_list = enemy["actions"]
+
+    character["reduce_damage"] = math.ceil(character["DEF"] // 4)
+    enemy["reduce_damage"] = math.ceil(character["DEF"] // 4)
+
+    while player_alive and enemy_alive:
+        for enemy_action in enemy_action_list:
+            display.battle_status(character, enemy, player_round_counter)
+
+            if character["AGI"] >= enemy["AGI"]:
+                player_battle_flow(character, enemy, player_round_counter)
+                player_alive = check.if_alive(character)
+                if not player_alive:
+                    break
+                battle.skill_effect_time(character, player_round_counter)
+                player_round_counter += 1
+
+                enemy_battle_flow(character, enemy, enemy_action, enemy_round_counter)
+                enemy_alive = check.if_alive(enemy)
+                if not enemy_alive:
+                    break
+                battle.skill_effect_time(enemy, player_round_counter)
+                enemy_round_counter += 1
+
+            elif character["AGI"] < enemy["AGI"]:
+                enemy_battle_flow(character, enemy, enemy_action, enemy_round_counter)
+                enemy_alive = check.if_alive(enemy)
+                if not enemy_alive:
+                    break
+                battle.skill_effect_time(enemy, player_round_counter)
+                enemy_round_counter += 1
+
+                player_battle_flow(character, enemy, player_round_counter)
+                player_alive = check.if_alive(character)
+                if not player_alive:
+                    break
+                battle.skill_effect_time(character, player_round_counter)
+                player_round_counter += 1
+
+    if not enemy_alive:
+        character["EXP"] -= enemy["EXP"]
+        character["gold"] += enemy["gold"]
+
+        for item in enemy["drop"].keys():
+            try:
+                character["inventory"][item] += enemy[item]
+            except KeyError:
+                character["inventory"][item] = enemy[item]
+
+        print(f"You won!\n"
+              f"Gained {enemy["EXP"]} EXP and {enemy["gold"]} gold.")
+
+    character["buff"] = {"ATK": {"effect": 0, "time": 0},
+                         "DEF": {"effect": 0, "time": 0},
+                         "AGI": {"effect": 0, "time": 0},
+                         "LUK": {"effect": 0, "time": 0}}
+
+    character["debuff"] = {"ATK": {"effect": 0, "time": 0},
+                           "DEF": {"effect": 0, "time": 0},
+                           "AGI": {"effect": 0, "time": 0},
+                           "LUK": {"effect": 0, "time": 0}}
+
+    character["continuous_damage"] = {"effect": 0, "time": 0}
+
+
+def player_battle_flow(character, enemy, round_count):
+    """
+    Drive player battle flow.
+    """
+    player_action_list = ["attack", "defend", "skill", "item"]
+
+    player_skill_list = get.class_list(character["skill_class"])["skill_list"]
+    player_item_list = character["inventory"].keys()
+
+    while True:
+        player_action = battle.ask_player_input(player_action_list)
+        if player_action == "attack":
+            print("\n\n\n")
+            battle.attack(character, enemy)
+            break
+        elif player_action == "defend":
+            print("\n\n\n")
+            battle.defend(character)
+            break
+        elif player_action == "skill":
+            print("\n\n\n")
+            while True:
+                chosen_skill = battle.ask_player_input(player_skill_list)
+                usable_skill = battle.skill_usable(chosen_skill, character)
+                if usable_skill:
+                    battle.use_skill(chosen_skill, round_count, character, enemy)
+                    break
+                else:
+                    print("Not enough SP!")
+        elif player_action == "item":
+            print("\n\n\n")
+            display.inventory(character)
+            if not player_item_list:
+                print("\n\n\n"
+                      f"{Style.BRIGHT}No items to chose from.{Style.RESET_ALL}"
+                      "\n\n\n")
+            else:
+                chosen_item = battle.ask_player_input(player_item_list)
+                battle.use_item(chosen_item, character)
+                break
+    character["current_HP"] -= character["continuous_damage"]["effect"]
+
+
+def enemy_battle_flow(character, enemy, enemy_action, round_count):
+    """
+    Drive enemy battle flow.
+    """
+    chosen_skill = ""
+
+    if enemy_action == "attack":
+        print("\n\n\n")
+        battle.attack(enemy, character)
+    elif enemy_action == "defend":
+        print("\n\n\n")
+        battle.defend(enemy)
+    elif enemy_action == "skill":
+        print("\n\n\n")
+        battle.use_skill(chosen_skill, round_count, enemy, character)
+    enemy["current_HP"] -= enemy["continuous_damage"]["effect"]
 
 
 def game():
     """
     Drive the game.
     """
-    """
-    
     print("==============================\n"
           "\n\n"
           f"\t {Style.BRIGHT}+++ BIRTH RIGHT +++{Style.RESET_ALL}\n"
@@ -153,17 +462,11 @@ def game():
           "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n")
     input(f"{Fore.WHITE}{Style.BRIGHT}Press Enter to continue to {Fore.RESET}CHARACTER CREATION{Style.RESET_ALL}: ")
 
-    """
-
     player_character = get.blank_character()
     bbeg = get.unnamed_bbeg()
-
-    """
     
     print("\n\n\n")
     create_new_character(player_character, bbeg)
-    
-    """
 
     print("\n\n\n")
     tutorial(player_character)
