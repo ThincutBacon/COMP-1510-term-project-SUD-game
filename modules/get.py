@@ -4,12 +4,12 @@ Kanon Nishiyama
 A1415217
 
 """
+
 import random
 
 from colorama import Style
-from select import select
 
-from modules import display
+from select import select
 
 
 def blank_character():
@@ -209,10 +209,11 @@ def tutorial_board():
     """
     return {(0, 0): {"name": "The Dungeons - Hallway",
                      "look": "There is no light inside the dark cavernous halls of the dungeons, \n"
-                             "the only sliver of light pours in from the slits of the door which withholds \n"
-                             "your freedom.\n"
+                             "the only sliver of light pours in from the slits of the door which \n"
+                             "withholds your freedom.\n"
                              "You can hear footsteps heading your way.\n"
-                             "If you continue forward, you are sure to enter battle with the guards.\n",
+                             "If you continue forward, you are sure to enter battle with the \n"
+                             "guards.\n",
                      "area": "safe",
                      "walls": ["n", "s", "w"]},
             (0, 1): {"name": "The Dungeons - The Exit",
@@ -235,7 +236,8 @@ def main_board():
     {(0, 0): {'name': 'The Dungeons - Hallway', 'look': 'What is left of the dungeons is a shell ...
     """
     main_map = {(0, 0): {"name": "The Dungeons - Hallway",
-                         "look": "What is left of the dungeons is a shell of what used to confine you. \n"
+                         "look": "What is left of the dungeons is a shell of what used to confine \n"
+                                 "you. \n"
                                  "Only rats roam these halls now.\n",
                          "area": "dungeon",
                          "walls": ["n", "s", "w"]},
@@ -257,8 +259,8 @@ def main_board():
                          "walls": ["n"]},
                 (0, 4): {"name": "The Forest - The Castle Gates",
                          "look": "In front of you are the back gates that lead into the castle grounds. \n"
-                                 "Moss covers it's entirety from lack of use. From here you can sneak into \n"
-                                 "the castle grounds to confront the false king.\n",
+                                 "Moss covers it's entirety from lack of use. From here you can sneak \n"
+                                 "into the castle grounds to confront the false king.\n",
                          "area": "field",
                          "symbol": "exit",
                          "walls": ["n", "e"]},
@@ -268,8 +270,9 @@ def main_board():
                          "area": "field",
                          "walls": ["w"]},
                 (1, 1): {"name": "The Forest - Outside The Dungeon",
-                         "look": "Right outside of the dungeons expands a wide, limitless forest. Here lives \n"
-                                 "a diverse range of creatures, both predator and prey. You can spot the \n"
+                         "look": "Right outside of the dungeons expands a wide, limitless forest. Here \n"
+                                 "lives a diverse range of creatures, both predator and prey. You can \n"
+                                 "spot the \n"
                                  f"start of a faint path to the {Style.BRIGHT}EAST{Style.RESET_ALL}.\n",
                          "area": "field",
                          "walls": []},
@@ -380,11 +383,13 @@ def main_board():
 
     field_descriptions = [
         "A gentle breeze rustle through the surrounding foliage.\n",
-        "You can spot the tail end of a deer as it quickly springs away from you.\n",
+        "You can spot the tail end of a deer as it quickly springs away from \n"
+        "you.\n",
         "You can spot the occasional berry bush housing unnervingly red berries.\n",
-        "You spot a group of mushrooms growing in the shade. No matter how hungry you are, \n"
-        "you better avoid them if you intend to survive.\n",
-        "The path you follow is non-existent, only a suggestion carved by nature itself.\n"
+        "You spot a group of mushrooms growing in the shade. No matter how \n"
+        "hungry you are, you better avoid them if you intend to survive.\n",
+        "The path you follow is non-existent, only a suggestion carved by nature \n"
+        "itself.\n"
     ]
 
     for square in main_map.keys():
