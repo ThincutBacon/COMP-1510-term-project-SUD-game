@@ -211,15 +211,14 @@ def tutorial_board():
                      "look": "There is no light inside the dark cavernous halls of the dungeons, \n"
                              "the only sliver of light pours in from the slits of the door which \n"
                              "withholds your freedom.\n"
+                             "\n"
                              "You can hear footsteps heading your way.\n"
                              "If you continue forward, you are sure to enter battle with the \n"
                              "guards.\n",
                      "area": "safe",
                      "walls": ["n", "s", "w"]},
             (0, 1): {"name": "The Dungeons - The Exit",
-                     "look": "Your only exit lies in front of you, locked and guarded from outside.\n"
-                             f"Once you {Style.BRIGHT}EXIT{Style.RESET_ALL}, you are sure to enter battle "
-                             f"with the guards.\n",
+                     "look": "You shouldn't be able to access this.",
                      "area": "tutorial",
                      "symbol": "exit",
                      "walls": ["n", "s", "e"]}}
