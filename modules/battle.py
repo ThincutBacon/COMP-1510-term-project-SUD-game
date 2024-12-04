@@ -9,6 +9,8 @@ from random import randint
 
 from colorama import Fore, Style
 
+from modules import get
+
 
 def ask_player_input(option_list):
     """
@@ -107,7 +109,7 @@ def defend(defender):
     defender["reduce_damage"] = math.floor(defender_def // 2)
 
 
-def skill_usable(skill, user):
+def skill_usable(skill, user, sp_discount=0):
     """
     Sentence.
 
@@ -119,34 +121,12 @@ def skill_usable(skill, user):
     >>> function()
     ''
     """
-    cost_payable = True
-
-    if skill == "shield":
-        cost_payable = user["current_SP"] >= 1
-    elif skill == "shield bash":
-        cost_payable = user["current_SP"] >= 3
-    elif skill == "battle cry":
-        cost_payable = user["current_SP"] >= 2
-    elif skill == "sharper edge":
-        cost_payable = user["current_SP"] >= 2
-    elif skill == "focus attack":
-        cost_payable = user["current_SP"] >= 3
-    elif skill == "haste":
-        cost_payable = user["current_SP"] >= 1
-    elif skill == "fireball":
-        cost_payable = user["current_SP"] >= 3
-    elif skill == "freezing touch":
-        cost_payable = user["current_SP"] >= 2
-    elif skill == "healing light":
-        cost_payable = user["current_SP"] >= 3
-
-    if not cost_payable:
-        return False
-    else:
-        return True
+    skill_cost = get.skill_list(skill)["cost"]
+    cost_payable = user["current_SP"] >= (skill_cost - sp_discount)
+    return cost_payable
 
 
-def use_skill(skill, round_count, user, receiver):
+def use_skill(skill, round_count, user, receiver, sp_discount=0):
     """
     Sentence.
 
@@ -158,40 +138,33 @@ def use_skill(skill, round_count, user, receiver):
     >>> function()
     ''
     """
+    skill_cost = get.skill_list(skill)["cost"] - sp_discount
     round_count = int(round_count)
     user_def = (user["DEF"] +
                 user["buff"]["DEF"]["effect"] +
                 user["debuff"]["DEF"]["effect"] +
                 user["modifiers"]["DEF"])
+    user["current_SP"] -= skill_cost
 
     if skill == "shield":
-        user["current_SP"] -= 1
         user["reduce_damage"] = user_def
     elif skill == "shield bash":
-        user["current_SP"] -= 3
         defend(user)
         attack(user, receiver)
     elif skill == "battle cry":
-        user["current_SP"] -= 2
         receiver["debuff"]["DEF"] = {"effect": -5, "time": round_count + 2}
     elif skill == "sharper edge":
-        user["current_SP"] -= 2
         user["buff"]["ATK"] = {"effect": 5, "time": round_count + 2}
     elif skill == "focus attack":
-        user["current_SP"] -= 3
         user["buff"]["LUK"] = {"effect": 5, "time": round_count + 2}
         attack(user, receiver)
     elif skill == "haste":
-        user["current_SP"] -= 1
         user["buff"]["AGI"] = {"effect": 5, "time": round_count + 2}
     elif skill == "fireball":
-        user["current_SP"] -= 3
         user["continuous_damage"] = {"effect": 5, "time": round_count + 2}
     elif skill == "freezing touch":
-        user["current_SP"] -= 2
         receiver["debuff"]["AGI"] = {"effect": -5, "time": round_count + 2}
     elif skill == "healing light":
-        user["current_SP"] -= 3
         user["current_HP"] += 10
         if user["current_HP"] > user["max_HP"]:
             user["current_HP"] = user["max_HP"]
