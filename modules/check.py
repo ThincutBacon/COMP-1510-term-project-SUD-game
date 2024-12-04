@@ -10,7 +10,7 @@ from random import randint
 
 from colorama import Style, Fore
 
-from modules import display
+from modules import display, get
 
 
 def validate_exploration_command(player_input, character, board):
@@ -36,8 +36,8 @@ def validate_exploration_command(player_input, character, board):
         display.current_map(character, board)
     elif player_input == "n" or player_input == "e" or player_input == "s" or player_input == "w":
         validate_movement(player_input, character, board)
-    elif player_input == "help":
-        pass
+    elif player_input == "shop":
+        validate_shop(character, board)
     else:
         print(f"\n\n\n{Style.BRIGHT}Invalid command.{Style.RESET_ALL}\n\n\n")
 
@@ -68,9 +68,7 @@ def validate_movement(direction, character, board):
     True
     """
     current_character_coordinate = (character["x-coordinate"], character["y-coordinate"])
-    print(current_character_coordinate)
     current_location_walls = board[current_character_coordinate]["walls"]
-    print(current_location_walls)
 
     if direction not in current_location_walls:
         move_character(direction, character)
@@ -152,6 +150,23 @@ def level_up(character):
         character["LUK"] += 2
 
         print(f"{Fore.LIGHTYELLOW_EX}{Style.BRIGHT}+++ LEVEL UP! +++{Style.RESET_ALL}")
+
+
+def validate_shop(character, board):
+    current_character_coordinate = (character["x-coordinate"], character["y-coordinate"])
+    try:
+        current_location_shop = board[current_character_coordinate]["shop"]
+        shop_wares_information = get.shop_information(current_location_shop)
+
+        display.shop_wares(shop_wares_information)
+        purchase = display.ask_player_purchase(shop_wares_information["all_items"])
+
+        if purchase != "back":
+            display.purchase_item(character, purchase, current_location_shop)
+        else:
+            return
+    except KeyError:
+        print(f"\n\n\n{Style.BRIGHT}No shop available.{Style.RESET_ALL}\n\n\n")
 
 
 def main():
