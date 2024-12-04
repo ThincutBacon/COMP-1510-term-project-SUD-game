@@ -26,6 +26,7 @@ def name_kingdom(character):
     Hyrule
     """
     while True:
+        print("To begin with,")
         kingdom_name = input("What is the name of your kingdom?: ").strip()
         if kingdom_name != "":
             character["kingdom"] = kingdom_name
