@@ -8,9 +8,9 @@ A1415217
 
 from random import randint
 
-from colorama import Style
+from colorama import Style, Fore
 
-from modules import display, get
+from modules import display
 
 
 def validate_exploration_command(player_input, character, board):
@@ -130,6 +130,7 @@ def enemy_encounter(character, board):
     result = randint(1, chance)
 
     if result == chance:
+        print(f"\n\n\n{Fore.LIGHTYELLOW_EX}{Style.BRIGHT}+++ You encountered an enemy! +++{Style.RESET_ALL}\n\n\n")
         return True
     else:
         return False
@@ -150,24 +151,13 @@ def level_up(character):
         character["AGI"] += 5
         character["LUK"] += 2
 
-        print("LEVEL UP!!")
+        print(f"{Fore.LIGHTYELLOW_EX}{Style.BRIGHT}+++ LEVEL UP! +++{Style.RESET_ALL}")
 
 
 def main():
     """
     Drive the program.
     """
-    character = get.blank_character()
-    character["name"] = "OAIhsdoaihsdoasdssssssssssssssssssssssssss"
-    character["kingdom"] = "Heilia"
-    character["species_adjective"] = "elven"
-    character["skill_class"] = "mage"
-    character['x-coordinate'] = 0
-    character['y-coordinate'] = 0
-
-    validate_movement("e", character, get.main_board())
-
-    print(character['x-coordinate'], character['y-coordinate'])
 
 
 if __name__ == "__main__":

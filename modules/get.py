@@ -235,8 +235,40 @@ def skill_list(skill_select=None):
     {'class': 'mage', 'desc': "Mage's fight a careful battle, slowly chipping away at their ...
     """
     entire_skill_list = {"shield": {"name": "shield",
-                                    "desc": "Uses the characters full DEF to negate oncoming damage.",
-                                    "cost": 1}}
+                                    "desc": "Uses the characters full DEF to negate oncoming damage.\n",
+                                    "cost": 2},
+                         "shield bash": {"name": "shield bash",
+                                         "desc": "Attacks with your shield, allowing you to both \n"
+                                                 "attack and defend simultaneously.\n",
+                                         "cost": 5},
+                         "battle cry": {"name": "battle cry",
+                                        "desc": "Scares your enemy into lowering their DEF.\n",
+                                        "cost": 3},
+                         "sharper edge": {"name": "sharper edge",
+                                          "desc": "You sharpen your weapon to a lethal point, \n"
+                                                  "increasing your ATK.\n",
+                                          "cost": 3},
+                         "focus attack": {"name": "focus attack",
+                                          "desc": "You focus solely on attacking your enemy, \n"
+                                                  "increasing your LUK (Crit Chance) while launching \n"
+                                                  "an attack.\n",
+                                          "cost": 5},
+                         "haste": {"name": "haste",
+                                   "desc": "You focus on quickening your steps, increasing you AGI.\n",
+                                   "cost": 2},
+                         "fireball": {"name": "fireball",
+                                      "desc": "Send scorching projectiles towards your enemy, \n"
+                                              "dealing continuous damage as it continues to burn.\n",
+                                      "cost": 5},
+                         "freezing touch": {"name": "freezing touch",
+                                            "desc": "Slow your enemies with a chilling touch, lowering \n"
+                                                    "their AGI.\n",
+                                            "cost": 3},
+                         "healing light": {"name": "healing light",
+                                           "desc": "A warm light envelops your wounds, healing you \n"
+                                                   "slightly.\n",
+                                           "cost": 5}
+                         }
 
     if skill_select:
         return entire_skill_list[skill_select]

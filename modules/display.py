@@ -25,11 +25,13 @@ def character_info(character):
     character_name = f"{character['name'].upper()}"
     class_and_species = f"{character['species_adjective'].title()} {character['skill_class'].title()}"
     kingdom_name = f"Heir to the throne of {character['kingdom'].upper()}"
+    character_level = f"LVL {format(character['LVL'], '2')}"
+    character_exp = f"EXP until LVL up: {format(character['EXP'], '4')}"
 
     skill_list = get.class_list(character['skill_class'])['skill_list']
-    first_skill = f"{format(skill_list[0].title(), '15')}: 2323 SP "
-    second_skill = f"{format(skill_list[1].title(), '15')}: 2323 SP "
-    third_skill = f"{format(skill_list[2].title(), '15')}: 2323 SP "
+    first_skill = f"{format(skill_list[0].title(), '15')}: {format(get.skill_list(skill_list[0]), '3')} SP "
+    second_skill = f"{format(skill_list[1].title(), '15')}: {format(get.skill_list(skill_list[1]), '3')} SP "
+    third_skill = f"{format(skill_list[2].title(), '15')}: {format(get.skill_list(skill_list[2]), '3')} SP "
 
     hp = f"HP: {format(character['current_HP'], '3')} / {format(character['max_HP'], '3')}"
     sp = f"SP: {format(character['current_SP'], '3')} / {format(character['max_SP'], '3')}"
@@ -43,6 +45,9 @@ def character_info(character):
           f"| {Style.BRIGHT}{format(character_name, '42')}{Style.RESET_ALL} |\n"
           f"| {format(class_and_species, '42')} |\n"
           f"| {format(kingdom_name, '42')} |\n"
+          f"| {format("", '42')} |\n"
+          f"| {Style.BRIGHT}{format(character_level, '15')}{Style.RESET_ALL}  {Style.BRIGHT}"
+          f"{format(character_exp, '25')}{Style.RESET_ALL} |\n"
           f"|--------------------------------------------|\n"
           f"| {Style.BRIGHT}{format("STATS", '20')}{Style.RESET_ALL}"
           f"| {Style.BRIGHT}{format("ATTRIBUTES", '20')}{Style.RESET_ALL} |\n"
@@ -218,8 +223,9 @@ def main():
     Drive the program.
     """
     character = get.blank_character()
+    character["skill_class"] = "mage"
 
-    inventory(character)
+    character_info(character)
 
 
 if __name__ == "__main__":

@@ -118,7 +118,8 @@ def choose_species(character):
                   f"{selected_species_info["desc"]}"
                   "==========\n")
             while True:
-                confirm = input(f"Do you want to be a {Style.BRIGHT}{selected_species.upper()}{Style.RESET_ALL}? (y/n): ").strip().lower()
+                confirm = input(f"Do you want to be a {Style.BRIGHT}{selected_species.upper()}"
+                                f"{Style.RESET_ALL}? (y/n): ").strip().lower()
                 if confirm == "y":
                     character["species"] = selected_species_info["name"]
                     character["species_adjective"] = selected_species_info["adjective"]

@@ -4,7 +4,10 @@ Kanon Nishiyama
 A1415217
 
 """
+
+
 import math
+
 from random import randint
 
 from colorama import Fore, Style

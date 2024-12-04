@@ -57,9 +57,7 @@ def tutorial(character, bbeg):
     input(f"{Fore.WHITE}{Style.BRIGHT}Press Enter to continue: {Style.RESET_ALL}")
 
     print(f"\n\n\n\n\n")
-
     display.current_map(character, current_board)
-
     print(f"\n"
           f"What you see here is a map of your surroundings.\n"
           f"\n"
@@ -82,7 +80,6 @@ def tutorial(character, bbeg):
           f"\n"
           f"Let's try is out now!\n"
           f"Type in \"map\" to display the map.\n")
-
     while True:
         player_input = input(f"{Fore.WHITE}{Style.BRIGHT}Player command: {Style.RESET_ALL}")
         if player_input == "map":
@@ -104,7 +101,6 @@ def tutorial(character, bbeg):
           f"be patrolling the area.\n"
           f"\n"
           f"Try entering the \"look\" command now!\n")
-
     while True:
         player_input = input(f"{Fore.WHITE}{Style.BRIGHT}Player command: {Style.RESET_ALL}")
         if player_input == "look":
@@ -131,7 +127,6 @@ def tutorial(character, bbeg):
           f"To move your character, enter \"n\", \"s\", \"e\", or \"w\" to move in that direction.\n"
           f"\n"
           f"When you're ready enter \"e\" to move.\n")
-
     while True:
         player_input = input(f"{Fore.WHITE}{Style.BRIGHT}Player command: {Style.RESET_ALL}")
         if player_input == "e":
@@ -143,16 +138,16 @@ def tutorial(character, bbeg):
             print("\n\n\nPlease input \"e\" for the tutorial.\n\n\n")
 
     tutorial_enemy = get.random_enemy(character, current_board)
-
     print(f"\n\n\n"
           f"\n\n\n"
           f"{Fore.LIGHTYELLOW_EX}{Style.BRIGHT}+++ You encountered an enemy! +++{Style.RESET_ALL}\n"
           f"\n\n")
+
     display.battle_status(character, tutorial_enemy, "1")
-    print("1. ATTACK\n"
-          "2. DEFEND\n"
-          "3. SKILL\n"
-          "4. ITEM\n"
+    print(f"{Style.BRIGHT}1. ATTACK{Style.RESET_ALL}\n"
+          f"{Style.BRIGHT}2. DEFEND{Style.RESET_ALL}\n"
+          f"{Style.BRIGHT}3. SKILL{Style.RESET_ALL}\n"
+          f"{Style.BRIGHT}4. ITEM{Style.RESET_ALL}\n"
           "\n\n"
           f"You just entered a battle with an enemy!\n"
           f"\n"
@@ -163,17 +158,18 @@ def tutorial(character, bbeg):
 
     print(f"\n\n\n")
     display.battle_status(character, tutorial_enemy, "1")
-    print("1. ATTACK\n"
-          "2. DEFEND\n"
-          "3. SKILL\n"
-          "4. ITEM\n"
+    print(f"{Style.BRIGHT}1. ATTACK{Style.RESET_ALL}\n"
+          f"{Style.BRIGHT}2. DEFEND{Style.RESET_ALL}\n"
+          f"{Style.BRIGHT}3. SKILL{Style.RESET_ALL}\n"
+          f"{Style.BRIGHT}4. ITEM{Style.RESET_ALL}\n"
           "\n\n"
-          f"During an encounter, you are able to either ATTACK the enemy, DEFEND \n"
-          f"yourself, use a SKILL, or use an ITEM.\n"
+          f"During an encounter, you are able to either {Style.BRIGHT}ATTACK{Style.RESET_ALL} the enemy, "
+          f"{Style.BRIGHT}DEFEND{Style.RESET_ALL} \n"
+          f"yourself, use a {Style.BRIGHT}SKILL{Style.RESET_ALL}, or use an {Style.BRIGHT}ITEM{Style.RESET_ALL}.\n"
           f"\n"
           f"To select an action, enter the corresponding number.\n"
           f"\n"
-          f"Let's try ATTACKING the enemy!\n")
+          f"Let's try {Style.BRIGHT}ATTACKING{Style.RESET_ALL} the enemy!\n")
     while True:
         player_input = input(f"{Fore.WHITE}{Style.BRIGHT}Player command: {Style.RESET_ALL}")
         if player_input == "1":
@@ -186,10 +182,10 @@ def tutorial(character, bbeg):
 
     print(f"\n\n\n")
     display.battle_status(character, tutorial_enemy, "2")
-    print("1. ATTACK\n"
-          "2. DEFEND\n"
-          "3. SKILL\n"
-          "4. ITEM\n"
+    print(f"{Style.BRIGHT}1. ATTACK{Style.RESET_ALL}\n"
+          f"{Style.BRIGHT}2. DEFEND{Style.RESET_ALL}\n"
+          f"{Style.BRIGHT}3. SKILL{Style.RESET_ALL}\n"
+          f"{Style.BRIGHT}4. ITEM{Style.RESET_ALL}\n"
           "\n\n"
           f"Attacking your enemy deals simple damage to your enemy.\n"
           f"\n"
@@ -198,7 +194,7 @@ def tutorial(character, bbeg):
           f"well as your enemies {Fore.BLUE}DEF{Fore.RESET} \n"
           f"attribute.\n"
           f"\n"
-          f"Next lets try DEFENDING yourself!\n")
+          f"Next lets try {Style.BRIGHT}DEFENDING{Style.RESET_ALL} yourself!\n")
     while True:
         player_input = input(f"{Fore.WHITE}{Style.BRIGHT}Player command: {Style.RESET_ALL}")
         if player_input == "2":
@@ -211,17 +207,17 @@ def tutorial(character, bbeg):
 
     print(f"\n\n\n")
     display.battle_status(character, tutorial_enemy, "3")
-    print("1. ATTACK\n"
-          "2. DEFEND\n"
-          "3. SKILL\n"
-          "4. ITEM\n"
+    print(f"{Style.BRIGHT}1. ATTACK{Style.RESET_ALL}\n"
+          f"{Style.BRIGHT}2. DEFEND{Style.RESET_ALL}\n"
+          f"{Style.BRIGHT}3. SKILL{Style.RESET_ALL}\n"
+          f"{Style.BRIGHT}4. ITEM{Style.RESET_ALL}\n"
           "\n\n"
           f"By defending, you protect yourself against your enemies next attack, \n"
           f"increasing the amount of damage you are able to negate.\n"
           f"\n"
           f"The amount of damage you can negate is calculated with your {Fore.BLUE}DEF{Fore.RESET} attribute.\n"
           f"\n"
-          f"Next lets try using a SKILL and try using any skill you like!\n")
+          f"Next lets try using a {Style.BRIGHT}SKILL{Style.RESET_ALL} and try using any skill you like!\n")
     while True:
         player_input = input(f"{Fore.WHITE}{Style.BRIGHT}Player command: {Style.RESET_ALL}")
         if player_input == "3":
@@ -245,17 +241,17 @@ def tutorial(character, bbeg):
 
     print(f"\n\n\n")
     display.battle_status(character, tutorial_enemy, "4")
-    print("1. ATTACK\n"
-          "2. DEFEND\n"
-          "3. SKILL\n"
-          "4. ITEM\n"
+    print(f"{Style.BRIGHT}1. ATTACK{Style.RESET_ALL}\n"
+          f"{Style.BRIGHT}2. DEFEND{Style.RESET_ALL}\n"
+          f"{Style.BRIGHT}3. SKILL{Style.RESET_ALL}\n"
+          f"{Style.BRIGHT}4. ITEM{Style.RESET_ALL}\n"
           "\n\n"
           f"You just used a skill!\n"
           f"\n"
           f"Skills are unique to you're characters class.\n"
           f"Enter the \"skill\" command to learn more about your skills.\n"
           f"\n"
-          f"Next, let's try using an ITEM! For the purpose of this tutorial, I will \n"
+          f"Next, let's try using an {Style.BRIGHT}ITEM{Style.RESET_ALL}! For the purpose of this tutorial, I will \n"
           f"be providing you a Healing Potion (S) to try out.\n")
     character["inventory"]["healing potion (s)"] = 1
     while True:
@@ -280,32 +276,34 @@ def tutorial(character, bbeg):
 
     print(f"\n\n\n")
     display.battle_status(character, tutorial_enemy, "5")
-    print("1. ATTACK\n"
-          "2. DEFEND\n"
-          "3. SKILL\n"
-          "4. ITEM\n"
+    print(f"{Style.BRIGHT}1. ATTACK{Style.RESET_ALL}\n"
+          f"{Style.BRIGHT}2. DEFEND{Style.RESET_ALL}\n"
+          f"{Style.BRIGHT}3. SKILL{Style.RESET_ALL}\n"
+          f"{Style.BRIGHT}4. ITEM{Style.RESET_ALL}\n"
           "\n\n"
-          f"You just used a healing potion.\n"
+          f"You just used a {Fore.RED}Healing Potion{Fore.RESET}.\n"
           f"\n"
-          f"Healing Potions, like the name suggests, heals you, increasing your HP.\n"
-          f"Other then healing potions, you can also use Energy Potions, which when \n"
-          f"used recover your SP.\n"
+          f"{Fore.RED}Healing Potions{Fore.RESET}, like the name suggests, heals you, increasing your "
+          f"{Fore.RED}HP{Fore.RESET}.\n"
+          f"Other then healing potions, you can also use {Fore.RED}Energy Potions{Fore.RESET}, which when \n"
+          f"used recover your {Fore.RED}SP{Fore.RESET}.\n"
           f"\n"
           f"Potions increase their potency by size, going from S, M, to L.\n"
           f"\n"
-          f"You can buy potions at Item Shops.\n")
+          f"You can buy potions at {Fore.LIGHTYELLOW_EX}Item Shops{Fore.RESET}.\n")
     input(f"{Fore.WHITE}{Style.BRIGHT}Press Enter to continue: {Style.RESET_ALL}")
 
     print(f"\n\n\n"
           f"Now that you know the basics, try and defeat the guard on your own!\n")
+    input(f"{Fore.WHITE}{Style.BRIGHT}Press Enter to continue: {Style.RESET_ALL}")
 
     run_battle(character, tutorial_enemy, 5)
 
     if check.if_alive(character):
         print(f"\n\n\n"
-              f"Congratulations! You successfully defeated the guard!\n"
+              f"{Style.BRIGHT}Congratulations! You successfully defeated the guard!{Style.RESET_ALL}\n"
               f"\n"
-              f"You are able to obtain the key to the dungeon exit!\n"
+              f"You are able to obtain the key to the {Fore.GREEN}Dungeon Exit!{Fore.RESET}\n"
               f"\n"
               f"Along with some coins and the key, you are able to loot a crude looking \n"
               f"dagger from the corpse.\n"
@@ -329,10 +327,11 @@ def tutorial(character, bbeg):
         print(f"\n\n\n"
               f"Oh. Well. That was unexpected.\n"
               f"\n"
-              f"Since this is a tutorial, you aren't dead! I'll make sure to heal you up to 15 HP.\n"
+              f"Since this is a tutorial, you aren't dead! I'll make sure to heal you up to "
+              f"{Fore.RED}15 HP{Fore.RESET}.\n"
               f"\n"
               f"The guard you were fighting flees from combat!\n"
-              f"In his fear, he seems to have dropped the key to the dungeons. Hurray?\n")
+              f"In his fear, he seems to have dropped the key for the {Fore.GREEN}Dungeon Exit{Fore.RESET}. Hurray?\n")
         input(f"{Fore.WHITE}{Style.BRIGHT}Press Enter to continue: {Style.RESET_ALL}")
 
         print(f"\n\n\n"
@@ -349,16 +348,16 @@ def tutorial(character, bbeg):
 
     print(f"\n"
           f"Now that you have the key to the exit, you are now able to embark on \n"
-          f"your quest to take back the throne.\n"
+          f"your quest to {Fore.LIGHTYELLOW_EX}take back the throne{Fore.RESET}.\n"
           f"\n"
           f"You're journey is now yours and yours alone.\n"
           f"\n"
           f"Venture, hunt, loot, and spend. Do anything and everything you can to \n"
-          f"strengthen yourself enough to one day kill {bbeg["name"].upper()}.\n")
+          f"strengthen yourself enough to one day kill {Fore.RED}{bbeg["name"].upper()}{Fore.RESET}.\n")
     input(f"{Fore.WHITE}{Style.BRIGHT}Press Enter to {Fore.RESET}EXIT THE DUNGEONS: {Style.RESET_ALL}")
 
     print(f"\n\n\n"
-          f"Good luck."
+          f"{Style.BRIGHT}Good luck.{Style.RESET_ALL}"
           f"\n\n\n")
     input(f"{Fore.WHITE}{Style.BRIGHT}Press Enter to continue: {Style.RESET_ALL}")
 
@@ -417,8 +416,10 @@ def run_battle(character, enemy, round_count=1):
     if not enemy_alive:
         character["EXP"] -= enemy["EXP"]
         character["gold"] += enemy["gold"]
-        print(f"You won!\n"
-              f"Gained {enemy["EXP"]} EXP and {enemy["gold"]} gold.")
+        print(f"\n\n\n"
+              f"{Style.BRIGHT}You won!{Style.RESET_ALL}\n"
+              f"\n"
+              f"Gained {enemy["EXP"]} EXP and {enemy["gold"]} gold!\n")
         check.level_up(character)
 
     character["buff"] = {"ATK": {"effect": 0, "time": 0},
@@ -446,15 +447,12 @@ def player_battle_flow(character, enemy, round_count):
     while True:
         player_action = battle.ask_player_input(player_action_list)
         if player_action == "attack":
-            print("\n\n\n")
             battle.attack(character, enemy)
             break
         elif player_action == "defend":
-            print("\n\n\n")
             battle.defend(character)
             break
         elif player_action == "skill":
-            print("\n\n\n")
             sp_discount = 0
             if character["species"] == "elf":
                 sp_discount = 1
@@ -465,14 +463,11 @@ def player_battle_flow(character, enemy, round_count):
                     battle.use_skill(chosen_skill, round_count, character, enemy, sp_discount)
                     break
                 else:
-                    print("Not enough SP!")
+                    print(f"\n\n\n{Style.BRIGHT}Not enough SP!{Style.RESET_ALL}\n\n\n")
         elif player_action == "item":
-            print("\n\n\n")
             display.inventory(character)
             if not player_item_list:
-                print("\n\n\n"
-                      f"{Style.BRIGHT}No items to chose from.{Style.RESET_ALL}"
-                      "\n\n\n")
+                print(f"\n\n\n{Style.BRIGHT}No items to chose from.{Style.RESET_ALL}\n\n\n")
             else:
                 effect_bonus = 0
                 if character["species"] == "human":
@@ -488,13 +483,10 @@ def enemy_battle_flow(character, enemy, enemy_action, round_count):
     Drive enemy battle flow.
     """
     if enemy_action == "attack":
-        print("\n\n\n")
         battle.attack(enemy, character)
     elif enemy_action == "defend":
-        print("\n\n\n")
         battle.defend(enemy)
     elif enemy_action == "skill":
-        print("\n\n\n")
         chosen_skill = enemy["skill"]
         battle.use_skill(chosen_skill, round_count, enemy, character)
     enemy["current_HP"] -= enemy["continuous_damage"]["effect"]
@@ -561,7 +553,8 @@ def game():
 
         try:
             if current_board[current_coordinate]["symbol"] == "exit" and player_character["LVL"] == 3:
-                print(f"You are now strong enough to challenge {bbeg["name"].upper()} for the throne.\n"
+                print(f"\n\n\n"
+                      f"You are now strong enough to challenge {bbeg["name"].upper()} for the throne.\n"
                       f"\n"
                       f"If you enter the castle, there is no going back.\n"
                       f"This will be the end.\n")
@@ -580,12 +573,46 @@ def game():
         bbeg_alive = check.if_alive(bbeg)
 
     if not bbeg_alive and player_alive:
-        print("\n\n\n"
-              "YAYYY!!!!")
+        print(f"\n\n\n"
+              f"{Style.BRIGHT}CONGRATULATIONS!!!{Style.RESET_ALL}\n"
+              f"\n"
+              f"You have done it. You have killed {Fore.RED}{bbeg["name"].upper()}{Fore.RESET} "
+              f"and taken back what \n"
+              f"was rightfully yours.\n"
+              f"\n"
+              f"With you back on the throne of {player_character["kingdom"].upper()}, the kingdom "
+              f"will once again \n"
+              f"flourish and thrive under your rule...\n"
+              f"\n"
+              f"But that is a story for another time.\n"
+              f"For now, let us celebrate for your victory as you rightfully claim your...\n")
+        input(f"{Fore.WHITE}{Style.BRIGHT}Press Enter to {Fore.RESET}END GAME{Style.RESET_ALL}: ")
+
+        print(f"\n\n\n"
+              f"==============================\n"
+              f"\n\n"
+              f"\t {Style.BRIGHT}+++ BIRTH RIGHT +++{Style.RESET_ALL}\n"
+              f"   {Style.BRIGHT}THANK YOU FOR PLAYING!!!{Style.RESET_ALL}\n"
+              f"\n"
+              f"   {Fore.GREEN}Game By: Kanon Nishiyama{Fore.RESET}\n"
+              f"\n\n"
+              f"==============================\n")
 
     if not player_alive:
-        print("\n\n\n"
-              "You died.")
+        print(f"\n\n\n"
+              f"Y{Style.BRIGHT}You Died.{Style.RESET_ALL}\n"
+              f"\n"
+              f"As the light begins to fade, you lament the future for your kingdom as it's \n"
+              f"one and only heir takes their last breath.\n"
+              f"\n"
+              f"If only you could have done something...\n")
+        confirm = input("Do you want to try again? (y/n): ").strip().lower()
+        if confirm == "y":
+            game()
+        elif confirm == "n":
+            pass
+        else:
+            print(f"\n\n\n{Style.BRIGHT}Please confirm your choice.{Style.RESET_ALL}\n\n\n")
 
 
 def main():
