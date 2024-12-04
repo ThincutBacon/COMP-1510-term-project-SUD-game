@@ -196,10 +196,16 @@ def inventory(character):
                          f"| {Style.BRIGHT}{format("INVENTORY", '26')}{Style.RESET_ALL} |\n"
                          f"| {format("--------------------------", '26')} |\n")
 
-
-    for item in character_inventory.keys():
-        single_item = f"{format(item.title(), '20')}:  {format(character_inventory[item], '3')}"
-        inventory_display += f"| {format(single_item, '26')} |\n"
+    if character_inventory != {}:
+        for item in character_inventory.keys():
+            single_item = f"{format(item.title(), '20')}:  {format(character_inventory[item], '3')}"
+            inventory_display += f"| {format(single_item, '26')} |\n"
+    elif character_inventory == {}:
+        inventory_display += (f"| {format("", '26')} |\n"
+                              f"| {format("  No items in inventory.", '26')} |\n"
+                              f"| {format("", '26')} |\n")
+    else:
+        print("ERROR")
 
     inventory_display += "==============================\n"
 
@@ -211,7 +217,6 @@ def main():
     Drive the program.
     """
     character = get.blank_character()
-    character["inventory"] = {"Rabbit Horn": 999, "asd": 2, "DWE": 5, "sda": 1, "hfd": 7, "sdfsdfsfsfs": 2, "df": 1, }
 
     inventory(character)
 
