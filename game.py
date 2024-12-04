@@ -248,11 +248,14 @@ def tutorial(character, bbeg):
             print(f"\n\n\n"
                   f"\n\n")
             while True:
+                sp_discount = 0
+                if character["skill_class"] == "mage":
+                    sp_discount = 1
                 player_skill_list = get.class_list(character["skill_class"])["skill_list"]
                 chosen_skill = battle.ask_player_input(player_skill_list)
-                usable_skill = battle.skill_usable(chosen_skill, character)
+                usable_skill = battle.skill_usable(chosen_skill, character, sp_discount)
                 if usable_skill:
-                    battle.use_skill(chosen_skill, "3", character, tutorial_enemy)
+                    battle.use_skill(chosen_skill, "3", character, tutorial_enemy, sp_discount)
                     break
                 else:
                     print("Not enough SP!")
@@ -466,11 +469,14 @@ def player_battle_flow(character, enemy, round_count):
             break
         elif player_action == "skill":
             print("\n\n\n")
+            sp_discount = 0
+            if character["skill_class"] == "mage":
+                sp_discount = 1
             while True:
                 chosen_skill = battle.ask_player_input(player_skill_list)
-                usable_skill = battle.skill_usable(chosen_skill, character)
+                usable_skill = battle.skill_usable(chosen_skill, character, sp_discount)
                 if usable_skill:
-                    battle.use_skill(chosen_skill, round_count, character, enemy)
+                    battle.use_skill(chosen_skill, round_count, character, enemy, sp_discount)
                     break
                 else:
                     print("Not enough SP!")
