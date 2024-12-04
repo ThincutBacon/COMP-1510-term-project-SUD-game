@@ -27,7 +27,7 @@ def blank_character():
             "species_adjective": "",
             "skill_class": "",
             "LVL": 1,
-            "EXP": 0,
+            "EXP": 20,
             "max_HP": 0,
             "current_HP": 0,
             "max_SP": 0,
@@ -63,21 +63,36 @@ def unnamed_bbeg():
     >>> unnamed_bbeg() #doctest: +ELLIPSIS
     {'name': '', 'max_HP': 0, 'current_HP': 0, 'max_SP': 0,...
     """
-    return {"name": "",
-            "max_HP": 0,
-            "current_HP": 0,
-            "ATK": 0,
-            "DEF": 0,
-            "AGI": 0,
-            "LUK": 0}
+    return {"name": "King's Advisor",
+            "max_HP": 100,
+            "current_HP": 100,
+            "current_SP": 300,
+            "reduce_damage": 0,
+            "ATK": 40,
+            "DEF": 40,
+            "AGI": 40,
+            "LUK": 40,
+            "actions": ["defend", "skill", "defend", "attack", "skill", "attack"],
+            "skill": "focus attack",
+            "EXP": 100,
+            "gold": 100,
+            "buff": {"ATK": {"effect": 0, "time": 0},
+                     "DEF": {"effect": 0, "time": 0},
+                     "AGI": {"effect": 0, "time": 0},
+                     "LUK": {"effect": 0, "time": 0}},
+            "debuff": {"ATK": {"effect": 0, "time": 0},
+                       "DEF": {"effect": 0, "time": 0},
+                       "AGI": {"effect": 0, "time": 0},
+                       "LUK": {"effect": 0, "time": 0}},
+            "modifiers": {"HP": 0, "SP": 0, "ATK": 0, "DEF": 0, "AGI": 0, "LUK": 0}}
 
 
-def species_list(select=None):
+def species_list(species_select=None):
     """
     Return species information.
 
-    :param select: a string
-    :precondition: select must equal None or one of the keys within entire_species_list
+    :param species_select: a string
+    :precondition: species_select must equal None or one of the keys within entire_species_list
     :return: if select equals None, returns the entire dictionary
     :return: if select equals a key, returns a single species dictionary
 
@@ -104,12 +119,12 @@ def species_list(select=None):
                                              f"{Style.BRIGHT}Highest Attributes:{Style.RESET_ALL} ATK and LUK\n"
                                              f"{Style.BRIGHT}Species Bonus:{Style.RESET_ALL} All items gain an "
                                              f"additional +2 to their effects\n",
-                                     "HP": 25,
-                                     "SP": 15,
+                                     "HP": 15,
+                                     "SP": 10,
                                      "ATK": 15,
                                      "DEF": 5,
                                      "AGI": 5,
-                                     "LUK": 15},
+                                     "LUK": 10},
                            "elf": {"name": "elf",
                                    "adjective": "elven",
                                    "desc": "With their long life spans and equally cumulative knowledge, they are \n"
@@ -118,12 +133,12 @@ def species_list(select=None):
                                            "\n"
                                            f"{Style.BRIGHT}Highest Attributes:{Style.RESET_ALL} SP and AGI\n"
                                            f"{Style.BRIGHT}Species Bonus:{Style.RESET_ALL} All skills cost -1 SP\n",
-                                   "HP": 25,
-                                   "SP": 25,
-                                   "ATK": 5,
+                                   "HP": 15,
+                                   "SP": 15,
+                                   "ATK": 10,
                                    "DEF": 5,
                                    "AGI": 15,
-                                   "LUK": 10},
+                                   "LUK": 5},
                            "dwarf": {"name": "dwarf",
                                      "adjective": "dwarven",
                                      "desc": "To withstand the frigid cold of the mountain tops and the sweltering \n"
@@ -132,25 +147,25 @@ def species_list(select=None):
                                              f"{Style.BRIGHT}Highest Attributes:{Style.RESET_ALL} HP and DEF\n"
                                              f"{Style.BRIGHT}Species Bonus:{Style.RESET_ALL} All equipment gain "
                                              f"an additional +1 to their effects\n",
-                                     "HP": 50,
-                                     "SP": 10,
+                                     "HP": 25,
+                                     "SP": 5,
                                      "ATK": 10,
                                      "DEF": 15,
                                      "AGI": 5,
-                                     "LUK": 5}}
+                                     "LUK": 10}}
 
-    if select:
-        return entire_species_list[select]
+    if species_select:
+        return entire_species_list[species_select]
     else:
         return entire_species_list
 
 
-def class_list(select=None):
+def class_list(class_select=None):
     """
     Return class information.
 
-    :param select: a string
-    :precondition: select must equal None or one of the keys within entire_class_list
+    :param class_select: a string
+    :precondition: class_select must equal None or one of the keys within entire_class_list
     :return: if select equals None, returns the entire dictionary
     :return: if select equals a key, returns a single class dictionary
 
@@ -199,10 +214,34 @@ def class_list(select=None):
                                           f"{Style.BRIGHT}Healing Light{Style.RESET_ALL} - Heals your HP\n",
                                   "skill_list": ["fireball", "freezing touch", "healing light"]}}
 
-    if select:
-        return entire_class_list[select]
+    if class_select:
+        return entire_class_list[class_select]
     else:
         return entire_class_list
+
+
+def skill_list(skill_select=None):
+    """
+    Return skill information.
+
+    :param skill_select: a string
+    :precondition: skill_select must equal None or one of the keys within entire_skill_list
+    :return: if skill_select equals None, returns the entire dictionary
+    :return: if skill_select equals a key, returns a single skill dictionary
+
+    >>> class_list() #doctest: +ELLIPSIS
+    {'list_all': '==========...
+    >>> class_list("mage") #doctest: +ELLIPSIS
+    {'class': 'mage', 'desc': "Mage's fight a careful battle, slowly chipping away at their ...
+    """
+    entire_skill_list = {"shield": {"name": "shield",
+                                    "desc": "Uses the characters full DEF to negate oncoming damage.",
+                                    "cost": 1}}
+
+    if skill_select:
+        return entire_skill_list[skill_select]
+    else:
+        return entire_skill_list
 
 
 def tutorial_board():
@@ -445,20 +484,37 @@ def random_enemy(character, board):
     current_coordinate = (character["x-coordinate"], character["y-coordinate"])
     area_type = board[current_coordinate]["area"]
 
-    all_enemies_list = {"dungeon": [{"name": "Rat",
-                                     "max_HP": 10,
-                                     "current_HP": 10,
-                                     "max_SP": 100,
-                                     "current_SP": 100,
+    all_enemies_list = {"tutorial": [{"name": "Lone Guard",
+                                      "max_HP": 10,
+                                      "current_HP": 10,
+                                      "reduce_damage": 0,
+                                      "ATK": 5,
+                                      "DEF": 5,
+                                      "AGI": 5,
+                                      "LUK": 5,
+                                      "actions": ["attack", "attack", "defend"],
+                                      "EXP": 5,
+                                      "gold": 5,
+                                      "buff": {"ATK": {"effect": 0, "time": 0},
+                                               "DEF": {"effect": 0, "time": 0},
+                                               "AGI": {"effect": 0, "time": 0},
+                                               "LUK": {"effect": 0, "time": 0}},
+                                      "debuff": {"ATK": {"effect": 0, "time": 0},
+                                                 "DEF": {"effect": 0, "time": 0},
+                                                 "AGI": {"effect": 0, "time": 0},
+                                                 "LUK": {"effect": 0, "time": 0}},
+                                      "modifiers": {"HP": 0, "SP": 0, "ATK": 0, "DEF": 0, "AGI": 0, "LUK": 0}}],
+                        "dungeon": [{"name": "Rat",
+                                     "max_HP": 5,
+                                     "current_HP": 5,
                                      "reduce_damage": 0,
-                                     "ATK": 5,
-                                     "DEF": 5,
+                                     "ATK": 3,
+                                     "DEF": 2,
                                      "AGI": 5,
-                                     "LUK": 5,
-                                     "actions": ["attack", "attack", "defend"],
-                                     "skill": "",
-                                     "EXP": 10,
-                                     "gold": 5,
+                                     "LUK": 1,
+                                     "actions": ["attack", "defend"],
+                                     "EXP": 2,
+                                     "gold": 0,
                                      "buff": {"ATK": {"effect": 0, "time": 0},
                                               "DEF": {"effect": 0, "time": 0},
                                               "AGI": {"effect": 0, "time": 0},
@@ -468,8 +524,134 @@ def random_enemy(character, board):
                                                 "AGI": {"effect": 0, "time": 0},
                                                 "LUK": {"effect": 0, "time": 0}},
                                      "modifiers": {"HP": 0, "SP": 0, "ATK": 0, "DEF": 0, "AGI": 0, "LUK": 0}}],
-                        "field": [{}],
-                        "forest": [{}]}
+                        "field": [{"name": "Horned Rabbit",
+                                   "max_HP": 10,
+                                   "current_HP": 10,
+                                   "reduce_damage": 0,
+                                   "ATK": 8,
+                                   "DEF": 3,
+                                   "AGI": 5,
+                                   "LUK": 5,
+                                   "actions": ["attack", "defend"],
+                                   "EXP": 5,
+                                   "gold": 5,
+                                   "buff": {"ATK": {"effect": 0, "time": 0},
+                                            "DEF": {"effect": 0, "time": 0},
+                                            "AGI": {"effect": 0, "time": 0},
+                                            "LUK": {"effect": 0, "time": 0}},
+                                   "debuff": {"ATK": {"effect": 0, "time": 0},
+                                              "DEF": {"effect": 0, "time": 0},
+                                              "AGI": {"effect": 0, "time": 0},
+                                              "LUK": {"effect": 0, "time": 0}},
+                                   "modifiers": {"HP": 0, "SP": 0, "ATK": 0, "DEF": 0, "AGI": 0, "LUK": 0}},
+                                  {"name": "Slime",
+                                   "max_HP": 10,
+                                   "current_HP": 10,
+                                   "reduce_damage": 0,
+                                   "ATK": 3,
+                                   "DEF": 10,
+                                   "AGI": 3,
+                                   "LUK": 5,
+                                   "actions": ["defend", "defend", "attack"],
+                                   "EXP": 5,
+                                   "gold": 3,
+                                   "buff": {"ATK": {"effect": 0, "time": 0},
+                                            "DEF": {"effect": 0, "time": 0},
+                                            "AGI": {"effect": 0, "time": 0},
+                                            "LUK": {"effect": 0, "time": 0}},
+                                   "debuff": {"ATK": {"effect": 0, "time": 0},
+                                              "DEF": {"effect": 0, "time": 0},
+                                              "AGI": {"effect": 0, "time": 0},
+                                              "LUK": {"effect": 0, "time": 0}},
+                                   "modifiers": {"HP": 0, "SP": 0, "ATK": 0, "DEF": 0, "AGI": 0, "LUK": 0}},
+                                  {"name": "Mossy Stag",
+                                   "max_HP": 20,
+                                   "current_HP": 20,
+                                   "current_SP": 100,
+                                   "reduce_damage": 0,
+                                   "ATK": 15,
+                                   "DEF": 10,
+                                   "AGI": 10,
+                                   "LUK": 10,
+                                   "actions": ["attack", "attack", "defend", "attack", "skill"],
+                                   "skill": "healing light",
+                                   "EXP": 15,
+                                   "gold": 10,
+                                   "buff": {"ATK": {"effect": 0, "time": 0},
+                                            "DEF": {"effect": 0, "time": 0},
+                                            "AGI": {"effect": 0, "time": 0},
+                                            "LUK": {"effect": 0, "time": 0}},
+                                   "debuff": {"ATK": {"effect": 0, "time": 0},
+                                              "DEF": {"effect": 0, "time": 0},
+                                              "AGI": {"effect": 0, "time": 0},
+                                              "LUK": {"effect": 0, "time": 0}},
+                                   "modifiers": {"HP": 0, "SP": 0, "ATK": 0, "DEF": 0, "AGI": 0, "LUK": 0}}],
+                        "forest": [{"name": "Bramble Wolf",
+                                    "max_HP": 25,
+                                    "current_HP": 25,
+                                    "current_SP": 100,
+                                    "reduce_damage": 0,
+                                    "ATK": 15,
+                                    "DEF": 10,
+                                    "AGI": 15,
+                                    "LUK": 10,
+                                    "actions": ["attack", "defend", "defend", "attack", "skill"],
+                                    "skill": "sharper edge",
+                                    "EXP": 20,
+                                    "gold": 15,
+                                    "buff": {"ATK": {"effect": 0, "time": 0},
+                                             "DEF": {"effect": 0, "time": 0},
+                                             "AGI": {"effect": 0, "time": 0},
+                                             "LUK": {"effect": 0, "time": 0}},
+                                    "debuff": {"ATK": {"effect": 0, "time": 0},
+                                               "DEF": {"effect": 0, "time": 0},
+                                               "AGI": {"effect": 0, "time": 0},
+                                               "LUK": {"effect": 0, "time": 0}},
+                                    "modifiers": {"HP": 0, "SP": 0, "ATK": 0, "DEF": 0, "AGI": 0, "LUK": 0}},
+                                   {"name": "Goblin",
+                                    "max_HP": 40,
+                                    "current_HP": 40,
+                                    "current_SP": 100,
+                                    "reduce_damage": 0,
+                                    "ATK": 25,
+                                    "DEF": 20,
+                                    "AGI": 10,
+                                    "LUK": 20,
+                                    "actions": ["attack", "skill", "defend", "attack"],
+                                    "skill": "shield bash",
+                                    "EXP": 30,
+                                    "gold": 20,
+                                    "buff": {"ATK": {"effect": 0, "time": 0},
+                                             "DEF": {"effect": 0, "time": 0},
+                                             "AGI": {"effect": 0, "time": 0},
+                                             "LUK": {"effect": 0, "time": 0}},
+                                    "debuff": {"ATK": {"effect": 0, "time": 0},
+                                               "DEF": {"effect": 0, "time": 0},
+                                               "AGI": {"effect": 0, "time": 0},
+                                               "LUK": {"effect": 0, "time": 0}},
+                                    "modifiers": {"HP": 0, "SP": 0, "ATK": 0, "DEF": 0, "AGI": 0, "LUK": 0}},
+                                   {"name": "Mage Wraith",
+                                    "max_HP": 60,
+                                    "current_HP": 60,
+                                    "current_SP": 100,
+                                    "reduce_damage": 0,
+                                    "ATK": 25,
+                                    "DEF": 20,
+                                    "AGI": 20,
+                                    "LUK": 15,
+                                    "actions": ["attack", "skill", "defend", "defend", "skill"],
+                                    "skill": "fireball",
+                                    "EXP": 40,
+                                    "gold": 30,
+                                    "buff": {"ATK": {"effect": 0, "time": 0},
+                                             "DEF": {"effect": 0, "time": 0},
+                                             "AGI": {"effect": 0, "time": 0},
+                                             "LUK": {"effect": 0, "time": 0}},
+                                    "debuff": {"ATK": {"effect": 0, "time": 0},
+                                               "DEF": {"effect": 0, "time": 0},
+                                               "AGI": {"effect": 0, "time": 0},
+                                               "LUK": {"effect": 0, "time": 0}},
+                                    "modifiers": {"HP": 0, "SP": 0, "ATK": 0, "DEF": 0, "AGI": 0, "LUK": 0}}]}
 
     enemy_info = random.choice(all_enemies_list[area_type])
     return enemy_info
