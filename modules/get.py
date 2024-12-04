@@ -32,16 +32,26 @@ def blank_character():
             "current_HP": 0,
             "max_SP": 0,
             "current_SP": 0,
+            "reduce_damage": 0,
+            "continues_damage": {"effect": 0, "time": 0},
             "ATK": 0,
             "DEF": 0,
             "AGI": 0,
             "LUK": 0,
+            "buff": {"ATK": {"effect": 0, "time": 0},
+                     "DEF": {"effect": 0, "time": 0},
+                     "AGI": {"effect": 0, "time": 0},
+                     "LUK": {"effect": 0, "time": 0}},
+            "debuff": {"ATK": {"effect": 0, "time": 0},
+                       "DEF": {"effect": 0, "time": 0},
+                       "AGI": {"effect": 0, "time": 0},
+                       "LUK": {"effect": 0, "time": 0}},
             "modifiers": {"HP": 0, "SP": 0, "ATK": 0, "DEF": 0, "AGI": 0, "LUK": 0},
             "equipment": {"head": "", "chest": "", "legs": "", "feet": "", "weapon": ""},
             "inventory": {},
             "x-coordinate": 0,
             "y-coordinate": 0,
-            "coins": 0}
+            "gold": 0}
 
 
 def unnamed_bbeg():
@@ -94,12 +104,12 @@ def species_list(select=None):
                                              f"{Style.BRIGHT}Highest Attributes:{Style.RESET_ALL} ATK and LUK\n"
                                              f"{Style.BRIGHT}Species Bonus:{Style.RESET_ALL} All items gain an "
                                              f"additional +2 to their effects\n",
-                                     "HP": 0,
-                                     "SP": 0,
-                                     "ATK": 0,
-                                     "DEF": 0,
-                                     "AGI": 0,
-                                     "LUK": 0},
+                                     "HP": 25,
+                                     "SP": 15,
+                                     "ATK": 15,
+                                     "DEF": 5,
+                                     "AGI": 5,
+                                     "LUK": 15},
                            "elf": {"name": "elf",
                                    "adjective": "elven",
                                    "desc": "With their long life spans and equally cumulative knowledge, they are \n"
@@ -108,12 +118,12 @@ def species_list(select=None):
                                            "\n"
                                            f"{Style.BRIGHT}Highest Attributes:{Style.RESET_ALL} SP and AGI\n"
                                            f"{Style.BRIGHT}Species Bonus:{Style.RESET_ALL} All skills cost -1 SP\n",
-                                   "HP": 0,
-                                   "SP": 0,
-                                   "ATK": 0,
-                                   "DEF": 0,
-                                   "AGI": 0,
-                                   "LUK": 0},
+                                   "HP": 25,
+                                   "SP": 25,
+                                   "ATK": 5,
+                                   "DEF": 5,
+                                   "AGI": 15,
+                                   "LUK": 10},
                            "dwarf": {"name": "dwarf",
                                      "adjective": "dwarven",
                                      "desc": "To withstand the frigid cold of the mountain tops and the sweltering \n"
@@ -122,12 +132,12 @@ def species_list(select=None):
                                              f"{Style.BRIGHT}Highest Attributes:{Style.RESET_ALL} HP and DEF\n"
                                              f"{Style.BRIGHT}Species Bonus:{Style.RESET_ALL} All equipment gain "
                                              f"an additional +1 to their effects\n",
-                                     "HP": 0,
-                                     "SP": 0,
-                                     "ATK": 0,
-                                     "DEF": 0,
-                                     "AGI": 0,
-                                     "LUK": 0}}
+                                     "HP": 50,
+                                     "SP": 10,
+                                     "ATK": 10,
+                                     "DEF": 15,
+                                     "AGI": 5,
+                                     "LUK": 5}}
 
     if select:
         return entire_species_list[select]
