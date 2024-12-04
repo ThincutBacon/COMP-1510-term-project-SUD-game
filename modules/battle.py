@@ -33,8 +33,13 @@ def ask_player_input(option_list):
         player_input = input(f"{Fore.WHITE}{Style.BRIGHT}Player command: {Style.RESET_ALL}")
         try:
             return option_list[int(player_input) - 1]
-        except ValueError or IndexError or TypeError:
-            print(f"\n\n\n{Style.BRIGHT}Invalid input{Style.RESET_ALL}\n\n\n")
+        except ValueError:
+            pass
+        except IndexError:
+            pass
+        except TypeError:
+            pass
+        print(f"\n\n\n{Style.BRIGHT}Invalid input{Style.RESET_ALL}\n\n\n")
 
 
 def attack(attacker, receiver):
@@ -153,6 +158,7 @@ def use_skill(skill, round_count, user, receiver):
     >>> function()
     ''
     """
+    round_count = int(round_count)
     user_def = (user["DEF"] +
                 user["buff"]["DEF"]["effect"] +
                 user["debuff"]["DEF"]["effect"] +
@@ -246,10 +252,13 @@ def use_item(item, user):
         if user["current_SP"] > user["max_SP"]:
             user["current_SP"] = user["max_SP"]
 
+    removable_items = []
     for item in user["inventory"].keys():
         if user["inventory"][item] <= 0:
-            user["inventory"].pop(item)
+            removable_items += [item]
 
+    for item in removable_items:
+        user["inventory"].pop(item)
 
 
 def main():
