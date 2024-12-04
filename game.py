@@ -7,7 +7,6 @@ A1415217
 
 
 import math
-from unittest import expectedFailure
 
 from colorama import Style, Fore
 
@@ -39,7 +38,7 @@ def create_new_character(character, bbeg):
         confirm_create = create_character.confirm_bbeg_name(bbeg)
 
 
-def tutorial(character):
+def tutorial(character, bbeg):
     """
     Drive the tutorial.
     """
@@ -273,7 +272,7 @@ def tutorial(character):
           f"You just used a skill!\n"
           f"\n"
           f"Skills are unique to you're characters class.\n"
-          f"Enter the \"skill\" command to learn more about you're skills.\n"
+          f"Enter the \"skill\" command to learn more about your skills.\n"
           f"\n"
           f"Next, let's try using an ITEM! For the purpose of this tutorial, I will \n"
           f"be providing you a Healing Potion (S) to try out.\n")
@@ -281,7 +280,7 @@ def tutorial(character):
     while True:
         player_input = input(f"{Fore.WHITE}{Style.BRIGHT}Player command: {Style.RESET_ALL}")
         if player_input == "4":
-            player_item_list = character["inventory"].keys()
+            player_item_list = list(character["inventory"].keys())
             print("\n\n\n")
             display.inventory(character)
             if not player_item_list:
@@ -295,16 +294,99 @@ def tutorial(character):
         else:
             print("\n\n\nPlease input \"4\" for the tutorial.\n\n\n")
 
+    print(f"\n\n\n")
+    display.battle_status(character, tutorial_enemy, "5")
+    print("1. ATTACK\n"
+          "2. DEFEND\n"
+          "3. SKILL\n"
+          "4. ITEM\n"
+          "\n\n"
+          f"You just used a healing potion.\n"
+          f"\n"
+          f"Healing Potions, like the name suggests, heals you, increasing your HP.\n"
+          f"Other then healing potions, you can also use Energy Potions, which when \n"
+          f"used recover your SP.\n"
+          f"\n"
+          f"Potions increase their potency by size, going from S, M, to L.\n"
+          f"\n"
+          f"You can buy potions at Item Shops.\n")
+    input(f"{Fore.WHITE}{Style.BRIGHT}Press Enter to continue: {Style.RESET_ALL}")
 
-def run_battle(character, enemy):
+    print(f"\n\n\n"
+          f"Now that you know the basics, try and defeat the guard on your own!\n")
+
+    run_battle(character, tutorial_enemy, 5)
+
+    if check.if_alive(character):
+        print(f"\n\n\n"
+              f"Congratulations! You successfully defeated the guard!\n"
+              f"\n"
+              f"You are able to obtain the key to the dungeon exit!\n"
+              f"\n"
+              f"Along with some coins and the key, you are able to loot a crude looking \n"
+              f"dagger from the corpse.\n"
+              f"You gain a Worn Dagger (ATK +2)!\n")
+        character["equipment"]["weapon"] = "worn dagger"
+        character["modifiers"]["ATK"] = 2
+        input(f"{Fore.WHITE}{Style.BRIGHT}Press Enter to continue: {Style.RESET_ALL}")
+
+        print(f"\n\n\n"
+              f"As you saw, when defeating enemies, they tend to drop a bit of gold, as well as \n"
+              f"giving you some EXP.\n"
+              f"\n"
+              f"Gold can be used at shops, either to buy items or upgrade.\n"
+              f"\n"
+              f"EXP, when accumulated enough, allows you to LEVEL UP, boosting your base attributes.\n")
+
+    elif not check.if_alive(character):
+        print(f"\n\n\n"
+              f"Oh. Well. That was unexpected.\n"
+              f"\n"
+              f"Since this is a tutorial, you aren't dead! I'll make sure to heal you up to 15 HP.\n"
+              f"\n"
+              f"The guard you were fighting flees from combat!\n"
+              f"In his fear, he seems to have dropped the key to the dungeons. Hurray?\n")
+        input(f"{Fore.WHITE}{Style.BRIGHT}Press Enter to continue: {Style.RESET_ALL}")
+
+        print(f"\n\n\n"
+              f"Normally, if you are able to defeat an enemy, they tend to drop a bit of gold, as well as \n"
+              f"giving you some EXP.\n"
+              f"\n"
+              f"Gold can be used at shops, either to buy items or upgrade.\n"
+              f"\n"
+              f"EXP, when accumulated enough, allows you to LEVEL UP, boosting your base attributes.\n")
+
+    print(f"\n\n")
+
+    display.current_map(character, current_board)
+
+    print(f"\n"
+          f"Now that you have the key to the exit, you are now able to embark on \n"
+          f"your quest to take back the throne.\n"
+          f"\n"
+          f"You're journey is now yours and yours alone.\n"
+          f"\n"
+          f"Venture, hunt, loot, and spend. Do anything and everything you can to \n"
+          f"strengthen yourself enough to one day kill {bbeg["name"].upper()}.\n")
+    input(f"{Fore.WHITE}{Style.BRIGHT}Press Enter to {Fore.RESET}EXIT THE DUNGEONS: {Style.RESET_ALL}")
+
+    print(f"\n\n\n"
+          f"Good luck."
+          f"\n\n\n")
+    input(f"{Fore.WHITE}{Style.BRIGHT}Press Enter to continue: {Style.RESET_ALL}")
+
+    check.move_character("s", character)
+
+
+def run_battle(character, enemy, round_count=1):
     """
     Drive the battle.
     """
     player_alive = True
     enemy_alive = True
 
-    player_round_counter = 1
-    enemy_round_counter = 1
+    player_round_counter = round_count
+    enemy_round_counter = round_count
 
     enemy_action_list = enemy["actions"]
 
@@ -348,13 +430,6 @@ def run_battle(character, enemy):
     if not enemy_alive:
         character["EXP"] -= enemy["EXP"]
         character["gold"] += enemy["gold"]
-
-        for item in enemy["drop"].keys():
-            try:
-                character["inventory"][item] += enemy[item]
-            except KeyError:
-                character["inventory"][item] = enemy[item]
-
         print(f"You won!\n"
               f"Gained {enemy["EXP"]} EXP and {enemy["gold"]} gold.")
 
@@ -469,12 +544,13 @@ def game():
     create_new_character(player_character, bbeg)
 
     print("\n\n\n")
-    tutorial(player_character)
+    tutorial(player_character, bbeg)
 
     current_board = get.main_board()
     clear_main = False
     while not clear_main:
         display.current_map(player_character, current_board)
+
         break
 
 
