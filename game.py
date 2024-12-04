@@ -145,8 +145,6 @@ def tutorial(character, bbeg):
     tutorial_enemy = {"name": "Lone Guard",
                       "max_HP": 10,
                       "current_HP": 10,
-                      "max_SP": 5,
-                      "current_SP": 5,
                       "reduce_damage": 0,
                       "ATK": 5,
                       "DEF": 5,
@@ -154,7 +152,7 @@ def tutorial(character, bbeg):
                       "LUK": 5,
                       "actions": ["attack", "attack", "defend"],
                       "EXP": 10,
-                      "gold": 2,
+                      "gold": 5,
                       "buff": {"ATK": {"effect": 0, "time": 0},
                                "DEF": {"effect": 0, "time": 0},
                                "AGI": {"effect": 0, "time": 0},
@@ -493,8 +491,6 @@ def enemy_battle_flow(character, enemy, enemy_action, round_count):
     """
     Drive enemy battle flow.
     """
-    chosen_skill = ""
-
     if enemy_action == "attack":
         print("\n\n\n")
         battle.attack(enemy, character)
@@ -503,6 +499,7 @@ def enemy_battle_flow(character, enemy, enemy_action, round_count):
         battle.defend(enemy)
     elif enemy_action == "skill":
         print("\n\n\n")
+        chosen_skill = enemy["skill"]
         battle.use_skill(chosen_skill, round_count, enemy, character)
     enemy["current_HP"] -= enemy["continuous_damage"]["effect"]
 
@@ -547,11 +544,28 @@ def game():
     tutorial(player_character, bbeg)
 
     current_board = get.main_board()
+    player_alive = True
     clear_main = False
-    while not clear_main:
+
+    while not clear_main and player_alive:
         display.current_map(player_character, current_board)
 
-        break
+        player_input = input(f"{Fore.WHITE}{Style.BRIGHT}Player command: {Style.RESET_ALL}")
+        check.validate_exploration_command(player_input, player_character, current_board)
+
+        encounter = check.enemy_encounter(player_character, current_board)
+
+        if encounter:
+            enemy = get.random_enemy(player_character, current_board)
+            run_battle(player_character, enemy)
+            player_alive = check.if_alive(player_character)
+
+    if player_alive and clear_main:
+        pass
+
+    if not player_alive:
+        print("\n\n\n"
+              "You died.")
 
 
 def main():
