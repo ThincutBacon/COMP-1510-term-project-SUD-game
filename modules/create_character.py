@@ -306,7 +306,7 @@ def confirm_bbeg_name(bbeg):
             print("\n\n")
             return False
         else:
-            print(f"\n\n\n{Style.BRIGHT}Please confirm your character information.{Style.RESET_ALL}\n\n\n")
+            print(f"\n\n\n{Style.BRIGHT}Please confirm your character information.{Style.RESET_ALL}\n\n")
 
 
 def main():
