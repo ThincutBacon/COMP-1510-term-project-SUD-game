@@ -444,37 +444,48 @@ def player_battle_flow(character, enemy, round_count):
     player_skill_list = get.class_list(character["skill_class"])["skill_list"]
     player_item_list = character["inventory"].keys()
 
-    while True:
+    action_made = False
+    while not action_made:
         player_action = battle.ask_player_input(player_action_list)
         if player_action == "attack":
             battle.attack(character, enemy)
-            break
+            action_made = True
         elif player_action == "defend":
             battle.defend(character)
-            break
+            action_made = True
         elif player_action == "skill":
             sp_discount = 0
             if character["species"] == "elf":
                 sp_discount = 1
-            while True:
+
+            chosen_skill = ""
+            while chosen_skill != "back":
                 chosen_skill = battle.ask_player_input(player_skill_list)
-                usable_skill = battle.skill_usable(chosen_skill, character, sp_discount)
-                if usable_skill:
-                    battle.use_skill(chosen_skill, round_count, character, enemy, sp_discount)
-                    break
-                else:
-                    print(f"\n\n\n{Style.BRIGHT}Not enough SP!{Style.RESET_ALL}\n\n\n")
+                if chosen_skill != "back":
+                    usable_skill = battle.skill_usable(chosen_skill, character, sp_discount)
+                    if usable_skill:
+                        battle.use_skill(chosen_skill, round_count, character, enemy, sp_discount)
+                        action_made = True
+                        break
+                    else:
+                        print(f"\n\n\n{Style.BRIGHT}Not enough SP!{Style.RESET_ALL}\n\n\n")
+
         elif player_action == "item":
             display.inventory(character)
             if not player_item_list:
                 print(f"\n\n\n{Style.BRIGHT}No items to chose from.{Style.RESET_ALL}\n\n\n")
             else:
-                effect_bonus = 0
-                if character["species"] == "human":
-                    effect_bonus = 2
-                chosen_item = battle.ask_player_input(player_item_list)
-                battle.use_item(chosen_item, character, effect_bonus)
-                break
+                chosen_item = ""
+                while chosen_item != "back":
+                    effect_bonus = 0
+                    if character["species"] == "human":
+                        effect_bonus = 2
+                    chosen_item = battle.ask_player_input(player_item_list)
+                    if chosen_item != "back":
+                        battle.use_item(chosen_item, character, effect_bonus)
+                        action_made = True
+                        break
+
     character["current_HP"] -= character["continuous_damage"]["effect"]
 
 

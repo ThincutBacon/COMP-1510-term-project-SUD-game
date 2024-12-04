@@ -35,7 +35,9 @@ def ask_player_input(option_list):
             count += 1
 
         print(display_options)
-        player_input = input(f"{Fore.WHITE}{Style.BRIGHT}Player command: {Style.RESET_ALL}")
+        player_input = input(f"{Fore.WHITE}{Style.BRIGHT}Player command (or Back): {Style.RESET_ALL}")
+        if player_input == "back":
+            return player_input
         try:
             return option_list[int(player_input) - 1]
         except ValueError:
