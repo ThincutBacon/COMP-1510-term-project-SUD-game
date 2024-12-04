@@ -7,7 +7,7 @@ A1415217
 
 import random
 
-from colorama import Style
+from colorama import Style, Fore
 
 from select import select
 
@@ -213,7 +213,8 @@ def tutorial_board():
                              "withholds your freedom.\n"
                              "\n"
                              "You can hear footsteps heading your way.\n"
-                             "If you continue forward, you are sure to enter battle with the \n"
+                             f"If you continue {Fore.GREEN}{Style.BRIGHT}EAST{Style.RESET_ALL}, you are sure to "
+                             f"enter battle with the \n"
                              "guards.\n",
                      "area": "safe",
                      "walls": ["n", "s", "w"]},
@@ -272,23 +273,26 @@ def main_board():
                          "look": "Right outside of the dungeons expands a wide, limitless forest. Here \n"
                                  "lives a diverse range of creatures, both predator and prey. You can \n"
                                  "spot the \n"
-                                 f"start of a faint path to the {Style.BRIGHT}EAST{Style.RESET_ALL}.\n",
+                                 f"start of a faint path to the {Fore.GREEN}{Style.BRIGHT}EAST{Style.RESET_ALL}.\n",
                          "area": "field",
                          "walls": []},
                 (1, 2): {"name": "The Forest - A Faint Path",
-                         "look": f"The faint path seems to continue onto the {Style.BRIGHT}EAST{Style.RESET_ALL}.\n",
+                         "look": f"The faint path seems to continue onto the {Fore.GREEN}{Style.BRIGHT}EAST"
+                                 f"{Style.RESET_ALL}.\n",
                          "area": "field",
                          "walls": []},
                 (1, 3): {"name": "The Forest - A Faint Path",
-                         "look": f"The faint path seems to extend to the {Style.BRIGHT}WEST{Style.RESET_ALL} "
-                                 f"and {Style.BRIGHT}EAST{Style.RESET_ALL}. To the "
-                                 f"{Style.BRIGHT}SOUTH{Style.RESET_ALL} seems to \n"
+                         "look": f"The faint path seems to extend to the {Fore.GREEN}{Style.BRIGHT}WEST"
+                                 f"{Style.RESET_ALL} "
+                                 f"and {Fore.GREEN}{Style.BRIGHT}EAST{Style.RESET_ALL}. To the "
+                                 f"{Fore.GREEN}{Style.BRIGHT}SOUTH{Style.RESET_ALL} seems to \n"
                                  "stretch a clearer path.\n",
                          "area": "field",
                          "walls": []},
                 (1, 4): {"name": "The Forest - A Faint Path",
-                         "look": f"The faint path seems to extend to the {Style.BRIGHT}WEST{Style.RESET_ALL} "
-                                 f"and {Style.BRIGHT}NORTH{Style.RESET_ALL}.\n",
+                         "look": f"The faint path seems to extend to the {Fore.GREEN}{Style.BRIGHT}WEST"
+                                 f"{Style.RESET_ALL} "
+                                 f"and {Fore.GREEN}{Style.BRIGHT}NORTH{Style.RESET_ALL}.\n",
                          "area": "field",
                          "walls": ["e"]},
 
@@ -305,8 +309,9 @@ def main_board():
                          "area": "field",
                          "walls": []},
                 (2, 3): {"name": "The Forest - Clear Path",
-                         "look": f"The path seems to extend to the {Style.BRIGHT}NORTH{Style.RESET_ALL} and "
-                                 f"{Style.BRIGHT}SOUTH{Style.RESET_ALL}.\n",
+                         "look": f"The path seems to extend to the {Fore.GREEN}{Style.BRIGHT}NORTH"
+                                 f"{Style.RESET_ALL} and "
+                                 f"{Fore.GREEN}{Style.BRIGHT}SOUTH{Style.RESET_ALL}.\n",
                          "area": "field",
                          "walls": []},
                 (2, 4): {"name": "The Forest - Outer Edge",
@@ -331,15 +336,17 @@ def main_board():
                          "area": "field",
                          "walls": []},
                 (3, 3): {"name": "The Forest - Village Path",
-                         "look": f"The path seems to extend to the {Style.BRIGHT}NORTH{Style.RESET_ALL} "
-                                 f"and {Style.BRIGHT}SOUTH{Style.RESET_ALL}.\n"
+                         "look": f"The path seems to extend to the {Fore.GREEN}{Style.BRIGHT}NORTH"
+                                 f"{Style.RESET_ALL} "
+                                 f"and {Fore.GREEN}{Style.BRIGHT}SOUTH{Style.RESET_ALL}.\n"
                                  "You can observe a small village to the SOUTH.\n",
                          "area": "field",
                          "walls": []},
                 (3, 4): {"name": "The Village - Outer End",
                          "look": "From the outer end of the village, you can observe an expanse \n"
                                  "of trees that create the forest beyond.\n"
-                                 f"To the {Style.BRIGHT}SOUTH{Style.RESET_ALL} you can hear the hustle and "
+                                 f"To the {Fore.GREEN}{Style.BRIGHT}SOUTH{Style.RESET_ALL} you can "
+                                 f"hear the hustle and "
                                  "bustle of the village square.\n",
                          "area": "safe",
                          "symbol": "shop",
@@ -365,7 +372,7 @@ def main_board():
                 (4, 3): {"name": "The Village - Outer End",
                          "look": "From the outer end of the village, you can observe an expanse \n"
                                  "of trees that create the forest beyond.\n"
-                                 f"To the {Style.BRIGHT}EAST{Style.RESET_ALL} you can hear the hustle and "
+                                 f"To the {Fore.GREEN}{Style.BRIGHT}EAST{Style.RESET_ALL} you can hear the hustle and "
                                  f"bustle of the village square.\n",
                          "area": "safe",
                          "symbol": "shop",
