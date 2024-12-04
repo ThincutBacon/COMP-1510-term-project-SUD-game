@@ -5,7 +5,7 @@ A1415217
 
 """
 
-from modules import get
+from modules import get, display
 
 from colorama import Style
 
@@ -242,13 +242,7 @@ def confirm_character(character):
     """
     confirm_new_character = False
     while not confirm_new_character:
-        print("==========\n"
-              f"{Style.BRIGHT}Kingdom:{Style.RESET_ALL} {character["kingdom"]}\n"
-              f"{Style.BRIGHT}Name:{Style.RESET_ALL} {character["name"]}\n"
-              "\n"
-              f"{Style.BRIGHT}Species:{Style.RESET_ALL} {character["species"].title()}\n"
-              f"{Style.BRIGHT}Class:{Style.RESET_ALL} {character["skill_class"].title()}\n"
-              "==========\n")
+        display.character_info(character)
         confirm = input("Is this the character you want to create? (y/n): ").strip().lower()
         if confirm == "y":
             return True
