@@ -7,6 +7,7 @@ A1415217
 
 from colorama import Style
 from modules import display, get
+from modules.get import main_board
 
 
 def validate_exploration_command(player_input, character, board):
@@ -31,14 +32,74 @@ def validate_exploration_command(player_input, character, board):
     elif player_input == "map":
         display.current_map(character, board)
     elif player_input == "n" or player_input == "e" or player_input == "s" or player_input == "w":
-        pass
+        validate_movement(player_input, character, board)
     elif player_input == "help":
         pass
     else:
         print(f"\n\n\n{Style.BRIGHT}Invalid command.{Style.RESET_ALL}\n\n\n")
 
 
+def validate_movement(direction, character, board):
+    """
+    Check if move is valid.
 
+    :param direction: a string
+    :param character: is a dictionary
+    :param board: is a dictionary
+    :precondition: direction must be a valid input given by validate_exploration_command()
+    :precondition: character must be a dictionary from get.blank_character function
+    :precondition: board must be a dictionary from get.tutorial_board or get.main_board function
+    :postcondition: compare the current locations coordinates to the character coodinates to see if
+                    movement in direction is valid
+    :postcondition: if movement is valid, move the player coordinates according to the direction
+
+    >>> current_board = {(0, 0): 'Empty room'}
+    >>> current_character = {'X-coordinate': 0, 'Y-coordinate': 0, 'Current HP': 5}
+    >>> chosen_direction = "w"
+    >>> validate_movement(direction, character, board)
+    False
+    >>> current_board = {(0, 0): "Empty room", (0, 1): "Empty room", (1, 0): "Empty room", (1, 1): "Empty room"}
+    >>> current_character = {'X-coordinate': 0, 'Y-coordinate': 0, 'Current HP': 5}
+    >>> chosen_direction = "s"
+    >>> validate_movement(direction, character, board)
+    True
+    """
+    current_character_coordinate = (character["x-coordinate"], character["y-coordinate"])
+    current_location_walls = board[current_character_coordinate]
+
+    if direction not in current_location_walls:
+        move_character(direction, character)
+    else:
+        print(f"\n\n\n{Style.BRIGHT}You can't move that way.{Style.RESET_ALL}\n\n\n")
+
+
+def move_character(direction, character):
+    """
+    Move the characters in the direction.
+
+    :param direction: string
+    :param character: a dictionary
+    :precondition: direction must be a valid input given by the validate_movement function
+    :precondition: character must be a dictionary from get.blank_character function
+    :postcondition: adjust character coordinates in the given direction
+
+    >>> current_character = {'X-coordinate': 0, 'Y-coordinate': 0, 'Current HP': 5}
+    >>> move_character("s", current_character)
+    >>> print(current_character)
+    {'X-coordinate': 0, 'Y-coordinate': 1, 'Current HP': 5}
+    >>> current_character = {'X-coordinate': 0, 'Y-coordinate': 0, 'Current HP': 5}
+    >>> move_character("d", current_character)
+    >>> print(current_character)
+    {'X-coordinate': 1, 'Y-coordinate': 0, 'Current HP': 5}
+    """
+    if direction == "n":
+        character["y-coordinate"] -= 1
+    elif direction == "s":
+        character["y-coordinate"] += 1
+    elif direction == "e":
+        character["x-coordinate"] += 1
+    elif direction == "w":
+        character["x-coordinate"] -= 1
 
 
 def main():
@@ -50,11 +111,12 @@ def main():
     character["kingdom"] = "Heilia"
     character["species_adjective"] = "elven"
     character["skill_class"] = "mage"
-    character['x-coordinate'] = 1
-    character['y-coordinate'] = 1
+    character['x-coordinate'] = 0
+    character['y-coordinate'] = 0
 
-    player_input = input("Enter a player command: ").strip().lower()
-    validate_exploration_command(player_input, character, get.main_board())
+    validate_movement("s", character, get.main_board())
+
+    print(character['x-coordinate'], character['y-coordinate'])
 
 
 if __name__ == "__main__":
