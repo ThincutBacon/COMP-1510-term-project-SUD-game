@@ -4,9 +4,11 @@ Kanon Nishiyama
 A1415217
 
 """
-from pprint import pprint
 
-from modules import create_character, get
+
+from colorama import Style, Fore
+
+from modules import create_character, get, display
 
 
 def create_new_character(character, bbeg):
@@ -37,13 +39,44 @@ def game():
     """
     Drive the game.
     """
+    print("==============================\n"
+          "\n\n"
+          f"\t {Style.BRIGHT}+++ BIRTH RIGHT +++{Style.RESET_ALL}\n"
+          "\n"
+          f"   {Fore.GREEN}Game By: Kanon Nishiyama{Fore.RESET}\n"
+          "\n\n"
+          "==============================\n")
+    input(f"Press Enter to {Style.BRIGHT}START{Style.RESET_ALL}: ")
+
+    print("\n\n\n"
+          "\n\n\n"
+          "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n"
+          "\n"
+          f"Welcome to {Style.BRIGHT}{Fore.BLUE}BIRTH RIGHT{Style.RESET_ALL}.\n"
+          f"\n"
+          f"A simple RPG where you play as the {Fore.LIGHTYELLOW_EX}Heir to the Throne{Fore.RESET}, currently \n"
+          f"captured and imprisoned by the {Fore.RED}King's Advisor{Fore.RESET} who had commited \n"
+          f"regicide and stolen the throne.\n"
+          f"\n"
+          f"You, perhaps driven by justice or revenge, must break out of your \n"
+          f"confines and train to strengthen yourself enough to one day defeat \n"
+          f"this evil tyrant and take back what is rightfully yours...\n"
+          "\n"
+          "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n")
+    input(f"Press Enter to continue to {Style.BRIGHT}CHARACTER CREATION{Style.RESET_ALL}: ")
+
+
+
     player_character = get.blank_character()
     bbeg = get.unnamed_bbeg()
 
     create_new_character(player_character, bbeg)
 
-    pprint(player_character)
-    pprint(bbeg)
+    current_board = get.tutorial_board()
+    clear_tutorial = False
+    while not clear_tutorial:
+        display.current_map(player_character, current_board)
+
 
 
 def main():
