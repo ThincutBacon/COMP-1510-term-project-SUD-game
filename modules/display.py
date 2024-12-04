@@ -159,7 +159,7 @@ def location_desc(character, board):
           f"{Fore.WHITE}================================================================={Fore.RESET}\n")
 
 
-def battle_status(character, enemy):
+def battle_status(character, enemy, round_count):
     enemy_name = f"{enemy['name'].upper()}"
     enemy_hp = f"HP: {format(enemy['current_HP'], '3')} / {format(enemy['max_HP'], '3')}"
     enemy_dialogue = "\"TESTING\""
@@ -168,7 +168,8 @@ def battle_status(character, enemy):
     character_hp = f"HP: {format(character['current_HP'], '3')} / {format(character['max_HP'], '3')}"
     character_sp = f"SP: {format(character['current_SP'], '3')} / {format(character['max_SP'], '3')}"
 
-    print(f"==============================================\n"
+    print(f"ROUND {round_count}\n"
+          f"==============================================\n"
           f"| {Style.BRIGHT}{format(enemy_name, '42')}{Style.RESET_ALL} |\n"
           f"| {Fore.RED}{format(enemy_hp, '42')}{Fore.RESET} |\n"
           f"| {Fore.WHITE}{format(enemy_dialogue, '42')}{Fore.RESET} |\n"
