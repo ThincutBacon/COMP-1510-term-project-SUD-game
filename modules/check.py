@@ -104,6 +104,13 @@ def move_character(direction, character):
         character["x-coordinate"] -= 1
 
 
+def if_alive(character):
+    if character["current_HP"] <= 0:
+        return False
+    else:
+        return True
+
+
 def main():
     """
     Drive the program.
