@@ -182,7 +182,7 @@ def skill_effect_time(character, round_count):
         character["continuous_damage"] = {"effect": 0, "time": 0}
 
 
-def use_item(item, user):
+def use_item(item, user, effect_bonus=0):
     """
     Sentence.
 
@@ -196,32 +196,32 @@ def use_item(item, user):
     """
     if item == "healing potion (s)":
         user["inventory"][item] -= 1
-        user["current_HP"] += 5
+        user["current_HP"] += (5 + effect_bonus)
         if user["current_HP"] > user["max_HP"]:
             user["current_HP"] = user["max_HP"]
     elif item == "healing potion (m)":
         user["inventory"][item] -= 1
-        user["current_HP"] += 10
+        user["current_HP"] += (10 + effect_bonus)
         if user["current_HP"] > user["max_HP"]:
             user["current_HP"] = user["max_HP"]
     elif item == "healing potion (l)":
         user["inventory"][item] -= 1
-        user["current_HP"] += 20
+        user["current_HP"] += (20 + effect_bonus)
         if user["current_HP"] > user["max_HP"]:
             user["current_HP"] = user["max_HP"]
     elif item == "energy potion (s)":
         user["inventory"][item] -= 1
-        user["current_SP"] += 3
+        user["current_SP"] += (3 + effect_bonus)
         if user["current_SP"] > user["max_SP"]:
             user["current_SP"] = user["max_SP"]
     elif item == "energy potion (m)":
         user["inventory"][item] -= 1
-        user["current_SP"] += 5
+        user["current_SP"] += (5 + effect_bonus)
         if user["current_SP"] > user["max_SP"]:
             user["current_SP"] = user["max_SP"]
     elif item == "energy potion (l)":
         user["inventory"][item] -= 1
-        user["current_SP"] += 10
+        user["current_SP"] += (10 + effect_bonus)
         if user["current_SP"] > user["max_SP"]:
             user["current_SP"] = user["max_SP"]
 

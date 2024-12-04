@@ -289,8 +289,11 @@ def tutorial(character, bbeg):
                       f"{Style.BRIGHT}No items to chose from.{Style.RESET_ALL}"
                       "\n\n\n")
             else:
+                effect_bonus = 0
+                if character["species"] == "human":
+                    effect_bonus = 2
                 chosen_item = battle.ask_player_input(player_item_list)
-                battle.use_item(chosen_item, character)
+                battle.use_item(chosen_item, character, effect_bonus)
                 break
         else:
             print("\n\n\nPlease input \"4\" for the tutorial.\n\n\n")
@@ -327,8 +330,11 @@ def tutorial(character, bbeg):
               f"Along with some coins and the key, you are able to loot a crude looking \n"
               f"dagger from the corpse.\n"
               f"You gain a Worn Dagger (ATK +2)!\n")
+        equipment_bonus = 0
+        if character["species"] == "dwarf":
+            equipment_bonus = 1
         character["equipment"]["weapon"] = "worn dagger"
-        character["modifiers"]["ATK"] = 2
+        character["modifiers"]["ATK"] = 2 + equipment_bonus
         input(f"{Fore.WHITE}{Style.BRIGHT}Press Enter to continue: {Style.RESET_ALL}")
 
         print(f"\n\n\n"
@@ -470,7 +476,7 @@ def player_battle_flow(character, enemy, round_count):
         elif player_action == "skill":
             print("\n\n\n")
             sp_discount = 0
-            if character["skill_class"] == "mage":
+            if character["species"] == "elf":
                 sp_discount = 1
             while True:
                 chosen_skill = battle.ask_player_input(player_skill_list)
@@ -488,8 +494,11 @@ def player_battle_flow(character, enemy, round_count):
                       f"{Style.BRIGHT}No items to chose from.{Style.RESET_ALL}"
                       "\n\n\n")
             else:
+                effect_bonus = 0
+                if character["species"] == "human":
+                    effect_bonus = 2
                 chosen_item = battle.ask_player_input(player_item_list)
-                battle.use_item(chosen_item, character)
+                battle.use_item(chosen_item, character, effect_bonus)
                 break
     character["current_HP"] -= character["continuous_damage"]["effect"]
 
