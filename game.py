@@ -142,27 +142,7 @@ def tutorial(character, bbeg):
         else:
             print("\n\n\nPlease input \"e\" for the tutorial.\n\n\n")
 
-    tutorial_enemy = {"name": "Lone Guard",
-                      "max_HP": 10,
-                      "current_HP": 10,
-                      "reduce_damage": 0,
-                      "ATK": 5,
-                      "DEF": 5,
-                      "AGI": 5,
-                      "LUK": 5,
-                      "actions": ["attack", "attack", "defend"],
-                      "EXP": 10,
-                      "gold": 5,
-                      "buff": {"ATK": {"effect": 0, "time": 0},
-                               "DEF": {"effect": 0, "time": 0},
-                               "AGI": {"effect": 0, "time": 0},
-                               "LUK": {"effect": 0, "time": 0}},
-                      "debuff": {"ATK": {"effect": 0, "time": 0},
-                                 "DEF": {"effect": 0, "time": 0},
-                                 "AGI": {"effect": 0, "time": 0},
-                                 "LUK": {"effect": 0, "time": 0}},
-                      "modifiers": {"HP": 0, "SP": 0, "ATK": 0, "DEF": 0, "AGI": 0, "LUK": 0},
-                      }
+    tutorial_enemy = get.random_enemy(character, current_board)
 
     print(f"\n\n\n"
           f"\n\n\n"
@@ -561,6 +541,7 @@ def game():
 
     current_board = get.main_board()
     player_alive = True
+    bbeg_alive = True
     clear_main = False
 
     while not clear_main and player_alive:
@@ -576,8 +557,31 @@ def game():
             run_battle(player_character, enemy)
             player_alive = check.if_alive(player_character)
 
+        current_coordinate = (player_character["x-coordinate"], player_character["x-coordinate"])
+
+        try:
+            if current_board[current_coordinate]["symbol"] == "exit" and player_character["LVL"] == 3:
+                print(f"You are now strong enough to challenge {bbeg["name"].upper()} for the throne.\n"
+                      f"\n"
+                      f"If you enter the castle, there is no going back.\n"
+                      f"This will be the end.\n")
+                confirm = input("Do you want to enter your FINAL BATTLE? (y/n): ").strip().lower()
+                if confirm == "y":
+                    clear_main = True
+                elif confirm == "n":
+                    clear_main = False
+                else:
+                    print(f"\n\n\n{Style.BRIGHT}Please confirm your choice.{Style.RESET_ALL}\n\n\n")
+        except KeyError:
+            pass
+
     if player_alive and clear_main:
-        pass
+        run_battle(player_character, bbeg)
+        bbeg_alive = check.if_alive(bbeg)
+
+    if not bbeg_alive and player_alive:
+        print("\n\n\n"
+              "YAYYY!!!!")
 
     if not player_alive:
         print("\n\n\n"
