@@ -47,7 +47,7 @@ def blank_character():
                        "AGI": {"effect": 0, "time": 0},
                        "LUK": {"effect": 0, "time": 0}},
             "modifiers": {"HP": 0, "SP": 0, "ATK": 0, "DEF": 0, "AGI": 0, "LUK": 0},
-            "equipment": {"head": "", "chest": "", "legs": "", "feet": "", "weapon": ""},
+            "equipment": {"armour": "", "weapon": ""},
             "inventory": {},
             "x-coordinate": 0,
             "y-coordinate": 0,
@@ -470,7 +470,7 @@ def main_board():
                                  "You catch eye of an Leathersmith. Purchases here may raise your DEF.\n",
                          "area": "safe",
                          "symbol": "shop",
-                         "shop": "equipment",
+                         "shop": "armour",
                          "walls": ["e", "s"]}}
 
     field_descriptions = [
@@ -694,6 +694,27 @@ def random_enemy(character, board):
 
     enemy_info = random.choice(all_enemies_list[area_type])
     return enemy_info
+
+
+def shop_information(shop_select):
+    all_shops_list = {"armour": {"tattered leather armour": {"cost": 20, "modifier": 2},
+                                 "simple leather armour": {"cost": 30, "modifier": 3},
+                                 "hardened leather armour": {"cost": 50, "modifier": 4},
+                                 "iron-plated leather armour": {"cost": 100, "modifier": 5},
+                                 "steel-plated leather armour": {"cost": 300, "modifier": 10}},
+                      "item": {"healing potion (s)": 20,
+                               "healing potion (m)": 30,
+                               "healing potion (l)": 50,
+                               "energy potion (s)": 30,
+                               "energy potion (m)": 50,
+                               "energy potion (l)": 70},
+                      "weapon": {"crude iron dagger": {"cost": 20, "modifier": 2},
+                                 "simple iron dagger": {"cost": 30, "modifier": 3},
+                                 "sharp steel dagger": {"cost": 50, "modifier": 4},
+                                 "cold iron dagger": {"cost": 100, "modifier": 5},
+                                 "obsidian dagger": {"cost": 300, "modifier": 10}}}
+
+    return all_shops_list[shop_select]
 
 
 def main():
