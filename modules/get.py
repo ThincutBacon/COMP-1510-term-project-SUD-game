@@ -46,7 +46,7 @@ def blank_character():
                        "DEF": {"effect": 0, "time": 0},
                        "AGI": {"effect": 0, "time": 0},
                        "LUK": {"effect": 0, "time": 0}},
-            "modifiers": {"HP": 0, "SP": 0, "ATK": 0, "DEF": 0, "AGI": 0, "LUK": 0},
+            "modifier": {"ATK": 0, "DEF": 0},
             "equipment": {"armour": "", "weapon": ""},
             "inventory": {},
             "x-coordinate": 0,
@@ -491,34 +491,6 @@ def main_board():
     return main_map
 
 
-def command_list(group_select=None, command_select=None):
-    """
-    Return player command information.
-
-    :param group_select: a string
-    :param command_select: a string
-    :precondition: group_select must equal None or one of the keys within all_commands_list
-    :precondition: command_select must equal None or one of the keys within either "explore" or "battle"
-    :return: if group_select and command_select equals None, return the entire dictionary
-    :return: if group_select equals a key and command_select equals None, return "explore" or "battle" dictionary
-    :return: if group_select and command_select equals a key, returns a single command dictionary
-
-    >>> command_list() #doctest: +ELLIPSIS
-    {'list_all': '==========...
-    >>> command_list("elf") #doctest: +ELLIPSIS
-    {'name': 'elf', 'desc': 'With their long life spans and equally cumulative knowledge...
-    """
-    all_commands_list = {"explore": {},
-                         "battle": {}}
-
-    if command_select:
-        return all_commands_list[group_select][command_select]
-    elif group_select:
-        return all_commands_list[select]
-    else:
-        return all_commands_list
-
-
 def random_enemy(character, board):
     current_coordinate = (character["x-coordinate"], character["y-coordinate"])
     area_type = board[current_coordinate]["area"]
@@ -697,18 +669,34 @@ def random_enemy(character, board):
 
 
 def shop_information(shop_select):
-    all_shops_list = {"armour": {"tattered leather armour": {"cost": 20, "modifier": 2},
+    all_shops_list = {"armour": {"all_items": ["tattered leather armour",
+                                               "simple leather armour",
+                                               "hardened leather armour",
+                                               "iron-plated leather armour",
+                                               "steel-plated leather armour"],
+                                 "tattered leather armour": {"cost": 20, "modifier": 2},
                                  "simple leather armour": {"cost": 30, "modifier": 3},
                                  "hardened leather armour": {"cost": 50, "modifier": 4},
                                  "iron-plated leather armour": {"cost": 100, "modifier": 5},
                                  "steel-plated leather armour": {"cost": 300, "modifier": 10}},
-                      "item": {"healing potion (s)": 20,
-                               "healing potion (m)": 30,
-                               "healing potion (l)": 50,
-                               "energy potion (s)": 30,
-                               "energy potion (m)": 50,
-                               "energy potion (l)": 70},
-                      "weapon": {"crude iron dagger": {"cost": 20, "modifier": 2},
+                      "item": {"all_items": ["healing potion (s)",
+                                             "healing potion (m)",
+                                             "healing potion (l)",
+                                             "energy potion (s)",
+                                             "energy potion (m)",
+                                             "energy potion (l)"],
+                               "healing potion (s)": {"cost": 20},
+                               "healing potion (m)": {"cost": 30},
+                               "healing potion (l)": {"cost": 50},
+                               "energy potion (s)": {"cost": 30},
+                               "energy potion (m)": {"cost": 50},
+                               "energy potion (l)": {"cost": 70}},
+                      "weapon": {"all_items": ["crude iron dagger",
+                                               "simple iron dagger",
+                                               "sharp steel dagger",
+                                               "cold iron dagger",
+                                               "obsidian dagger"],
+                                 "crude iron dagger": {"cost": 20, "modifier": 2},
                                  "simple iron dagger": {"cost": 30, "modifier": 3},
                                  "sharp steel dagger": {"cost": 50, "modifier": 4},
                                  "cold iron dagger": {"cost": 100, "modifier": 5},
