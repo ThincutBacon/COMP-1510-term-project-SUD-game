@@ -298,8 +298,10 @@ def ask_player_purchase(option_list):
     while True:
         player_input = input(f"{Fore.WHITE}{Style.BRIGHT}Player command (or Back): {Style.RESET_ALL}")
         if player_input == "back":
+            print("\n\n")
             return player_input
         try:
+            print("\n\n")
             return option_list[int(player_input) - 1]
         except ValueError:
             pass
@@ -307,7 +309,7 @@ def ask_player_purchase(option_list):
             pass
         except TypeError:
             pass
-        print(f"\n\n\n{Style.BRIGHT}Invalid input{Style.RESET_ALL}\n\n\n")
+        print(f"{Style.BRIGHT}Invalid input{Style.RESET_ALL}\n\n\n")
 
 
 def purchase_item(character, purchased_item, shop_type):
@@ -329,6 +331,8 @@ def purchase_item(character, purchased_item, shop_type):
                 character["modifier"]["ATK"] = modifier
             elif shop_type == "armour":
                 character["modifier"]["DEF"] = modifier
+    else:
+        print(f"{Style.BRIGHT}You don't own enough gold!{Style.RESET_ALL}\n\n\n")
 
 
 def main():

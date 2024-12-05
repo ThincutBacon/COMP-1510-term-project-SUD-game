@@ -54,7 +54,12 @@ def tutorial(character, bbeg):
           f"\n"
           f"Luckily, you were able to escape your cell without being caught, \n"
           f"and now the doorway to your freedom is just a step away.\n")
-    input(f"{Fore.WHITE}{Style.BRIGHT}Press Enter to continue: {Style.RESET_ALL}")
+    player_input = input(f"{Fore.WHITE}{Style.BRIGHT}Press Enter to continue (or skip to skip the tutorial): "
+                         f"{Style.RESET_ALL}").strip().lower()
+
+    if player_input == "skip":
+        print("\n\n\n")
+        return
 
     print(f"\n\n\n\n\n")
     display.current_map(character, current_board)
@@ -88,7 +93,7 @@ def tutorial(character, bbeg):
             check.validate_exploration_command(player_input, character, current_board)
             break
         else:
-            print("\n\n\nPlease input \"map\" for the tutorial.\n\n\n")
+            print(f"\n\n\n{Style.BRIGHT}Please input \"map\" for the tutorial.{Style.RESET_ALL}\n\n\n")
 
     print(f"\n"
           f"Good job! Now let's continue you're escape!\n")
@@ -109,7 +114,7 @@ def tutorial(character, bbeg):
             check.validate_exploration_command(player_input, character, current_board)
             break
         else:
-            print("\n\n\nPlease input \"look\" for the tutorial.\n\n\n")
+            print(f"\n\n\n{Style.BRIGHT}Please input \"look\" for the tutorial.{Style.RESET_ALL}\n\n\n")
 
     print(f"Nice!\n"
           f"\n"
@@ -135,7 +140,7 @@ def tutorial(character, bbeg):
             check.validate_exploration_command(player_input, character, current_board)
             break
         else:
-            print("\n\n\nPlease input \"e\" for the tutorial.\n\n\n")
+            print(f"\n\n\n{Style.BRIGHT}Please input \"e\" for the tutorial.{Style.RESET_ALL}\n\n\n")
 
     tutorial_enemy = get.random_enemy(character, current_board)
     print(f"\n\n\n"
@@ -178,7 +183,7 @@ def tutorial(character, bbeg):
             battle.attack(character, tutorial_enemy)
             break
         else:
-            print("\n\n\nPlease input \"1\" for the tutorial.\n\n\n")
+            print(f"\n\n\n{Style.BRIGHT}Please input \"1\" for the tutorial.{Style.RESET_ALL}\n\n\n")
 
     print(f"\n\n\n")
     display.battle_status(character, tutorial_enemy, "2")
@@ -203,7 +208,7 @@ def tutorial(character, bbeg):
             battle.defend(character)
             break
         else:
-            print("\n\n\nPlease input \"2\" for the tutorial.\n\n\n")
+            print(f"\n\n\n{Style.BRIGHT}Please input \"2\" for the tutorial.{Style.RESET_ALL}\n\n\n")
 
     print(f"\n\n\n")
     display.battle_status(character, tutorial_enemy, "3")
@@ -229,15 +234,19 @@ def tutorial(character, bbeg):
                     sp_discount = 1
                 player_skill_list = get.class_list(character["skill_class"])["skill_list"]
                 chosen_skill = battle.ask_player_input(player_skill_list)
-                usable_skill = battle.skill_usable(chosen_skill, character, sp_discount)
-                if usable_skill:
-                    battle.use_skill(chosen_skill, "3", character, tutorial_enemy, sp_discount)
-                    break
+
+                if chosen_skill != "back":
+                    usable_skill = battle.skill_usable(chosen_skill, character, sp_discount)
+                    if usable_skill:
+                        battle.use_skill(chosen_skill, "3", character, tutorial_enemy, sp_discount)
+                        break
+                    else:
+                        print(f"\n\n\n{Style.BRIGHT}Not enough SP!{Style.RESET_ALL}\n\n\n")
                 else:
-                    print("Not enough SP!")
+                    print(f"{Style.BRIGHT}Please use a skill.{Style.RESET_ALL}\n\n\n")
             break
         else:
-            print("\n\n\nPlease input \"3\" for the tutorial.\n\n\n")
+            print(f"\n\n\n{Style.BRIGHT}Please input \"3\" for the tutorial.{Style.RESET_ALL}\n\n\n")
 
     print(f"\n\n\n")
     display.battle_status(character, tutorial_enemy, "4")
@@ -269,10 +278,13 @@ def tutorial(character, bbeg):
                 if character["species"] == "human":
                     effect_bonus = 2
                 chosen_item = battle.ask_player_input(player_item_list)
-                battle.use_item(chosen_item, character, effect_bonus)
-                break
+                if chosen_skill != "back":
+                    battle.use_item(chosen_item, character, effect_bonus)
+                    break
+                else:
+                    print(f"{Style.BRIGHT}Please use the item.{Style.RESET_ALL}\n\n\n")
         else:
-            print("\n\n\nPlease input \"4\" for the tutorial.\n\n\n")
+            print(f"\n\n\n{Style.BRIGHT}Please input \"4\" for the tutorial.{Style.RESET_ALL}\n\n\n")
 
     print(f"\n\n\n")
     display.battle_status(character, tutorial_enemy, "5")
@@ -312,7 +324,7 @@ def tutorial(character, bbeg):
         if character["species"] == "dwarf":
             equipment_bonus = 1
         character["equipment"]["weapon"] = "crude iron dagger"
-        character["modifiers"]["ATK"] = 2 + equipment_bonus
+        character["modifier"]["ATK"] = 2 + equipment_bonus
         input(f"{Fore.WHITE}{Style.BRIGHT}Press Enter to continue: {Style.RESET_ALL}")
 
         print(f"\n\n\n"
@@ -322,6 +334,7 @@ def tutorial(character, bbeg):
               f"Gold can be used at shops, either to buy items or upgrade.\n"
               f"\n"
               f"EXP, when accumulated enough, allows you to LEVEL UP, boosting your base attributes.\n")
+        input(f"{Fore.WHITE}{Style.BRIGHT}Press Enter to continue: {Style.RESET_ALL}")
 
     elif not check.if_alive(character):
         print(f"\n\n\n"
@@ -341,6 +354,7 @@ def tutorial(character, bbeg):
               f"Gold can be used at shops, either to buy items or upgrade.\n"
               f"\n"
               f"EXP, when accumulated enough, allows you to LEVEL UP, boosting your base attributes.\n")
+        input(f"{Fore.WHITE}{Style.BRIGHT}Press Enter to continue: {Style.RESET_ALL}")
 
     print(f"\n\n")
 
@@ -385,31 +399,43 @@ def run_battle(character, enemy, round_count=1):
 
             if character["AGI"] >= enemy["AGI"]:
                 player_battle_flow(character, enemy, player_round_counter)
+
                 player_alive = check.if_alive(character)
-                if not player_alive:
+                enemy_alive = check.if_alive(enemy)
+                if not player_alive or not enemy_alive:
                     break
+
                 battle.skill_effect_time(character, player_round_counter)
                 player_round_counter += 1
 
                 enemy_battle_flow(character, enemy, enemy_action, enemy_round_counter)
+
+                player_alive = check.if_alive(character)
                 enemy_alive = check.if_alive(enemy)
-                if not enemy_alive:
+                if not player_alive or not enemy_alive:
                     break
+
                 battle.skill_effect_time(enemy, player_round_counter)
                 enemy_round_counter += 1
 
             elif character["AGI"] < enemy["AGI"]:
                 enemy_battle_flow(character, enemy, enemy_action, enemy_round_counter)
+
+                player_alive = check.if_alive(character)
                 enemy_alive = check.if_alive(enemy)
-                if not enemy_alive:
+                if not player_alive or not enemy_alive:
                     break
+
                 battle.skill_effect_time(enemy, player_round_counter)
                 enemy_round_counter += 1
 
                 player_battle_flow(character, enemy, player_round_counter)
+
                 player_alive = check.if_alive(character)
-                if not player_alive:
+                enemy_alive = check.if_alive(enemy)
+                if not player_alive or not enemy_alive:
                     break
+
                 battle.skill_effect_time(character, player_round_counter)
                 player_round_counter += 1
 
@@ -550,8 +576,15 @@ def game():
     while not clear_main and player_alive:
         display.current_map(player_character, current_board)
 
-        player_input = input(f"{Fore.WHITE}{Style.BRIGHT}Player command: {Style.RESET_ALL}")
-        check.validate_exploration_command(player_input, player_character, current_board)
+        action_moved = False
+        while not action_moved:
+            player_input = input(f"\n{Fore.WHITE}{Style.BRIGHT}Player command: {Style.RESET_ALL}")
+
+            if player_input in ["n", "s", "e", "w"]:
+                action_moved = True
+
+            print("\n\n\n")
+            check.validate_exploration_command(player_input, player_character, current_board)
 
         encounter = check.enemy_encounter(player_character, current_board)
 
@@ -611,7 +644,7 @@ def game():
 
     if not player_alive:
         print(f"\n\n\n"
-              f"Y{Style.BRIGHT}You Died.{Style.RESET_ALL}\n"
+              f"{Style.BRIGHT}You Died.{Style.RESET_ALL}\n"
               f"\n"
               f"As the light begins to fade, you lament the future for your kingdom as it's \n"
               f"one and only heir takes their last breath.\n"
@@ -619,6 +652,7 @@ def game():
               f"If only you could have done something...\n")
         confirm = input("Do you want to try again? (y/n): ").strip().lower()
         if confirm == "y":
+            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
             game()
         elif confirm == "n":
             pass

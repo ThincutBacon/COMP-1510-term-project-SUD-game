@@ -29,16 +29,21 @@ def ask_player_input(option_list):
     """
     while True:
         count = 1
-        display_options = ""
+        display_options = ("==============================\n"
+                           "\n")
         for option in option_list:
             display_options += f"{count}. {option.upper()}\n"
             count += 1
+        display_options += ("\n"
+                            "==============================\n")
 
         print(display_options)
         player_input = input(f"{Fore.WHITE}{Style.BRIGHT}Player command (or Back): {Style.RESET_ALL}")
         if player_input == "back":
+            print("\n\n")
             return player_input
         try:
+            print("\n\n")
             return option_list[int(player_input) - 1]
         except ValueError:
             pass
@@ -46,7 +51,7 @@ def ask_player_input(option_list):
             pass
         except TypeError:
             pass
-        print(f"\n\n\n{Style.BRIGHT}Invalid input{Style.RESET_ALL}\n\n\n")
+        print(f"{Style.BRIGHT}Invalid input{Style.RESET_ALL}\n\n\n")
 
 
 def attack(attacker, receiver):
@@ -64,15 +69,14 @@ def attack(attacker, receiver):
     attacker_atk = (attacker["ATK"] +
                     attacker["buff"]["ATK"]["effect"] +
                     attacker["debuff"]["ATK"]["effect"] +
-                    attacker["modifiers"]["ATK"])
+                    attacker["modifier"]["ATK"])
     attacker_def = (attacker["DEF"] +
                     attacker["buff"]["DEF"]["effect"] +
                     attacker["debuff"]["DEF"]["effect"] +
-                    attacker["modifiers"]["DEF"])
+                    attacker["modifier"]["DEF"])
     attacker_luk = (attacker["LUK"] +
                     attacker["buff"]["LUK"]["effect"] +
-                    attacker["debuff"]["LUK"]["effect"] +
-                    attacker["modifiers"]["LUK"])
+                    attacker["debuff"]["LUK"]["effect"])
 
     attacker["reduce_damage"] = math.ceil(attacker_def // 4)
 
@@ -80,16 +84,15 @@ def attack(attacker, receiver):
     crit_chance = round(randint(1, 20) * (1 + (attacker_luk/100)))
 
     if crit_chance >= 20:
-        print(f"{Fore.LIGHTRED_EX}{Style.BRIGHT}CRITICAL!!{Style.RESET_ALL}")
+        print(f"{Fore.LIGHTRED_EX}{Style.BRIGHT}{attacker["name"].upper()} GOT A CRITICAL HIT!!{Style.RESET_ALL}")
         attacker_damage *= 2
 
-    print(attacker_damage)
-
     total_damage = receiver["reduce_damage"] - attacker_damage
-    print(total_damage)
 
     if total_damage > 0:
         total_damage = 0
+
+    print(f"{Fore.LIGHTRED_EX}{Style.BRIGHT}{receiver["name"].upper()} got hit for {total_damage}!{Style.RESET_ALL}\n")
 
     receiver["current_HP"] += total_damage
 
@@ -109,7 +112,7 @@ def defend(defender):
     defender_def = (defender["DEF"] +
                     defender["buff"]["DEF"]["effect"] +
                     defender["debuff"]["DEF"]["effect"] +
-                    defender["modifiers"]["DEF"])
+                    defender["modifier"]["DEF"])
 
     defender["reduce_damage"] = math.floor(defender_def // 2)
 
@@ -148,7 +151,7 @@ def use_skill(skill, round_count, user, receiver, sp_discount=0):
     user_def = (user["DEF"] +
                 user["buff"]["DEF"]["effect"] +
                 user["debuff"]["DEF"]["effect"] +
-                user["modifiers"]["DEF"])
+                user["modifier"]["DEF"])
     user["current_SP"] -= skill_cost
 
     if skill == "shield":
@@ -175,13 +178,17 @@ def use_skill(skill, round_count, user, receiver, sp_discount=0):
             user["current_HP"] = user["max_HP"]
 
 
-def skill_effect_time(character, round_count):
+def skill_effect_time(character, round_count: int):
     all_buffs = character["buff"]
     all_debuffs = character["debuff"]
 
-    for attribute in all_buffs.keys() and all_debuffs.keys():
-        if attribute["time"] == round_count:
+    for attribute in all_buffs.keys():
+        if all_buffs[attribute]["time"] == round_count:
             all_buffs[attribute] = {"effect": 0, "time": 0}
+
+    for attribute in all_debuffs.keys():
+        if all_debuffs[attribute]["time"] == round_count:
+            all_debuffs[attribute] = {"effect": 0, "time": 0}
 
     if character["continuous_damage"]["time"] == round_count:
         character["continuous_damage"] = {"effect": 0, "time": 0}
