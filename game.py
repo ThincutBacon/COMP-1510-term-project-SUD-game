@@ -333,7 +333,8 @@ def tutorial(character, bbeg):
               f"\n"
               f"Gold can be used at shops, either to buy items or upgrade.\n"
               f"\n"
-              f"EXP, when accumulated enough, allows you to LEVEL UP, boosting your base attributes.\n")
+              f"EXP, when accumulated enough, allows you to LEVEL UP, boosting your base attributes.\n"
+              f"You can always see more about your character by using the command \"stat\".")
         input(f"{Fore.WHITE}{Style.BRIGHT}Press Enter to continue: {Style.RESET_ALL}")
 
     elif not check.if_alive(character):
