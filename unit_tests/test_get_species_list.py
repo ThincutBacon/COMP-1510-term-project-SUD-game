@@ -11,6 +11,22 @@ class TestGetSpeciesList(TestCase):
         result = species_list()
         self.assertIn("list_all", result)
 
+    def test_get_species_list_list_all_value_is_a_string(self):
+        result = species_list()
+        actual = result["list_all"]
+        expected = ("==========\n" +
+                    Style.BRIGHT + "HUMAN\n" + Style.RESET_ALL +
+                    "\"The most versatile of species.\"\n"
+                    "\n" +
+                    Style.BRIGHT + "ELF\n" + Style.RESET_ALL +
+                    "\"The graceful guardians of the forests.\"\n"
+                    "\n" +
+                    Style.BRIGHT + "DWARF\n" + Style.RESET_ALL +
+                    "\"Inhabitants of the deepest caves and the highest mountains.\"\n"
+                    "==========\n")
+
+        self.assertEqual(expected, actual)
+
     def test_get_species_list_contains_human_key(self):
         result = species_list()
         self.assertIn("human", result)
