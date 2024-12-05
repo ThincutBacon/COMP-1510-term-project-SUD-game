@@ -3,7 +3,7 @@ from unittest import TestCase
 from modules.get import unnamed_bbeg
 
 
-class TestGetBlankCharacter(TestCase):
+class TestGetUnnamedBBEG(TestCase):
 
     def test_get_unnamed_bbeg_contains_name_key(self):
         result = unnamed_bbeg()
