@@ -5,11 +5,10 @@ A1415217
 
 """
 
+
 import random
 
 from colorama import Style, Fore
-
-from select import select
 
 
 def blank_character():
@@ -85,7 +84,7 @@ def unnamed_bbeg():
                        "DEF": {"effect": 0, "time": 0},
                        "AGI": {"effect": 0, "time": 0},
                        "LUK": {"effect": 0, "time": 0}},
-            "modifier": {"HP": 0, "SP": 0, "ATK": 0, "DEF": 0, "AGI": 0, "LUK": 0}}
+            "modifier": {"ATK": 0, "DEF": 0}}
 
 
 def species_list(species_select=None):
@@ -516,7 +515,7 @@ def random_enemy(character, board):
                                                  "DEF": {"effect": 0, "time": 0},
                                                  "AGI": {"effect": 0, "time": 0},
                                                  "LUK": {"effect": 0, "time": 0}},
-                                      "modifier": {"HP": 0, "SP": 0, "ATK": 0, "DEF": 0, "AGI": 0, "LUK": 0}}],
+                                      "modifier": {"ATK": 0, "DEF": 0}}],
                         "dungeon": [{"name": "Rat",
                                      "max_HP": 5,
                                      "current_HP": 5,
@@ -537,7 +536,7 @@ def random_enemy(character, board):
                                                 "DEF": {"effect": 0, "time": 0},
                                                 "AGI": {"effect": 0, "time": 0},
                                                 "LUK": {"effect": 0, "time": 0}},
-                                     "modifier": {"HP": 0, "SP": 0, "ATK": 0, "DEF": 0, "AGI": 0, "LUK": 0}}],
+                                     "modifier": {"ATK": 0, "DEF": 0}}],
                         "field": [{"name": "Horned Rabbit",
                                    "max_HP": 10,
                                    "current_HP": 10,
@@ -558,7 +557,7 @@ def random_enemy(character, board):
                                               "DEF": {"effect": 0, "time": 0},
                                               "AGI": {"effect": 0, "time": 0},
                                               "LUK": {"effect": 0, "time": 0}},
-                                   "modifier": {"HP": 0, "SP": 0, "ATK": 0, "DEF": 0, "AGI": 0, "LUK": 0}},
+                                   "modifier": {"ATK": 0, "DEF": 0}},
                                   {"name": "Slime",
                                    "max_HP": 10,
                                    "current_HP": 10,
@@ -579,7 +578,7 @@ def random_enemy(character, board):
                                               "DEF": {"effect": 0, "time": 0},
                                               "AGI": {"effect": 0, "time": 0},
                                               "LUK": {"effect": 0, "time": 0}},
-                                   "modifier": {"HP": 0, "SP": 0, "ATK": 0, "DEF": 0, "AGI": 0, "LUK": 0}},
+                                   "modifier": {"ATK": 0, "DEF": 0}},
                                   {"name": "Mossy Stag",
                                    "max_HP": 20,
                                    "current_HP": 20,
@@ -600,7 +599,7 @@ def random_enemy(character, board):
                                               "DEF": {"effect": 0, "time": 0},
                                               "AGI": {"effect": 0, "time": 0},
                                               "LUK": {"effect": 0, "time": 0}},
-                                   "modifier": {"HP": 0, "SP": 0, "ATK": 0, "DEF": 0, "AGI": 0, "LUK": 0}}],
+                                   "modifier": {"ATK": 0, "DEF": 0}}],
                         "forest": [{"name": "Bramble Wolf",
                                     "max_HP": 25,
                                     "current_HP": 25,
@@ -623,7 +622,7 @@ def random_enemy(character, board):
                                                "DEF": {"effect": 0, "time": 0},
                                                "AGI": {"effect": 0, "time": 0},
                                                "LUK": {"effect": 0, "time": 0}},
-                                    "modifier": {"HP": 0, "SP": 0, "ATK": 0, "DEF": 0, "AGI": 0, "LUK": 0}},
+                                    "modifier": {"ATK": 0, "DEF": 0}},
                                    {"name": "Goblin",
                                     "max_HP": 40,
                                     "current_HP": 40,
@@ -646,7 +645,7 @@ def random_enemy(character, board):
                                                "DEF": {"effect": 0, "time": 0},
                                                "AGI": {"effect": 0, "time": 0},
                                                "LUK": {"effect": 0, "time": 0}},
-                                    "modifier": {"HP": 0, "SP": 0, "ATK": 0, "DEF": 0, "AGI": 0, "LUK": 0}},
+                                    "modifier": {"ATK": 0, "DEF": 0}},
                                    {"name": "Mage Wraith",
                                     "max_HP": 60,
                                     "current_HP": 60,
@@ -669,7 +668,7 @@ def random_enemy(character, board):
                                                "DEF": {"effect": 0, "time": 0},
                                                "AGI": {"effect": 0, "time": 0},
                                                "LUK": {"effect": 0, "time": 0}},
-                                    "modifier": {"HP": 0, "SP": 0, "ATK": 0, "DEF": 0, "AGI": 0, "LUK": 0}}]}
+                                    "modifier": {"ATK": 0, "DEF": 0}}]}
 
     enemy_info = random.choice(all_enemies_list[area_type])
     return enemy_info
