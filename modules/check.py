@@ -151,6 +151,11 @@ def level_up(character):
 
         print(f"{Fore.LIGHTYELLOW_EX}{Style.BRIGHT}+++ LEVEL UP! +++{Style.RESET_ALL}")
 
+        if character["LVL"] == 3:
+            print(f"\n\n\n"
+                  f"{Style.BRIGHT}You are now strong enough to challenge the evil tyrant.\n"
+                  f"Head to the castle gates when you are ready.\n{Style.RESET_ALL}")
+
 
 def validate_shop(character, board):
     current_character_coordinate = (character["x-coordinate"], character["y-coordinate"])

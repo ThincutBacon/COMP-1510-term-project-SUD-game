@@ -19,8 +19,16 @@ def character_info(character):
     :precondition: character must be a dictionary from get.blank_character function
     :postcondition: print character information for the player to easily read
 
-    >>> character_info()
-    ''
+    >>> current_character = get.blank_character()
+    >>> current_character["kingdom"] = "Hyrule"
+    >>> current_character["name"] = "Zelda"
+    >>> current_character["skill_class"] = "mage"
+    >>> current_character["species_adjective"] = "elven"
+    >>> character_info(current_character) #doctest: +SKIP
+    ==============================================
+    | ZELDA                                      |
+    | Elven Mage                                 |
+    | Heir to the throne of HYRULE               |
     """
     character_name = f"{character['name'].upper()}"
     class_and_species = f"{character['species_adjective'].title()} {character['skill_class'].title()}"
@@ -62,7 +70,7 @@ def character_info(character):
         weapon_modifier = ""
 
     try:
-        armour_modifier = get.shop_information("armour")[armour_name]["modifier"]  + equipment_bonus
+        armour_modifier = get.shop_information("armour")[armour_name]["modifier"] + equipment_bonus
     except KeyError:
         armour_modifier = ""
     except TypeError:
@@ -114,8 +122,22 @@ def current_map(character, board):
     :precondition: board must be a dictionary from get.tutorial_board or get.main_board function
     :postcondition: print map with current location informtion for the player to easily read
 
-    >>> character_info()
-    ''
+    >>> current_character = get.blank_character()
+    >>> current_board = get.main_board()
+    >>> current_map(current_character, current_board) #doctest: +SKIP
+    The Dungeons - Hallway
+     ---  ---  ---  ---  ---
+    |{·}   · || ·    ·    ? |
+     ---
+    | ·    ·    ·    ·    · |
+
+    | ·    ·    ·    ·    · |
+
+    | *    *    ·    ·    $ |
+
+    | *    *    ·    $    $ |
+     ---  ---  ---  ---  ---
+    Exits: E
     """
     max_x_coordinate = sorted(board.keys())[-1][0]
     max_y_coordinate = sorted(board.keys())[-1][1]
@@ -192,6 +214,28 @@ def current_map(character, board):
 
 
 def location_desc(character, board):
+    """
+    Print location description.
+
+    :param character: is a dictionary
+    :param board: is a dictionary
+    :precondition: character must be a dictionary from get.blank_character function
+    :precondition: board must be a dictionary from get.tutorial_board or get.main_board function
+    :postcondition: print the description of your current location
+
+    >>> current_character = get.blank_character()
+    >>> current_board = get.main_board()
+    >>> location_desc(current_character, current_board) #doctest: +SKIP
+    =================================================================
+
+    You look around:
+
+    What is left of the dungeons is a shell of what used to confine
+    you.
+    Only rats roam these halls now.
+
+    =================================================================
+    """
     current_coordinates = (character['x-coordinate'], character['y-coordinate'])
     description = board[current_coordinates]["look"]
     print(f"{Fore.WHITE}================================================================={Fore.RESET}\n"
@@ -204,9 +248,19 @@ def location_desc(character, board):
 
 
 def battle_status(character, enemy, round_count):
+    """
+    Print current battle status.
+
+    :param character: is a dictionary
+    :param enemy: is a dictionary
+    :param round_count: is an integer
+    :precondition: character must be a dictionary from get.blank_character function
+    :precondition: enemy must be a dictionary from get.unnamed_bbeg or get.random_enemy
+    :precondition: character must be a dictionary from get.blank_character function
+    :postcondition: print character and enemy information for the player to easily read
+    """
     enemy_name = f"{enemy['name'].upper()}"
     enemy_hp = f"HP: {format(enemy['current_HP'], '3')} / {format(enemy['max_HP'], '3')}"
-    enemy_dialogue = "\"TESTING\""
 
     character_name = f"{character['name'].upper()}"
     character_hp = f"HP: {format(character['current_HP'], '3')} / {format(character['max_HP'], '3')}"
@@ -216,7 +270,6 @@ def battle_status(character, enemy, round_count):
           f"==============================================\n"
           f"| {Style.BRIGHT}{format(enemy_name, '42')}{Style.RESET_ALL} |\n"
           f"| {Fore.RED}{format(enemy_hp, '42')}{Fore.RESET} |\n"
-          f"| {Fore.WHITE}{format(enemy_dialogue, '42')}{Fore.RESET} |\n"
           f"|--------------------------------------------|\n"
           f"| {Style.BRIGHT}{format(character_name, '42')}{Style.RESET_ALL} |\n"
           f"| {Fore.RED}{format(character_hp, '20')}{Fore.RESET}"
