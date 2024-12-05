@@ -410,3 +410,22 @@ class TestGetBlankCharacter(TestCase):
     def test_get_blank_character_equipment_contains_weapon_key(self):
         result = blank_character()["equipment"]
         self.assertIn("weapon", result)
+
+    def test_get_blank_character_x_coordinate_value_is_0(self):
+        result = blank_character()
+        actual = result["x-coordinate"]
+        expected = 0
+        self.assertEqual(expected, actual)
+
+    def test_get_blank_character_y_coordinate_value_is_0(self):
+        result = blank_character()
+        actual = result["y-coordinate"]
+        expected = 0
+        self.assertEqual(expected, actual)
+
+    def test_get_blank_character_gold_value_is_0(self):
+        result = blank_character()
+        actual = result["gold"]
+        expected = 0
+        self.assertEqual(expected, actual)
+
