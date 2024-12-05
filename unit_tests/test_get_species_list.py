@@ -63,7 +63,7 @@ class TestGetSpeciesList(TestCase):
         result = species_list("human")
         self.assertIn("desc", result)
 
-    def test_get_species_list_human_adjective_value_is_a_string(self):
+    def test_get_species_list_human_desc_value_is_a_string(self):
         result = species_list("human")
         actual = result["desc"]
         expected = ("Although average in most aspects, they possess strong survival \n"
@@ -159,7 +159,7 @@ class TestGetSpeciesList(TestCase):
         result = species_list("elf")
         self.assertIn("desc", result)
 
-    def test_get_species_list_elf_adjective_value_is_a_string(self):
+    def test_get_species_list_elf_desc_value_is_a_string(self):
         result = species_list("elf")
         actual = result["desc"]
         expected = ("With their long life spans and equally cumulative knowledge, they are \n"
@@ -255,7 +255,7 @@ class TestGetSpeciesList(TestCase):
         result = species_list("dwarf")
         self.assertIn("desc", result)
 
-    def test_get_species_list_dwarf_adjective_value_is_a_string(self):
+    def test_get_species_list_dwarf_desc_value_is_a_string(self):
         result = species_list("dwarf")
         actual = result["desc"]
         expected = ("To withstand the frigid cold of the mountain tops and the sweltering \n"
