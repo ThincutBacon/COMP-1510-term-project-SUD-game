@@ -229,10 +229,10 @@ def skill_list(skill_select=None):
     :return: if skill_select equals None, returns the entire dictionary
     :return: if skill_select equals a key, returns a single skill dictionary
 
-    >>> class_list() #doctest: +ELLIPSIS
-    {'list_all': '==========...
-    >>> class_list("mage") #doctest: +ELLIPSIS
-    {'class': 'mage', 'desc': "Mage's fight a careful battle, slowly chipping away at their ...
+    >>> skill_list() #doctest: +ELLIPSIS
+    {'shield': {'name': 'shield', 'desc': 'Uses the characters...
+    >>> skill_list("haste") #doctest: +ELLIPSIS
+    {'name': 'haste', 'desc': 'You focus on quickening your steps...
     """
     entire_skill_list = {"shield": {"name": "shield",
                                     "desc": "Uses the characters full DEF to negate oncoming damage.\n",
@@ -492,6 +492,21 @@ def main_board():
 
 
 def random_enemy(character, board):
+    """
+    Return random enemy information.
+
+    :param character: is a dictionary
+    :param board: is a dictionary
+    :precondition: character must be a dictionary from get.blank_character function
+    :precondition: board must be a dictionary from get.tutorial_board or get.main_board function
+    :postcondition: randomly select an enemy based on the current locaitions area information
+    :return: returns a single enemy dictionary
+
+    >>> current_character = blank_character()
+    >>> current_board = main_board()
+    >>> random_enemy(current_character, current_board) #doctest: +ELLIPSIS
+    {'name': 'Rat', 'max_HP': 5, 'current_HP': 5, 'reduce_damage': 0...
+    """
     current_coordinate = (character["x-coordinate"], character["y-coordinate"])
     area_type = board[current_coordinate]["area"]
 
@@ -675,6 +690,16 @@ def random_enemy(character, board):
 
 
 def shop_information(shop_select):
+    """
+    Return shop information.
+
+    :param shop_select: a string
+    :precondition: shop_select must equal one of the keys within all_shops_list
+    :return: return a single shop dictionary
+
+    >>> shop_information("armour") #doctest: +ELLIPSIS
+    {'all_items': ['tattered leather armour', 'simple leather armour'...
+    """
     all_shops_list = {"armour": {"all_items": ["tattered leather armour",
                                                "simple leather armour",
                                                "hardened leather armour",
